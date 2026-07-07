@@ -1,0 +1,5 @@
+{
+  "MY_CLIMBING.title": "我的攀登",
+  "MY_CLIMBING.description": "初始遗物。环境值会在0到3之间循环变化。 NL 0: 获得3层[gold]覆甲[/gold]。 NL 1: 获得一个随机蘑菇。 NL 2: 失去10炎热并给予敌人1层寒冷。 NL 3: 获得15层炎热。",
+  "MY_CLIMBING.flavor": "童子军必备技能——适应各种环境。"
+}

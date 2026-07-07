@@ -1,0 +1,15 @@
+{
+  "SCOUT.title": "童军队员",
+  "SCOUT.description": "一名因坠机而到达尖塔的童子军队员。\n"爬上这座塔应该就能回家了"",
+  "SCOUT.titleObject": "童军队员",
+  "SCOUT.pronounObject": "他",
+  "SCOUT.possessiveAdjective": "他的",
+  "SCOUT.pronounPossessive": "他的",
+  "SCOUT.pronounSubject": "他",
+  "SCOUT.cardsModifierTitle": "童军队员卡牌",
+  "SCOUT.cardsModifierDescription": "童军队员的卡牌现在会出现在奖励和商店中。",
+  "SCOUT.eventDeathPrevention": "高塔沉睡了… 那么… 我也…",
+  "SCOUT.unlockText": "完成 {Prerequisite} 的条件后解锁。",
+  "SCOUT.banter.alive.endTurnPing": "[sine]快点出牌……[/sine]",
+  "SCOUT.banter.dead.endTurnPing": "……"
+}
