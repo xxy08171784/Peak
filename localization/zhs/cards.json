@@ -1,0 +1,10 @@
+{
+  "STRIKE_SCOUT.title": "打击",
+  "STRIKE_SCOUT.description": "造成{Damage:diff()}点伤害。",
+  "DEFEND_SCOUT.title": "防御",
+  "DEFEND_SCOUT.description": "获得{Block:diff()}点格挡。",
+  "MIXED_NUTS.title": "混合坚果",
+  "MIXED_NUTS.description": "获得{Energy:energyIcons()}。 NL 消耗。",
+  "ROCK_BOLT_CARD.title": "岩弹",
+  "ROCK_BOLT_CARD.description": "获得{PlatingPower:diff()}层[gold]覆甲[/gold]。 NL 抽{Cards:diff()}张牌。"
+}
