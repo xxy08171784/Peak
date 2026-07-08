@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://ctgxry8v2imt"]
+
+[ext_resource type="Texture2D" uid="uid://bu7sihufhitvj" path="res://images/powers/frostbite_power.png" id="1_bdmvr"]
+
+[resource]
+atlas = ExtResource("1_bdmvr")
+region = Rect2(0, 0, 256, 256)

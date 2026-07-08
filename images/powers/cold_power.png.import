@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjo4ja4ly8r8k"
-path="res://.godot/imported/gradually_freezing.png-ce1cb430488b03fe251927fb993c263f.ctex"
+uid="uid://c4qipll1yqj3a"
+path="res://.godot/imported/cold_power.png-1767abbfb293caafd76fd0b32876e0e4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/gradually_freezing.png"
-dest_files=["res://.godot/imported/gradually_freezing.png-ce1cb430488b03fe251927fb993c263f.ctex"]
+source_file="res://images/powers/cold_power.png"
+dest_files=["res://.godot/imported/cold_power.png-1767abbfb293caafd76fd0b32876e0e4.ctex"]
 
 [params]
 

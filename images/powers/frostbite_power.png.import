@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diwtn8lqkwuqp"
-path="res://.godot/imported/cold.png-a6ca37eb6c69faa01ba5fa5c1052074e.ctex"
+uid="uid://bu7sihufhitvj"
+path="res://.godot/imported/frostbite_power.png-2fc26b78b5d92452ad297dda78e8ebcf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/cold.png"
-dest_files=["res://.godot/imported/cold.png-a6ca37eb6c69faa01ba5fa5c1052074e.ctex"]
+source_file="res://images/powers/frostbite_power.png"
+dest_files=["res://.godot/imported/frostbite_power.png-2fc26b78b5d92452ad297dda78e8ebcf.ctex"]
 
 [params]
 
