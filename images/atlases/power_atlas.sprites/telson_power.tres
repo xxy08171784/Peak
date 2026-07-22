@@ -1,0 +1,6 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://d1nfbsq8521w3"]
+
+[ext_resource type="Texture2D" uid="uid://dlwc3vv5pldwf" path="res://images/powers/telson_power.png" id="1_v5vls"]
+
+[resource]
+atlas = ExtResource("1_v5vls")

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://ky871cmdnih5"]
+
+[ext_resource type="Texture2D" uid="uid://bhrqwqos81jfl" path="res://images/powers/arson_expert_power.png" id="1_rw113"]
+
+[resource]
+atlas = ExtResource("1_rw113")
+region = Rect2(0, 0, 256, 256)
