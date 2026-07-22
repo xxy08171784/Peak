@@ -1,0 +1,6 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://duotx6i1wn352"]
+
+[ext_resource type="Texture2D" uid="uid://bb1o6513jtyew" path="res://images/powers/the_mountain_of_flames_power.png" id="1_g7d20"]
+
+[resource]
+atlas = ExtResource("1_g7d20")

@@ -1,0 +1,6 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dbtk72mekaw7r"]
+
+[ext_resource type="Texture2D" uid="uid://yyrct5sbn1tc" path="res://images/powers/the_hand_lantern_of_faery_power.png" id="1_qpbqh"]
+
+[resource]
+atlas = ExtResource("1_qpbqh")
