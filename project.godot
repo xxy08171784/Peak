@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="新建游戏项目"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/name="Peak Xxy"
+config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="新建游戏项目"
+project/assembly_name="peak"

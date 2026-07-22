@@ -1,0 +1,6 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://inon1wcb03rk"]
+
+[ext_resource type="Texture2D" uid="uid://dkige868m64ba" path="res://images/relics/flintstone.png" id="1_x3q5g"]
+
+[resource]
+atlas = ExtResource("1_x3q5g")

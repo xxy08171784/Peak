@@ -44,7 +44,9 @@ public sealed class ColdPower : PowerModel
         }
 
         // 使用 while 循环：防止一次性获得 4 层或更多寒冷时，无法连续触发转化
-        while (Amount >= 2)
+        // 添加安全计数器防止死循环（最大迭代 100 次，远超正常游戏场景）
+        int safetyCounter = 0;
+        while (Amount >= 2 && safetyCounter++ < 100)
         {
             Flash(); // 状态图标闪烁，提示玩家触发了转化效果
 
