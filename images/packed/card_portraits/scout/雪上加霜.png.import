@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjo4ja4ly8r8k"
-path="res://.godot/imported/gradually_freezing.png-ce1cb430488b03fe251927fb993c263f.ctex"
+uid="uid://t4f5o5fsua7m"
+path="res://.godot/imported/雪上加霜.png-22a1ba6990a14c926432576c38687c11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/gradually_freezing.png"
-dest_files=["res://.godot/imported/gradually_freezing.png-ce1cb430488b03fe251927fb993c263f.ctex"]
+source_file="res://卡面/雪上加霜.png"
+dest_files=["res://.godot/imported/雪上加霜.png-22a1ba6990a14c926432576c38687c11.ctex"]
 
 [params]
 

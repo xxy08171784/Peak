@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xt14hgh4qt15"
-path="res://.godot/imported/hot.png-ff08b35f741891130789bfb3c4fdf86e.ctex"
+uid="uid://d4bykup285hib"
+path="res://.godot/imported/香蕉.png-284f17988578e0c7478e1d1b7a6f9260.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/hot.png"
-dest_files=["res://.godot/imported/hot.png-ff08b35f741891130789bfb3c4fdf86e.ctex"]
+source_file="res://卡面/香蕉.png"
+dest_files=["res://.godot/imported/香蕉.png-284f17988578e0c7478e1d1b7a6f9260.ctex"]
 
 [params]
 
