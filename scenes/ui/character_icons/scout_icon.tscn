@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwyg1lniaq30g"]
+
+[ext_resource type="Texture2D" uid="uid://b2jukt4bjssmm" path="res://images/ui/top_panel/character_icon_scout.png" id="1_d23gs"]
+
+[node name="scout_icon" type="TextureRect"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_d23gs")

@@ -1,6 +1,6 @@
-[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://c5rfe5uagmj7b"]
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cs77j8xvxbju"]
 
-[ext_resource type="Texture2D" uid="uid://4wt4dopx67hs" path="res://images/potions/milk.png" id="1_jtmcm"]
+[ext_resource type="Texture2D" uid="uid://4wt4dopx67hs" path="res://images/potions/milk.png" id="1_ukj6x"]
 
 [resource]
-atlas = ExtResource("1_jtmcm")
+atlas = ExtResource("1_ukj6x")
