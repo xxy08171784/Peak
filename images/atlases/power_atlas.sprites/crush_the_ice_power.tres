@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dlj0b8uek5fow"]
+
+[ext_resource type="Texture2D" uid="uid://6up2tq5tct3v" path="res://images/powers/crush_the_ice_power.png" id="1_rp2sd"]
+
+[resource]
+atlas = ExtResource("1_rp2sd")
+region = Rect2(0, 0, 256, 256)

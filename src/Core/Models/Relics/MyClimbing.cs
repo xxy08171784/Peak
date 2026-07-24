@@ -8,11 +8,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Rooms;
-using peak.Core.Models.Powers; 
+using peak.Core.Models.Powers;
 
 namespace peak.Core.Models.Relics;
 
@@ -42,9 +41,6 @@ public sealed class MyClimbing : RelicModel
 		InvokeDisplayAmountChanged();
 	}
 
-	/// <summary>
-	/// 修改环境值并触发一次效果
-	/// </summary>
 	public async Task ModifyEnvironmentValue(PlayerChoiceContext choiceContext, int amount)
 	{
 		int previousValue = EnvironmentValue;
@@ -52,16 +48,16 @@ public sealed class MyClimbing : RelicModel
 		int newValue = (previousValue + amount) % 4;
 		if (newValue < 0)
 		{
-			newValue += 4; 
+			newValue += 4;
 		}
 
 		EnvironmentValue = newValue;
 
-		// 触发阶段事件
-		await TriggerEnvironmentEffect(choiceContext, previousValue, EnvironmentValue);
+		// 触发更新后的环境效果
+		await TriggerEnvironmentEffect(choiceContext, EnvironmentValue);
 	}
 
-	private async Task TriggerEnvironmentEffect(PlayerChoiceContext choiceContext, int previousValue, int currentValue)
+	private async Task TriggerEnvironmentEffect(PlayerChoiceContext choiceContext, int currentValue)
 	{
 		if (base.Owner?.Creature == null)
 		{
@@ -70,18 +66,12 @@ public sealed class MyClimbing : RelicModel
 
 		Flash();
 
-		// 如果切换后和切换前都是 0，说明没有发生实质切换，拦截防止重复触发
-		if (currentValue == 0 && previousValue == 0)
-		{
-			return;
-		}
-
-		// 执行当前状态的效果
+		// 直接调用公开的执行方法
 		await ExecuteStateEffect(choiceContext, currentValue);
 	}
 
 	/// <summary>
-	/// 公共方法：无视场景切换条件，直接强行触发指定场景的效果（供卡牌调用）
+	/// 公开的实例方法：允许外部卡牌或机制，在不改变当前环境值的情况下，强行触发特定阶段的效果。
 	/// </summary>
 	public async Task ExecuteStateEffect(PlayerChoiceContext choiceContext, int stateValue)
 	{
@@ -92,8 +82,7 @@ public sealed class MyClimbing : RelicModel
 
 		switch (stateValue)
 		{
-			case 0:
-				// 获得 3 层 覆甲
+			case 0: 
 				await PowerCmd.Apply<PlatingPower>(choiceContext, base.Owner.Creature, 3m, base.Owner.Creature, null);
 				break;
 
@@ -115,6 +104,7 @@ public sealed class MyClimbing : RelicModel
 
 	private async Task GainRandomMushroom(PlayerChoiceContext choiceContext)
 	{
+		// TODO: 在此实现"获得随机蘑菇"的逻辑。
 		await Task.CompletedTask;
 	}
 
@@ -143,5 +133,5 @@ public sealed class MyClimbing : RelicModel
 		return Task.CompletedTask;
 	}
 
-	protected override IEnumerable<DynamicVar> CanonicalVars => Array.Empty<DynamicVar>();
+	protected override IEnumerable<DynamicVar> CanonicalVars => new List<DynamicVar>();
 }

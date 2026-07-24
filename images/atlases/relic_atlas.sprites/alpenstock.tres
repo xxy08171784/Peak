@@ -1,0 +1,6 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://c7eresx27uccm"]
+
+[ext_resource type="Texture2D" uid="uid://b6irrg6xq6mx7" path="res://images/relics/alpenstock.png" id="1_gvh8u"]
+
+[resource]
+atlas = ExtResource("1_gvh8u")

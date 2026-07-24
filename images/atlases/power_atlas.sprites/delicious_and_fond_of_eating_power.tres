@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b0y58r3utsfer"]
+
+[ext_resource type="Texture2D" uid="uid://b2js41ku6yjju" path="res://images/powers/delicious_and_fond_of_eating_power.png" id="1_s04yb"]
+
+[resource]
+atlas = ExtResource("1_s04yb")
+region = Rect2(0, 0, 256, 256)

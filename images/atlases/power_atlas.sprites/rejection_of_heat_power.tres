@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://s8tbnq5a3yd8"]
+
+[ext_resource type="Texture2D" uid="uid://byr6xgpk8ldhd" path="res://images/powers/rejection_of_heat_power.png" id="1_7mna7"]
+
+[resource]
+atlas = ExtResource("1_7mna7")
+region = Rect2(0, 0, 256, 256)

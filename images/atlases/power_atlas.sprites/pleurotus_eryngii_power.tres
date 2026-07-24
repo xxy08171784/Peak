@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://cg8jt35hohtvi"]
+
+[ext_resource type="Texture2D" uid="uid://b3psahb5djnna" path="res://images/powers/pleurotus_eryngii_power.png" id="1_4gp50"]
+
+[resource]
+atlas = ExtResource("1_4gp50")
+region = Rect2(0, 0, 256, 256)

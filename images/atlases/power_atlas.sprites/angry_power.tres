@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://dr32jwphfym0y"]
+
+[ext_resource type="Texture2D" uid="uid://c62ebj8lkmfav" path="res://images/powers/angry_power.png" id="1_vsaw8"]
+
+[resource]
+atlas = ExtResource("1_vsaw8")
+region = Rect2(0, 0, 256, 256)

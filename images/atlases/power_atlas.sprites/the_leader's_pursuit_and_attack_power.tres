@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://jughwj2e3vtu"]
+
+[ext_resource type="Texture2D" uid="uid://s0xbkwqn22l8" path="res://images/powers/the_leader's_pursuit_and_attack_power.png" id="1_7gcne"]
+
+[resource]
+atlas = ExtResource("1_7gcne")
+region = Rect2(0, 0, 256, 256)
