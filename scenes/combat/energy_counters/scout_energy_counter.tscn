@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf6qgntjsqw68"]
+
+[ext_resource type="Script" uid="uid://chr4m7y0e72j3" path="res://scenes/combat/energy_counters/CustomEnergyCounter.cs" id="1_ho4xi"]
+[ext_resource type="Script" uid="uid://bebxw2p45ax2w" path="res://scenes/combat/energy_counters/CustomMegaLabel.cs" id="2_5g3tq"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ho4xi")
+
+[node name="BurstBack" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Layers" type="Control" parent="."]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RotationLayers" type="Control" parent="Layers"]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BurstFront" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 32
+script = ExtResource("2_5g3tq")
+theme_override_font_sizes/font_size = 32
