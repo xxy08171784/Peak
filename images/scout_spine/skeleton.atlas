@@ -1,0 +1,125 @@
+
+skeleton.png
+size: 1971,991
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+DetailedHead_0000s_0000_Layer-49
+  rotate: true
+  xy: 776, 85
+  size: 71, 31
+  orig: 1668, 2388
+  offset: 897, 1447
+  index: -1
+DetailedHead_0000s_0001_Layer-36
+  rotate: false
+  xy: 1385, 130
+  size: 276, 94
+  orig: 1668, 2388
+  offset: 758, 1594
+  index: -1
+DetailedHead_0000s_0002_Layer-35
+  rotate: false
+  xy: 533, 23
+  size: 241, 133
+  orig: 1668, 2388
+  offset: 782, 1487
+  index: -1
+DetailedHead_0000s_0004_Layer-33
+  rotate: false
+  xy: 2, 7
+  size: 529, 529
+  orig: 1668, 2388
+  offset: 521, 1293
+  index: -1
+scott_0000_帽子
+  rotate: false
+  xy: 2, 538
+  size: 795, 451
+  orig: 1668, 2388
+  offset: 376, 1642
+  index: -1
+scott_0000头
+  rotate: false
+  xy: 1440, 460
+  size: 529, 529
+  orig: 1668, 2388
+  offset: 521, 1293
+  index: -1
+scott_0001_左侧上臂
+  rotate: false
+  xy: 1701, 185
+  size: 257, 273
+  orig: 1668, 2388
+  offset: 435, 1043
+  index: -1
+scott_0002_From-selection
+  rotate: false
+  xy: 815, 232
+  size: 328, 375
+  orig: 1668, 2388
+  offset: 295, 789
+  index: -1
+scott_0003_领带
+  rotate: false
+  xy: 1019, 15
+  size: 88, 215
+  orig: 1668, 2388
+  offset: 855, 1106
+  index: -1
+scott_0004_左侧裤
+  rotate: true
+  xy: 799, 609
+  size: 380, 639
+  orig: 1668, 2388
+  offset: 606, 772
+  index: -1
+scott_0005_Layer-61
+  rotate: true
+  xy: 1663, 41
+  size: 142, 143
+  orig: 1668, 2388
+  offset: 671, 751
+  index: -1
+scott_0006_左侧小腿
+  rotate: false
+  xy: 1145, 284
+  size: 275, 323
+  orig: 1668, 2388
+  offset: 536, 487
+  index: -1
+scott_0007_右侧裤
+  rotate: false
+  xy: 815, 2
+  size: 202, 228
+  orig: 1668, 2388
+  offset: 810, 796
+  index: -1
+scott_0008_右侧大腿
+  rotate: false
+  xy: 1808, 42
+  size: 129, 141
+  orig: 1668, 2388
+  offset: 874, 738
+  index: -1
+scott_0009_右侧小腿
+  rotate: true
+  xy: 1422, 226
+  size: 232, 277
+  orig: 1668, 2388
+  offset: 879, 507
+  index: -1
+scott_0010_右侧上臂
+  rotate: true
+  xy: 1145, 52
+  size: 230, 238
+  orig: 1668, 2388
+  offset: 897, 1064
+  index: -1
+scott_0011_Layer-65
+  rotate: false
+  xy: 533, 158
+  size: 280, 378
+  orig: 1668, 2388
+  offset: 990, 803
+  index: -1

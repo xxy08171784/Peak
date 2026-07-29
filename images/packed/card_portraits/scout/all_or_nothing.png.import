@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bown1g2egnwbk"
-path="res://.godot/imported/scout.png-5e699bf4ede15e8ccf166934deb20a80.ctex"
+uid="uid://gmeahf7mm67"
+path="res://.godot/imported/all_or_nothing.png-353214668c99e2eb03f59cdbeff9aedd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/scout.png"
-dest_files=["res://.godot/imported/scout.png-5e699bf4ede15e8ccf166934deb20a80.ctex"]
+source_file="res://images/packed/card_portraits/scout/all_or_nothing.png"
+dest_files=["res://.godot/imported/all_or_nothing.png-353214668c99e2eb03f59cdbeff9aedd.ctex"]
 
 [params]
 
