@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://txtckokq1hpw"
-path="res://.godot/imported/skeleton.png-7b71c6390bb78df01ba472c43a295401.ctex"
+uid="uid://cfqtmvvc8t3r6"
+path="res://.godot/imported/mushroom_2.png-f2b3a856d44652d1693ba756617d307e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/scout_spine/skeleton.png"
-dest_files=["res://.godot/imported/skeleton.png-7b71c6390bb78df01ba472c43a295401.ctex"]
+source_file="res://images/packed/card_portraits/scout/mushroom_2.png"
+dest_files=["res://.godot/imported/mushroom_2.png-f2b3a856d44652d1693ba756617d307e.ctex"]
 
 [params]
 

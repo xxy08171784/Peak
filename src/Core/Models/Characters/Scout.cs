@@ -106,4 +106,15 @@ public sealed class Scout : CharacterModel
 
 	public override string CharacterTransitionSfx =>
 		"event:/sfx/ui/wipe_ironclad";
+
+
+	public override NCreatureVisuals CreateCustomVisuals()
+{
+	return NodeFactory<NCreatureVisuals>.CreateFromScene("res://scenes/creature_visuals/scout.tscn");
+}
+
+
+
+
+	
 }

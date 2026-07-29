@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://txtckokq1hpw"
-path="res://.godot/imported/skeleton.png-7b71c6390bb78df01ba472c43a295401.ctex"
+uid="uid://dklxxqj2es6h5"
+path="res://.godot/imported/skeleton_scout_26.png-ae973a31e5f6d9197e88bd9f35725c14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/scout_spine/skeleton.png"
-dest_files=["res://.godot/imported/skeleton.png-7b71c6390bb78df01ba472c43a295401.ctex"]
+source_file="res://images/test_skeleton_animation/skeleton_scout_26.png"
+dest_files=["res://.godot/imported/skeleton_scout_26.png-ae973a31e5f6d9197e88bd9f35725c14.ctex"]
 
 [params]
 

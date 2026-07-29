@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://cowrcwfb5p0ne"]
+[gd_scene load_steps=3 format=3 uid="uid://d4eurmfmlahi0"]
 
-[ext_resource type="Texture2D" uid="uid://bown1g2egnwbk" path="res://images/scout.png" id="1_4dumc"]
+[ext_resource type="Texture2D" uid="uid://bt8ef71k6q7h7" path="res://images/scout.png" id="1_4dumc"]
+[ext_resource type="SpriteFrames" uid="uid://c6d0hqdyr227s" path="res://scenes/creature_visuals/scout_frames.tres" id="2_afe8j"]
 
-[node name="TextureRect" type="TextureRect"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Node2D" type="Node2D"]
 
 [node name="Scout" type="Sprite2D" parent="."]
 position = Vector2(209.625, 417.28503)
 scale = Vector2(0.117955625, 0.11795564)
 texture = ExtResource("1_4dumc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("2_afe8j")
