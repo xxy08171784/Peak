@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdwbsnwhwcsc3"
-path="res://.godot/imported/burning_berry.png-5d3bc71151eba8a4c8d2cadb9944b7d0.ctex"
+uid="uid://bbytli4c0b1io"
+path="res://.godot/imported/full_belly_punch.png-da10f149fb480b6b1c05303b0caf5d30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/burning_berry.png"
-dest_files=["res://.godot/imported/burning_berry.png-5d3bc71151eba8a4c8d2cadb9944b7d0.ctex"]
+source_file="res://images/packed/card_portraits/scout/full_belly_punch.png"
+dest_files=["res://.godot/imported/full_belly_punch.png-da10f149fb480b6b1c05303b0caf5d30.ctex"]
 
 [params]
 
