@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://txtckokq1hpw"
-path="res://.godot/imported/skeleton.png-7b71c6390bb78df01ba472c43a295401.ctex"
+uid="uid://deml5udbokp12"
+path="res://.godot/imported/chili_pepper.png-44da5475c2894427c5fa1406124e9ae6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/scout_spine/skeleton.png"
-dest_files=["res://.godot/imported/skeleton.png-7b71c6390bb78df01ba472c43a295401.ctex"]
+source_file="res://images/packed/card_portraits/scout/chili_pepper.png"
+dest_files=["res://.godot/imported/chili_pepper.png-44da5475c2894427c5fa1406124e9ae6.ctex"]
 
 [params]
 

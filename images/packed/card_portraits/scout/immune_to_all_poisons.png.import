@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://txtckokq1hpw"
-path="res://.godot/imported/skeleton.png-7b71c6390bb78df01ba472c43a295401.ctex"
+uid="uid://kwh6vqwfi1u3"
+path="res://.godot/imported/immune_to_all_poisons.png-d08bba85dd2e0d5eac528f6d73d74b93.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/scout_spine/skeleton.png"
-dest_files=["res://.godot/imported/skeleton.png-7b71c6390bb78df01ba472c43a295401.ctex"]
+source_file="res://images/packed/card_portraits/scout/immune_to_all_poisons.png"
+dest_files=["res://.godot/imported/immune_to_all_poisons.png-d08bba85dd2e0d5eac528f6d73d74b93.ctex"]
 
 [params]
 

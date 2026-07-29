@@ -1,12 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://cowrcwfb5p0ne"]
+[gd_scene load_steps=3 format=3 uid="uid://e62khu3kjnb8"]
 
-[ext_resource type="Texture2D" uid="uid://bown1g2egnwbk" path="res://images/scout.png" id="1_4dumc"]
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_u1xwi"]
+[ext_resource type="Texture2D" uid="uid://bown1g2egnwbk" path="res://images/scout.png" id="2_ybdga"]
 
-[node name="TextureRect" type="TextureRect"]
+[node name="Scout" type="Node2D"]
+script = ExtResource("1_u1xwi")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+position = Vector2(0, -708)
+texture = ExtResource("2_ybdga")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Scout" type="Sprite2D" parent="."]
-position = Vector2(209.625, 417.28503)
-scale = Vector2(0.117955625, 0.11795564)
-texture = ExtResource("1_4dumc")
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
