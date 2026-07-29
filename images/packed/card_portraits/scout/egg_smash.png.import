@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://q2bsgg70vahm"
-path="res://.godot/imported/horn_mashroom.png-f26416c3fb6beca285bdcb0d815586c3.ctex"
+uid="uid://bosqxhgclggox"
+path="res://.godot/imported/egg_smash.png-ac04d1b32c7898805787e47cd7b9f1fa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/horn_mashroom.png"
-dest_files=["res://.godot/imported/horn_mashroom.png-f26416c3fb6beca285bdcb0d815586c3.ctex"]
+source_file="res://images/packed/card_portraits/scout/egg_smash.png"
+dest_files=["res://.godot/imported/egg_smash.png-ac04d1b32c7898805787e47cd7b9f1fa.ctex"]
 
 [params]
 
