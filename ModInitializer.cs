@@ -28,6 +28,7 @@ namespace peak
 			var harmony = new Harmony("xxy_peak");   
 			harmony.PatchAll();
 
+<<<<<<< HEAD
 			// 2. 注册关联卡牌和遗物到对应的池子中（注意：这里只传递 typeof 结构，非常安全，不会触发任何实例化，因此绝不会导致闪退）
 		//	ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(RockBoltCard));
 			//ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(StrikeScout));
@@ -35,6 +36,14 @@ namespace peak
 			//ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(MixedNuts));
 			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(MyClimbing));
 
+=======
+			 //2. 注册关联卡牌和遗物到对应的池子中（注意：这里只传递 typeof 结构，非常安全，不会触发任何实例化，因此绝不会导致闪退）
+			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(RockBoltCard));
+			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(StrikeScout));
+			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(DefendScout));
+			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(MixedNuts));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(MyClimbing));
+>>>>>>> origin/xxy
 			Log.Info("加载成功！");
 		}
 	}

@@ -11,6 +11,10 @@ config_version=5
 [application]
 
 config/name="Peak Xxy"
+<<<<<<< HEAD
+=======
+run/main_scene="uid://d4eurmfmlahi0"
+>>>>>>> origin/xxy
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
