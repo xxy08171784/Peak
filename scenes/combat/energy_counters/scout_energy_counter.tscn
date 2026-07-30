@@ -1,18 +1,9 @@
-<<<<<<< HEAD
-[gd_scene load_steps=3 format=3 uid="uid://cf6qgntjsqw68"]
-
-[ext_resource type="Script" uid="uid://chr4m7y0e72j3" path="res://scenes/combat/energy_counters/CustomEnergyCounter.cs" id="1_ho4xi"]
-[ext_resource type="Script" uid="uid://bebxw2p45ax2w" path="res://scenes/combat/energy_counters/CustomMegaLabel.cs" id="2_5g3tq"]
-
-[node name="Control" type="Control"]
-=======
 [gd_scene load_steps=3 format=3 uid="uid://2sf3now6f604"]
 
 [ext_resource type="Script" uid="uid://vg6uk2fmddpm" path="res://CustomEnergyCounter.cs" id="1_ho4xi"]
 [ext_resource type="Script" uid="uid://bl7yakgklqxom" path="res://CustomMegaLabel.cs" id="2_5g3tq"]
 
 [node name="ScoutEnergyCounter" type="Control"]
->>>>>>> origin/xxy
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -38,14 +29,6 @@ offset_bottom = 40.0
 unique_name_in_owner = true
 
 [node name="Label" type="Label" parent="."]
-<<<<<<< HEAD
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_font_sizes/font_size = 32
-script = ExtResource("2_5g3tq")
-theme_override_font_sizes/font_size = 32
-=======
 unique_name_in_owner = true
 layout_mode = 0
 offset_right = 40.0
@@ -54,4 +37,3 @@ script = ExtResource("2_5g3tq")
 AutoSizeEnabled = null
 MinFontSize = null
 MaxFontSize = null
->>>>>>> origin/xxy

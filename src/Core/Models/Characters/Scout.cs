@@ -106,8 +106,4 @@ public sealed class Scout : CharacterModel
 
 	public override string CharacterTransitionSfx =>
 		"event:/sfx/ui/wipe_ironclad";
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> origin/xxy
