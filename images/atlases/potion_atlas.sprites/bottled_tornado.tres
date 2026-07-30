@@ -1,0 +1,6 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://5eh4f16f608v"]
+
+[ext_resource type="Texture2D" uid="uid://o7n2n2vw1r2e" path="res://images/potions/bottled_tornado.png" id="1_vtj6v"]
+
+[resource]
+atlas = ExtResource("1_vtj6v")
