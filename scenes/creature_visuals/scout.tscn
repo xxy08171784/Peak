@@ -10,11 +10,9 @@ script = ExtResource("1_acsw2")
 unique_name_in_owner = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
-scale = Vector2(0.3600009, 0.3600003)
 sprite_frames = ExtResource("2_afe8j")
-frame_progress = 0.5080384
 
-[node name="Control" type="Control" parent="."]
+[node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0

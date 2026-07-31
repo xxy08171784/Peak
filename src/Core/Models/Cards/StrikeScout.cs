@@ -32,7 +32,7 @@ public sealed class StrikeScout : CardModel
 		// 执行伤害指令。此处攻击特效使用了默认的斜劈 ("vfx/vfx_attack_slash")。
 		// 如果您后续有了符合童子军题材的音效或视觉资源，可以修改 .WithHitFx(...) 中的路径
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_slash") 
 			.Execute(choiceContext);
