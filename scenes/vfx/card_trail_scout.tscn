@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b7kk3mjpccmea"]
+
+[node name="CardTrailScout" type="Node2D"]
+
+[node name="Trails" type="Node2D" parent="."]
+
+[node name="OuterTrail" type="Line2D" parent="Trails"]
+
+[node name="InnerTrail" type="Line2D" parent="Trails"]
+default_color = Color(0.99999994, 0.0071545397, 0.9983414, 1)
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="BigSparks" type="CPUParticles2D" parent="Sprites"]
+
+[node name="LittleSparks" type="CPUParticles2D" parent="Sprites"]
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprites"]
+
+[node name="Sprite2D3" type="Sprite2D" parent="Sprites"]

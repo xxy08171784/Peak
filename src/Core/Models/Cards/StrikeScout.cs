@@ -36,6 +36,7 @@ public sealed class StrikeScout : CardModel
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_slash") 
 			.Execute(choiceContext);
+
 	}
 
 	protected override void OnUpgrade()
