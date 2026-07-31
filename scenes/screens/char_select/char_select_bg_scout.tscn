@@ -3,8 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://c21lvi4xjvvfu" path="res://animations/character_select/scout/characterselect_scout.png" id="1_w7hfy"]
 
 [node name="char_select_bg_scout" type="TextureRect"]
-offset_left = -200.0
-offset_top = -108.0
-offset_right = 2484.0
-offset_bottom = 1098.0
+offset_left = 254.00002
+offset_top = 111.000015
+offset_right = 2938.0
+offset_bottom = 1317.0
+scale = Vector2(0.7494721, 0.8314996)
 texture = ExtResource("1_w7hfy")

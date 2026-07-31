@@ -1,16 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://cowrcwfb5p0ne"]
+[gd_scene load_steps=4 format=3 uid="uid://cowrcwfb5p0ne"]
 
 [ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_acsw2"]
 [ext_resource type="SpriteFrames" uid="uid://c6d0hqdyr227s" path="res://scenes/creature_visuals/scout_frames.tres" id="2_afe8j"]
+[ext_resource type="Script" uid="uid://c02fysmed0ygx" path="res://scenes/creature_visuals/bofang.cs" id="3_4b3i3"]
 
 [node name="scout" type="Node2D"]
+scale = Vector2(0.23999894, 0.23999894)
 script = ExtResource("1_acsw2")
 
 [node name="Visuals" type="Node2D" parent="."]
 unique_name_in_owner = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(0, -804.1702)
 sprite_frames = ExtResource("2_afe8j")
+frame_progress = 0.21526378
+script = ExtResource("3_4b3i3")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
@@ -21,6 +26,8 @@ offset_bottom = 40.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, -1637.5072)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(0, -687.50305)
