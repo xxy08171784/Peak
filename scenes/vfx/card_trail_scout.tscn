@@ -1,13 +1,19 @@
-[gd_scene format=3 uid="uid://b7kk3mjpccmea"]
+[gd_scene load_steps=3 format=3 uid="uid://b13a3dbgy580l"]
+
+[ext_resource type="Script" uid="uid://igkvsnnarjgv" path="res://scenes/vfx/CustomCardTrailVfx.cs" id="1_2uuek"]
+[ext_resource type="Script" uid="uid://d00ne4j4nbpgx" path="res://scenes/vfx/CustomCardTrail.cs" id="2_xe6q5"]
 
 [node name="CardTrailScout" type="Node2D"]
+script = ExtResource("1_2uuek")
 
 [node name="Trails" type="Node2D" parent="."]
 
 [node name="OuterTrail" type="Line2D" parent="Trails"]
+script = ExtResource("2_xe6q5")
 
 [node name="InnerTrail" type="Line2D" parent="Trails"]
 default_color = Color(0.99999994, 0.0071545397, 0.9983414, 1)
+script = ExtResource("2_xe6q5")
 
 [node name="Sprites" type="Node2D" parent="."]
 
