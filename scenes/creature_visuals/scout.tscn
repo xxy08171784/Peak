@@ -1,9 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cowrcwfb5p0ne"]
-
+[gd_scene load_steps=3 format=3 uid="uid://cowrcwfb5p0ne"]
 
 [ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_acsw2"]
-
-
+[ext_resource type="SpriteFrames" uid="uid://c6d0hqdyr227s" path="res://scenes/creature_visuals/scout_frames.tres" id="2_afe8j"]
 
 [node name="scout" type="Node2D"]
 script = ExtResource("1_acsw2")
@@ -11,7 +9,10 @@ script = ExtResource("1_acsw2")
 [node name="Visuals" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Control" type="Control" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+sprite_frames = ExtResource("2_afe8j")
+
+[node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
