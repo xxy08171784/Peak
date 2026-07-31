@@ -5,6 +5,7 @@
 [node name="Trails" type="Node2D" parent="."]
 
 [node name="OuterTrail" type="Line2D" parent="Trails"]
+points = PackedVector2Array(201, 204, 366, 277, 694, 298, 916, 171)
 
 [node name="InnerTrail" type="Line2D" parent="Trails"]
 default_color = Color(0.99999994, 0.0071545397, 0.9983414, 1)
