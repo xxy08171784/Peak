@@ -18,4 +18,17 @@ public partial class CustomCreatureVisuals : NCreatureVisuals
 		base._Ready();
 		VisualsRoot = GetNodeOrNull<Node2D>("%Visuals");
 	}
+
+	/// <summary>
+	/// 将游戏引擎的动画触发器（Attack/Hurt/Die 等）转发到帧动画。
+	/// 由 Harmony 补丁 ScoutCreatureAnimPatch 调用。
+	/// </summary>
+	public void ForwardAnimationTrigger(string trigger)
+	{
+		GD.Print($"[CustomCreatureVisuals] ForwardAnimationTrigger called! trigger='{trigger}', VisualsRoot={(VisualsRoot != null ? "exists" : "NULL")}");
+		if (VisualsRoot == null) return;
+		var anim = VisualsRoot.GetNodeOrNull<bofang>("AnimatedSprite2D");
+		GD.Print($"[CustomCreatureVisuals] bofang node: {(anim != null ? "found" : "NULL")}");
+		anim?.PlayAction(trigger);
+	}
 }

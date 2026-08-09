@@ -40,11 +40,15 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<GreenBerry>(),
 			ModelDb.Card<EnergyDrink>(),
 			ModelDb.Card<Frisbee>(),
-			
-			// 示例占位（当您写好新卡牌后可以解除注释）：
-			// ModelDb.Card<ScoutTackle>(),
-			// ModelDb.Card<GatherResources>(),
-			// ModelDb.Card<FirstAid>()
+			ModelDb.Card<Coconut>(),
+			ModelDb.Card<HalfCoconut>(),
+			ModelDb.Card<Banana>(),
+			ModelDb.Card<BananaPeel>(),
+			ModelDb.Card<Marshmallow>(),
+			ModelDb.Card<RoastEgg>(),
+			ModelDb.Card<Chili>(),
+			ModelDb.Card<Climb>(),
+			ModelDb.Card<ReachThePeak>(),
 		};
 	}
 
