@@ -26,53 +26,85 @@ public sealed class HeatPower : PowerModel
 	public override bool AllowNegative => false;
 
 	/// <summary>
-	/// 回合即将结束前结算：扣减最多 7 层炎热值，并对所有活着的敌人造成等同于减少层数的伤害。
-	/// 如果玩家拥有纵火高手（ArsonExpertPower），则伤害翻倍。
+	/// 每当炎热值层数发生改变时触发。
+	/// - 获得炎热值（amount &gt; 0）：若还没有散热，则补 1 层散热（首次从无到有获得时触发）。
+	/// - 失去炎热值（amount &lt; 0）：对随机一名敌人造成等同于失去层数的伤害（纵火高手可使伤害翻倍）。
 	/// </summary>
-	public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+	public override async Task AfterPowerAmountChanged(
+		PlayerChoiceContext choiceContext,
+		PowerModel power,
+		decimal amount,
+		Creature? applier,
+		CardModel? cardSource)
 	{
-		// 1. 判定是否为宿主的回合结束
-		if (side != Owner.Side)
+		// 只处理炎热值自身的变化
+		if (power != this)
 		{
 			return;
 		}
 
-		// 如果当前层数已经小于等于 0，则直接不触发
-		if (Amount <= 0)
+		if (amount > 0)
+		{
+			// 获得炎热值：若还没有散热，则补 1 层
+			if (Owner.GetPower<RejectionOfHeatPower>() == null)
+			{
+				await PowerCmd.Apply<RejectionOfHeatPower>(choiceContext, Owner, 1, applier, cardSource);
+			}
+			return;
+		}
+
+		if (amount >= 0)
 		{
 			return;
 		}
 
-		// 2. 计算实际需要扣减的层数（至多 7 层，且绝不为负数）
-		int layersToDecrease = Math.Clamp(Amount, 0, 7);
-		if (layersToDecrease <= 0)
+		// —— 失去炎热值：对敌人造成等同于失去层数的伤害 ——
+		int layersLost = (int)-amount; // amount 为负，取绝对值即失去的层数
+		if (layersLost <= 0)
 		{
 			return;
 		}
 
 		Flash(); // 状态图标闪烁，提示玩家触发了效果
 
-		// 3. 扣减炎热值层数（传入负数）
-		await PowerCmd.ModifyAmount(choiceContext, this, -layersToDecrease, null, null);
-
-		// 4. 检查玩家是否有纵火高手 Buff，有则伤害翻倍
-		ArsonExpertPower? arsonExpert = Owner.GetPower<ArsonExpertPower>();
-		int finalDamage = arsonExpert != null ? layersToDecrease * arsonExpert.DamageMultiplier : layersToDecrease;
-
-		// 5. 获取当前所有可被击中的敌人
+		// 获取当前所有可被击中的敌人
 		List<Creature> aliveEnemies = Owner.CombatState.HittableEnemies.ToList();
-
-		if (aliveEnemies.Count > 0)
+		if (aliveEnemies.Count == 0)
 		{
-			// 6. 视觉效果：在每一个敌人身上播放受击斩击特效
-			VfxCmd.PlayOnCreatureCenters(aliveEnemies, "vfx/vfx_attack_slash");
+			return;
+		}
 
-			// 7. 调用底层伤害指令
+		// 检查玩家是否有纵火高手 Buff：
+		// 无 → 对随机一名敌人造成伤害；有 → 伤害翻倍，并对所有敌人造成伤害（AOE）
+		ArsonExpertPower? arsonExpert = Owner.GetPower<ArsonExpertPower>();
+		int finalDamage = arsonExpert != null ? layersLost * arsonExpert.DamageMultiplier : layersLost;
+
+		if (arsonExpert != null)
+		{
+			// 纵火高手：AOE，所有敌人受同等伤害
+			VfxCmd.PlayOnCreatureCenters(aliveEnemies, "vfx/vfx_attack_slash");
 			await CreatureCmd.Damage(
-				choiceContext, 
-				(IEnumerable<Creature>)aliveEnemies, // 1. 显式转为 IEnumerable
-				(decimal)finalDamage,                // 2. 显式转为 decimal（含纵火高手翻倍）
-				ValueProp.Unpowered, 
+				choiceContext,
+				(IEnumerable<Creature>)aliveEnemies,
+				(decimal)finalDamage,
+				ValueProp.Unpowered,
+				Owner
+			);
+		}
+		else
+		{
+			// 无纵火高手：随机一名敌人
+			Creature? target = Owner.Player?.RunState.Rng.CombatTargets.NextItem(aliveEnemies);
+			if (target == null)
+			{
+				return;
+			}
+			VfxCmd.PlayOnCreatureCenter(target, "vfx/vfx_attack_slash");
+			await CreatureCmd.Damage(
+				choiceContext,
+				target,
+				(decimal)finalDamage,
+				ValueProp.Unpowered,
 				Owner
 			);
 		}

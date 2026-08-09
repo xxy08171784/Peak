@@ -7,7 +7,7 @@
 script = ExtResource("1_scout")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 0)
+position = Vector2(0, -200)
 sprite_frames = ExtResource("2_scout")
 animation = &"default"
 frame_progress = 0.0

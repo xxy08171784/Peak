@@ -18,9 +18,6 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class Chili : CardModel,IFoodCard
 {
-    // 【正确写法】：声明一个私有字段保存变量实例，避免访问不存在的 DynamicVars.Heat 属性
-    private readonly PowerVar<HeatPower> _heatVar = new PowerVar<HeatPower>(17m);
-
     // 固有关键字：消耗（Exhaust）
     public override IEnumerable<CardKeyword> CanonicalKeywords => new CardKeyword[] { CardKeyword.Exhaust };
 
@@ -28,7 +25,7 @@ public sealed class Chili : CardModel,IFoodCard
     protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[] { HoverTipFactory.FromPower<HeatPower>() };
 
     // 将变量实例注册到卡牌变量池中（供本地化 JSON 渲染 {HeatPower:diff()}）
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[] { _heatVar };
+    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[] { new PowerVar<HeatPower>(17m) };
 
     public Chili()
         : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
@@ -37,19 +34,19 @@ public sealed class Chili : CardModel,IFoodCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 给玩家自己施加 17(25) 层炎热值（直接使用 _heatVar.BaseValue）
+        // 给玩家自己施加 17(25) 层炎热值
         await PowerCmd.Apply<HeatPower>(
             choiceContext, 
             base.Owner.Creature, 
-            _heatVar.BaseValue, 
+            base.DynamicVars["HeatPower"].BaseValue, 
             base.Owner.Creature, 
             this
         );
     }
 
-    // 【正确写法】：直接对变量字段升级 17 -> 25 (+8)
+    // 升级后炎热值 17 -> 25 (+8)
     protected override void OnUpgrade()
     {
-        _heatVar.UpgradeValueBy(8m);
+        base.DynamicVars["HeatPower"].UpgradeValueBy(8m);
     }
 }
