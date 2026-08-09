@@ -1,6 +1,4 @@
 {
-  "DEFECT.aromaPrinciple": "[sine][blue]1100 0011 1100 0011……[/blue][/sine]",
-  "DEFECT.banter.alive.endTurnPing": "[jitter]0x54494D45 0x204C494D 0x49542045 0x58434545 0x00444544[/jitter]",
   "DEFECT.banter.dead.endTurnPing": "……",
   "DEFECT.bestiaryQuote": "<分析需要首先制服这个对象>",
   "DEFECT.cardsModifierDescription": "故障机器人的卡牌现在会出现在奖励和商店中。",
