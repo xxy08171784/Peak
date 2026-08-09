@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bdpk423bkibe7"]
+
+[ext_resource type="Script" uid="uid://y1ec852y040x" path="res://scenes/merchant/characters/ScoutMerchant.cs" id="1_scout"]
+[ext_resource type="SpriteFrames" uid="uid://cx5lqr6v7wdwa" path="res://scenes/merchant/characters/store_frames.tres" id="2_scout"]
+
+[node name="ScoutMerchant" type="Node2D"]
+script = ExtResource("1_scout")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 0)
+sprite_frames = ExtResource("2_scout")
+animation = &"default"
+frame_progress = 0.0
+scale = Vector2(0.32, 0.32)
