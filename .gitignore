@@ -18,3 +18,10 @@ mono_crash.*.json
 =======
 /android/
 >>>>>>> origin/xxy
+bulid/logs/
+.godot/
+*.log
+*.save
+*.save.backup
+*.run
+*.run.backup
