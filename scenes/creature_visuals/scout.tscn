@@ -5,29 +5,35 @@
 [ext_resource type="Script" uid="uid://c02fysmed0ygx" path="res://scenes/creature_visuals/bofang.cs" id="3_4b3i3"]
 
 [node name="scout" type="Node2D"]
-scale = Vector2(0.23999894, 0.23999894)
 script = ExtResource("1_acsw2")
 
 [node name="Visuals" type="Node2D" parent="."]
 unique_name_in_owner = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
-position = Vector2(0, -804.1702)
+position = Vector2(0, -164)
+scale = Vector2(0.204, 0.204)
 sprite_frames = ExtResource("2_afe8j")
 frame_progress = 0.21526378
 script = ExtResource("3_4b3i3")
+IdleAnimation = null
+AttackAnimation = null
+CastAnimation = null
+HurtAnimation = null
+DeathAnimation = null
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -85.0
+offset_top = -328.0
+offset_right = 85.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -1637.5072)
+position = Vector2(0, -340)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -687.50305)
+position = Vector2(0, -164)

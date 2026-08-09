@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://b1edc73lbdnd6"]
+
+[ext_resource type="Texture2D" uid="uid://b66xusacusoru" path="res://images/powers/zhongdu_power.png" id="1_f2dmp"]
+
+[resource]
+atlas = ExtResource("1_f2dmp")
+region = Rect2(0, 0, 256, 256)

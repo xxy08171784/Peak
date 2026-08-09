@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cuhsxeswx1qg7"]
 
-[ext_resource type="Texture2D" uid="uid://jvldwl2cyrvu" path="res://images/ui/transitions/ironclad_transition.png" id="1_5jglv"]
+[ext_resource type="Texture2D" uid="uid://bayr4npep0ayc" path="res://images/ui/transitions/scout_transition.png" id="1_5jglv"]
 
 [sub_resource type="Shader" id="Shader_spnx5"]
 code = "shader_type canvas_item;
@@ -21,5 +21,5 @@ void fragment() {
 [resource]
 resource_local_to_scene = true
 shader = SubResource("Shader_spnx5")
-shader_parameter/threshold = 0.332
 shader_parameter/transitionTex = ExtResource("1_5jglv")
+shader_parameter/threshold = 0.332

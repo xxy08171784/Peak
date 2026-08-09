@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\peakmod\\peak\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{FB1CCC0A-54E1-4B98-A64C-AC94A73C0D06}|peak.csproj|d:\\peakmod\\peak\\src\\core\\models\\cards\\strikescout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FB1CCC0A-54E1-4B98-A64C-AC94A73C0D06}|peak.csproj|solutionrelative:src\\core\\models\\cards\\strikescout.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{FB1CCC0A-54E1-4B98-A64C-AC94A73C0D06}|peak.csproj|d:\\peakmod\\peak\\patches\\scoutunlockpatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{FB1CCC0A-54E1-4B98-A64C-AC94A73C0D06}|peak.csproj|solutionrelative:patches\\scoutunlockpatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -18,11 +22,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "StrikeScout.cs",
+              "DocumentMoniker": "D:\\peakmod\\peak\\src\\Core\\Models\\Cards\\StrikeScout.cs",
+              "RelativeDocumentMoniker": "src\\Core\\Models\\Cards\\StrikeScout.cs",
+              "ToolTip": "D:\\peakmod\\peak\\src\\Core\\Models\\Cards\\StrikeScout.cs",
+              "RelativeToolTip": "src\\Core\\Models\\Cards\\StrikeScout.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwCIAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-09T04:17:08.123Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "ScoutCardPool.cs",
               "DocumentMoniker": "D:\\peakmod\\peak\\src\\Core\\Models\\CardPools\\ScoutCardPool.cs",
               "RelativeDocumentMoniker": "src\\Core\\Models\\CardPools\\ScoutCardPool.cs",
@@ -30,18 +47,17 @@
               "RelativeToolTip": "src\\Core\\Models\\CardPools\\ScoutCardPool.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T00:44:29.429Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-06T00:44:29.429Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ScoutUnlockPatch.cs",
               "DocumentMoniker": "D:\\peakmod\\peak\\Patches\\ScoutUnlockPatch.cs",
               "RelativeDocumentMoniker": "Patches\\ScoutUnlockPatch.cs",
               "ToolTip": "D:\\peakmod\\peak\\Patches\\ScoutUnlockPatch.cs",
               "RelativeToolTip": "Patches\\ScoutUnlockPatch.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-06T00:44:13.446Z",
               "EditorCaption": ""

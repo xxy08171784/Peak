@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace peak.Core.Models.Cards;
 
-public sealed class MixedNuts : CardModel
+public sealed class MixedNuts : CardModel, IFoodCard
 {
 	// 声明能量属性：基础获得 1 点能量
 	protected override IEnumerable<DynamicVar> CanonicalVars => new[] { new EnergyVar(1) };
