@@ -1,19 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://cu3uwj02cho1j"]
 
-[ext_resource type="Script" uid="uid://b64aobp5wi2hq" path="res://src/Core/Nodes/RestSite/NRestSiteCharacter.cs" id="1_rest"]
+[ext_resource type="Script" uid="uid://b5vapy8lku0mm" path="res://CustomRestSiteCharacter.cs" id="1_rest"]
 [ext_resource type="SpriteFrames" uid="uid://h1c0jq2n7g8m" path="res://scenes/creature_visuals/campfire_frames.tres" id="2_rest"]
 [ext_resource type="Script" uid="uid://jdjbc8ypbia" path="res://scenes/creature_visuals/SimpleIdle.cs" id="3_rest"]
-[ext_resource type="PackedScene" uid="uid://bgy88bk44xxvk" path="res://scenes/ui/selection_reticle.tscn" id="4_rest"]
+[ext_resource type="PackedScene" uid="uid://m6ayldr80vyx" path="res://scenes/ui/scout_reticle.tscn" id="4_rest"]
 
 [node name="ScoutRestSite" type="Node2D"]
 scale = Vector2(1, 1)
 script = ExtResource("1_rest")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -238.8)
+position = Vector2(0, 59.7)
 sprite_frames = ExtResource("2_rest")
 frame_progress = 0.0
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.35, 0.35)
 script = ExtResource("3_rest")
 
 [node name="ControlRoot" type="Control" parent="."]

@@ -33,8 +33,7 @@ public sealed class Coconut : CardModel
 
         // 1. 造成 10 点伤害
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this)
-            .Targeting(cardPlay.Target)
+            .FromCard(this, cardPlay)
             .Execute(choiceContext);
 
         // 2. 生成 2 张【半块椰子】加入手牌（主卡若升级，衍生卡也升级）

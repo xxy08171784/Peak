@@ -40,7 +40,7 @@ public sealed class BananaPeel : CardModel
 
 		// 1. 对选中的目标敌人造成 5 点伤害
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this)
+			.FromCard(this, cardPlay)
 			.Targeting(cardPlay.Target)
 			.Execute(choiceContext);
 
