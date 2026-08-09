@@ -49,6 +49,7 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<Chili>(),
 			ModelDb.Card<Climb>(),
 			ModelDb.Card<ReachThePeak>(),
+			ModelDb.Card<ArsonExpert>(),
 		};
 	}
 

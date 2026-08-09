@@ -1,0 +1,6 @@
+{
+  "HEAT_POWER.name": "炎热",
+  "HEAT_POWER.description": "回合结束时，消耗最多{HeatPower:diff()}层炎热，并对所有敌人造成等量伤害。",
+  "ARSON_EXPERT_POWER.name": "纵火高手",
+  "ARSON_EXPERT_POWER.description": "使炎热值的回合结束伤害翻倍。"
+}
