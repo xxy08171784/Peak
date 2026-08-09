@@ -20,7 +20,9 @@ public sealed class MyClimbing : RelicModel
 {
 	private int _environmentValue = 0;
 
-	public override RelicRarity Rarity => RelicRarity.Common;
+	// 这是 Scout 的初始遗物，稀有度必须为 Starter，
+	// 否则会进入遗物袋被宝箱/精英/事件再次开出（官方初始遗物均为 Starter，会被遗物袋自动过滤）
+	public override RelicRarity Rarity => RelicRarity.Starter;
 
 	public override bool ShowCounter => CombatManager.Instance?.IsInProgress ?? false;
 

@@ -1269,5 +1269,13 @@
   "BANANA_SKIN.title": "香蕉皮",
   "BANANA_SKIN.description": "造成{Damage:diff()}点伤害。 NL 给予{WeakPower:diff()}层[red]虚弱[/red]。",
   "FRISBEE.title": "飞盘",
-  "FRISBEE.description": "造成{Damage:diff()}点伤害。 NL 给予1层[red]易伤[/red]和1层[red]虚弱[/red]。"
+  "FRISBEE.description": "造成{Damage:diff()}点伤害。 NL 给予1层[red]易伤[/red]和1层[red]虚弱[/red]。",
+  "CHILI.title": "辣椒",
+  "CHILI.description": "消耗。获得{HeatPower:diff()}层[gold]炎热[/gold]。",
+  "CLIMB.title": "攀爬",
+  "CLIMB.description": "获得{Block:diff()}点[gold]格挡[/gold]。",
+  "REACH_THE_PEAK.title": "勇攀高峰",
+  "REACH_THE_PEAK.description": "将[gold]环境值[/gold]切换为指定模式。",
+  "ARSON_EXPERT.title": "纵火高手",
+  "ARSON_EXPERT.description": "[gold]固有[/gold]。 NL 获得1层[gold]纵火高手[/gold]。\n[gold]纵火高手[/gold]：使[gold]炎热值[/gold]的回合结束伤害翻倍。"
 }

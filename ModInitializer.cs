@@ -6,15 +6,11 @@ using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.PotionPools;
-using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using peak.Core.Models.CardPools;
 using peak.Core.Models.Cards;
 
 using peak.Core.Models.Characters; 
-using MegaCrit.Sts2.Core.Models.Relics;
-using peak.Core.Models.Relics;
-using peak.Core.Models.RelicsPools;
 
 namespace peak
 {
@@ -33,7 +29,8 @@ namespace peak
 			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(StrikeScout));
 			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(DefendScout));
 			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(MixedNuts));
-			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(MyClimbing));
+			// 注意：MyClimbing 是 Scout 的初始遗物（Starter 稀有度），
+			// 不加入 SharedRelicPool —— 否则会进入全角色共享遗物袋，被宝箱/精英再次开出导致流程异常
 			Log.Info("加载成功！");
 		}
 	}

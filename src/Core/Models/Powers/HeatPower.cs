@@ -27,6 +27,7 @@ public sealed class HeatPower : PowerModel
 
 	/// <summary>
 	/// 回合即将结束前结算：扣减最多 7 层炎热值，并对所有活着的敌人造成等同于减少层数的伤害。
+	/// 如果玩家拥有纵火高手（ArsonExpertPower），则伤害翻倍。
 	/// </summary>
 	public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
 	{
@@ -54,19 +55,23 @@ public sealed class HeatPower : PowerModel
 		// 3. 扣减炎热值层数（传入负数）
 		await PowerCmd.ModifyAmount(choiceContext, this, -layersToDecrease, null, null);
 
-		// 4. 获取当前所有可被击中的敌人
+		// 4. 检查玩家是否有纵火高手 Buff，有则伤害翻倍
+		ArsonExpertPower? arsonExpert = Owner.GetPower<ArsonExpertPower>();
+		int finalDamage = arsonExpert != null ? layersToDecrease * arsonExpert.DamageMultiplier : layersToDecrease;
+
+		// 5. 获取当前所有可被击中的敌人
 		List<Creature> aliveEnemies = Owner.CombatState.HittableEnemies.ToList();
 
 		if (aliveEnemies.Count > 0)
 		{
-			// 5. 视觉效果：在每一个敌人身上播放受击斩击特效
+			// 6. 视觉效果：在每一个敌人身上播放受击斩击特效
 			VfxCmd.PlayOnCreatureCenters(aliveEnemies, "vfx/vfx_attack_slash");
 
-			// 6. 调用底层伤害指令
+			// 7. 调用底层伤害指令
 			await CreatureCmd.Damage(
 				choiceContext, 
 				(IEnumerable<Creature>)aliveEnemies, // 1. 显式转为 IEnumerable
-				(decimal)layersToDecrease,           // 2. 显式转为 decimal
+				(decimal)finalDamage,                // 2. 显式转为 decimal（含纵火高手翻倍）
 				ValueProp.Unpowered, 
 				Owner
 			);
