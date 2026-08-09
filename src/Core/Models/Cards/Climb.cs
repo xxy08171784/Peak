@@ -10,12 +10,12 @@ using peak.Core.Models.Relics; // 导入您自定义遗物所在的命名空间
 
 namespace peak.Core.Models.Cards;
 
-public sealed class Climbing : CardModel
+public sealed class Climb : CardModel
 {
     // 允许升级一次（0 -> 1）
     public override int MaxUpgradeLevel => 1;
 
-    public Climbing()
+    public Climb()
         : base(1, CardType.Skill, CardRarity.Basic, TargetType.None)
     {
         // 构造函数参数含义：基础能耗(1), 卡牌类型(Skill), 稀有度(Basic/初始), 目标类型(None/无目标)

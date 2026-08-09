@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 namespace peak.Core.Models.Cards
 {
-	public sealed class RockBoltCard : CardModel
+	public sealed class RockBolt : CardModel
 	{
 		// 定义卡牌所需的动态变量
 		protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[2]
@@ -25,7 +25,7 @@ namespace peak.Core.Models.Cards
 		};
 
 		// 构造函数：1费，技能牌，普通稀有度，目标为自己
-		public RockBoltCard()
+		public RockBolt()
 			: base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 		{
 		}

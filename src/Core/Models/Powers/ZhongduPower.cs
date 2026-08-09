@@ -51,7 +51,12 @@ public sealed class ZhongduPower : PowerModel
 		int count = TriggerCount;
 		for (int i = 0; i < count; i++)
 		{
-			await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), Owner, Amount, ValueProp.Unblockable | ValueProp.Unpowered, null, null);
+			await CreatureCmd.Damage(
+				new ThrowingPlayerChoiceContext(), 
+				Owner, Amount, 
+				ValueProp.Unpowered, 
+				null, 
+				null);
 			if (Owner.IsAlive)
 				await PowerCmd.Decrement(this);
 			else

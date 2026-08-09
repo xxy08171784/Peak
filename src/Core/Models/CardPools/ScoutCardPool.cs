@@ -35,7 +35,7 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<StrikeScout>(),
 			ModelDb.Card<DefendScout>(),
 			ModelDb.Card<MixedNuts>(),
-			ModelDb.Card<RockBoltCard>(),
+			ModelDb.Card<RockBolt>(),
 			ModelDb.Card<Conch>(),
 			ModelDb.Card<GreenBerry>(),
 			ModelDb.Card<EnergyDrink>(),
