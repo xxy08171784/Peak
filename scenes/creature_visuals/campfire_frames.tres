@@ -1,0 +1,92 @@
+[gd_resource type="SpriteFrames" load_steps=29 format=3 uid="uid://h1c0jq2n7g8m"]
+
+[ext_resource type="Texture2D" uid="uid://csw7e0bvyifv2" path="res://images/animation/campfire/skeleton-animation_00.png" id="id_0"]
+[ext_resource type="Texture2D" uid="uid://ceupsq7g0bt5a" path="res://images/animation/campfire/skeleton-animation_01.png" id="id_1"]
+[ext_resource type="Texture2D" uid="uid://qmfwdh3lseit" path="res://images/animation/campfire/skeleton-animation_02.png" id="id_2"]
+[ext_resource type="Texture2D" uid="uid://cmwpdj6fshmnn" path="res://images/animation/campfire/skeleton-animation_03.png" id="id_3"]
+[ext_resource type="Texture2D" uid="uid://dpv8rjk1m8jnn" path="res://images/animation/campfire/skeleton-animation_04.png" id="id_4"]
+[ext_resource type="Texture2D" uid="uid://bc3dbytfh5sqo" path="res://images/animation/campfire/skeleton-animation_05.png" id="id_5"]
+[ext_resource type="Texture2D" uid="uid://cmtpyjn1nh7ue" path="res://images/animation/campfire/skeleton-animation_06.png" id="id_6"]
+[ext_resource type="Texture2D" uid="uid://dcgfmf8veerae" path="res://images/animation/campfire/skeleton-animation_07.png" id="id_7"]
+[ext_resource type="Texture2D" uid="uid://crbndyxeujj5h" path="res://images/animation/campfire/skeleton-animation_08.png" id="id_8"]
+[ext_resource type="Texture2D" uid="uid://ddmo4brjb3sp6" path="res://images/animation/campfire/skeleton-animation_09.png" id="id_9"]
+[ext_resource type="Texture2D" uid="uid://b2rjer6rnvkji" path="res://images/animation/campfire/skeleton-animation_10.png" id="id_10"]
+[ext_resource type="Texture2D" uid="uid://cee08e5pwlmoh" path="res://images/animation/campfire/skeleton-animation_11.png" id="id_11"]
+[ext_resource type="Texture2D" uid="uid://voeucnt5c47r" path="res://images/animation/campfire/skeleton-animation_12.png" id="id_12"]
+[ext_resource type="Texture2D" uid="uid://bt7hgnpuqxukl" path="res://images/animation/campfire/skeleton-animation_13.png" id="id_13"]
+[ext_resource type="Texture2D" uid="uid://dxtjx5gw7nyng" path="res://images/animation/campfire/skeleton-animation_14.png" id="id_14"]
+[ext_resource type="Texture2D" uid="uid://co1t3hot8ri1o" path="res://images/animation/campfire/skeleton-animation_15.png" id="id_15"]
+[ext_resource type="Texture2D" uid="uid://b6gkxmu0xixld" path="res://images/animation/campfire/skeleton-animation_16.png" id="id_16"]
+[ext_resource type="Texture2D" uid="uid://c63hpsohjxg7f" path="res://images/animation/campfire/skeleton-animation_17.png" id="id_17"]
+[ext_resource type="Texture2D" uid="uid://b2xl1uqrqq2cg" path="res://images/animation/campfire/skeleton-animation_18.png" id="id_18"]
+[ext_resource type="Texture2D" uid="uid://c5rvx1pfxfadp" path="res://images/animation/campfire/skeleton-animation_19.png" id="id_19"]
+[ext_resource type="Texture2D" uid="uid://0jj6gv3wnubn" path="res://images/animation/campfire/skeleton-animation_20.png" id="id_20"]
+[ext_resource type="Texture2D" uid="uid://csq2fsk775cf3" path="res://images/animation/campfire/skeleton-animation_21.png" id="id_21"]
+[ext_resource type="Texture2D" uid="uid://y6avlt0mn3kv" path="res://images/animation/campfire/skeleton-animation_22.png" id="id_22"]
+[ext_resource type="Texture2D" uid="uid://bdrmw57iki2ve" path="res://images/animation/campfire/skeleton-animation_23.png" id="id_23"]
+[ext_resource type="Texture2D" uid="uid://bevh60bdsl73v" path="res://images/animation/campfire/skeleton-animation_24.png" id="id_24"]
+[ext_resource type="Texture2D" uid="uid://dxg8tte0qgyri" path="res://images/animation/campfire/skeleton-animation_25.png" id="id_25"]
+[ext_resource type="Texture2D" uid="uid://l8h1wmb41xrj" path="res://images/animation/campfire/skeleton-animation_26.png" id="id_26"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("id_0")}, {
+"duration": 1.0,
+"texture": ExtResource("id_1")}, {
+"duration": 1.0,
+"texture": ExtResource("id_2")}, {
+"duration": 1.0,
+"texture": ExtResource("id_3")}, {
+"duration": 1.0,
+"texture": ExtResource("id_4")}, {
+"duration": 1.0,
+"texture": ExtResource("id_5")}, {
+"duration": 1.0,
+"texture": ExtResource("id_6")}, {
+"duration": 1.0,
+"texture": ExtResource("id_7")}, {
+"duration": 1.0,
+"texture": ExtResource("id_8")}, {
+"duration": 1.0,
+"texture": ExtResource("id_9")}, {
+"duration": 1.0,
+"texture": ExtResource("id_10")}, {
+"duration": 1.0,
+"texture": ExtResource("id_11")}, {
+"duration": 1.0,
+"texture": ExtResource("id_12")}, {
+"duration": 1.0,
+"texture": ExtResource("id_13")}, {
+"duration": 1.0,
+"texture": ExtResource("id_14")}, {
+"duration": 1.0,
+"texture": ExtResource("id_15")}, {
+"duration": 1.0,
+"texture": ExtResource("id_16")}, {
+"duration": 1.0,
+"texture": ExtResource("id_17")}, {
+"duration": 1.0,
+"texture": ExtResource("id_18")}, {
+"duration": 1.0,
+"texture": ExtResource("id_19")}, {
+"duration": 1.0,
+"texture": ExtResource("id_20")}, {
+"duration": 1.0,
+"texture": ExtResource("id_21")}, {
+"duration": 1.0,
+"texture": ExtResource("id_22")}, {
+"duration": 1.0,
+"texture": ExtResource("id_23")}, {
+"duration": 1.0,
+"texture": ExtResource("id_24")}, {
+"duration": 1.0,
+"texture": ExtResource("id_25")}, {
+"duration": 1.0,
+"texture": ExtResource("id_26")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
