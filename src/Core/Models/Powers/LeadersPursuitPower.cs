@@ -48,9 +48,7 @@ public sealed class LeadersPursuitPower : PowerModel
 			Owner,
 			(decimal)DamagePerTurn,
 			ValueProp.Unpowered | ValueProp.Move,
-			Owner,
-			null,
-			null
+			Owner
 		);
 	}
 }

@@ -11,6 +11,7 @@ namespace peak.Core.Models.Cards;
 
 public sealed class Banana : CardModel,IFoodCard
 {
+    public override IEnumerable<CardKeyword> CanonicalKeywords => new CardKeyword[] { CardKeyword.Exhaust };
     // 规范：带治疗效果的卡牌，禁止在战斗中被随机发现/生成
     public override bool CanBeGeneratedInCombat => false;
 
