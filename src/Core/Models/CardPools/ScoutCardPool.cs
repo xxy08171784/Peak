@@ -70,6 +70,10 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<Mushroom3>(),
 			ModelDb.Card<Mushroom4>(),
 			ModelDb.Card<Mushroom5>(),
+			ModelDb.Card<Aftertaste>(),
+			ModelDb.Card<SecretRecipeChiliSauce>(),
+			ModelDb.Card<ImmuneToAllPoisons>(),
+			ModelDb.Card<DeliciousAndFondOfEating>(),
 		};
 	}
 

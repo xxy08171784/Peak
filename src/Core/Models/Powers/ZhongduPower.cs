@@ -48,8 +48,23 @@ public sealed class ZhongduPower : PowerModel
 		if (side != Owner.Side)
 			return;
 
-		int count = TriggerCount;
-		for (int i = 0; i < count; i++)
+		// 百毒不侵：中毒不再对玩家造成伤害（但仍正常失去中毒层数）
+		if (Owner.GetPower<ImmuneToAllPoisonsPower>() != null)
+		{
+			// 仍然扣除与触发次数等量的中毒层数（每失去1层会通过百毒不侵给予敌人中毒）
+			int count = TriggerCount;
+			for (int i = 0; i < count; i++)
+			{
+				if (Owner.IsAlive)
+					await PowerCmd.Decrement(this);
+				else
+					await Cmd.CustomScaledWait(0.1f, 0.25f);
+			}
+			return;
+		}
+
+		int damageCount = TriggerCount;
+		for (int i = 0; i < damageCount; i++)
 		{
 			await CreatureCmd.Damage(
 				new ThrowingPlayerChoiceContext(), 
