@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace peak.Core.Models.Powers;
 
 /// <summary>
-/// 百毒不侵：中毒不会对自己造成伤害，并且每当你失去 1 层中毒，就给予所有敌人 2 层中毒。
+/// 百毒不侵：中毒不会对自己造成伤害，并且每当你失去 1 层中毒，就给予所有敌人 2 层中毒（原版中毒 PoisonPower）。
 /// </summary>
 public sealed class ImmuneToAllPoisonsPower : PowerModel
 {
@@ -30,7 +30,7 @@ public sealed class ImmuneToAllPoisonsPower : PowerModel
 	public int PoisonPerLoss => Amount;
 
 	/// <summary>
-	/// 每当中毒层数变化时触发：失去中毒时，给所有敌人施加 2 倍层数的中毒。
+	/// 每当中毒层数变化时触发：失去中毒时，给所有敌人施加 2 倍层数的中毒（原版中毒）。
 	/// </summary>
 	public override async Task AfterPowerAmountChanged(
 		PlayerChoiceContext choiceContext,
@@ -59,14 +59,39 @@ public sealed class ImmuneToAllPoisonsPower : PowerModel
 
 		Flash(); // 百毒不侵图标闪烁，提示玩家触发了效果
 
-		// 给所有敌人施加 2 倍失去层数的中毒
+		// 给所有敌人施加 2 倍失去层数的原版中毒（PoisonPower）
 		IEnumerable<Creature> enemies = Owner.CombatState.HittableEnemies.Where(c => c.IsAlive);
 		foreach (Creature enemy in enemies)
 		{
-			await PowerCmd.Apply<ZhongduPower>(
+			await PowerCmd.Apply<PoisonPower>(
 				choiceContext,
 				enemy,
 				layersLost * 2,
+				Owner,
+				null
+			);
+		}
+	}
+
+	/// <summary>
+	/// 给所有敌人施加指定层数的原版中毒（供 ZhongduPower.AfterRemoved 调用）。
+	/// </summary>
+	public async Task ApplyPoisonToAllEnemies(PlayerChoiceContext choiceContext, int layers)
+	{
+		if (layers <= 0)
+		{
+			return;
+		}
+
+		Flash(); // 百毒不侵图标闪烁，提示玩家触发了效果
+
+		IEnumerable<Creature> enemies = Owner.CombatState.HittableEnemies.Where(c => c.IsAlive);
+		foreach (Creature enemy in enemies)
+		{
+			await PowerCmd.Apply<PoisonPower>(
+				choiceContext,
+				enemy,
+				layers,
 				Owner,
 				null
 			);

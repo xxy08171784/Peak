@@ -14,7 +14,7 @@ using peak.Core.Models.Powers;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 潘多拉餐盒：失去所有费用，状态，buff条，获得随机的费用，状态，buff条。
+/// 潘多拉餐盒：失去所有费用和 debuff，获得随机的费用，状态，buff条。
 /// 2 费，食物牌（技能类型 + 食物接口），稀有稀有度，目标自身，消耗（升级后新增保留）。
 ///
 /// 随机费用：0-4
@@ -44,11 +44,13 @@ public sealed class PandoraBox : CardModel, IFoodCard
 		// 1. 失去所有费用（当前能量置零）
 		await PlayerCmd.LoseEnergy(base.Owner.PlayerCombatState.Energy, base.Owner);
 
-		// 2. 移除所有状态和 buff（所有 Power）
-		List<PowerModel> allPowers = base.Owner.Creature.Powers.ToList();
-		foreach (PowerModel power in allPowers)
+		// 2. 移除所有 debuff（负面状态），保留正面 buff
+		List<PowerModel> debuffsToRemove = base.Owner.Creature.Powers
+			.Where((PowerModel p) => p.Type == PowerType.Debuff)
+			.ToList();
+		foreach (PowerModel debuff in debuffsToRemove)
 		{
-			await PowerCmd.Remove(power);
+			await PowerCmd.Remove(debuff);
 		}
 
 		// 3. 获得随机费用（0-4）

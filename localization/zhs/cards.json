@@ -1305,7 +1305,7 @@
   "LOLLIPOP.title": "棒棒糖",
   "LOLLIPOP.description": "[gold]保留[/gold]。 NL 所有手牌在本回合内变成0费。 NL 下回合开始时失去{IfUpgraded:show:0|1}点能量（获得1层[red]疲劳[/red]）。",
   "PANDORA_BOX.title": "潘多拉餐盒",
-  "PANDORA_BOX.description": "失去所有费用，状态，buff条。 NL 获得随机的费用，状态，buff条。",
+  "PANDORA_BOX.description": "失去所有费用和[red]负面状态[/red]。 NL 获得随机的费用，状态，buff条。",
   "MUSHROOM_BOX_SET.title": "蘑菇盲盒",
   "MUSHROOM_BOX_SET.description": "获得5种（升级后的）蘑菇中的随机一种。",
   "MUSHROOM1.title": "蘑菇1",
@@ -1330,5 +1330,13 @@
   "BUFFET.title": "自助餐",
   "BUFFET.description": "每回合第一次抽到[gold]食物牌[/gold]时，额外抽{BuffetPower:diff()}张牌。",
   "FORAGING.title": "觅食",
-  "FORAGING.description": "消耗。 NL 将一个随机[gold]食物牌[/gold]添加进你的手牌。"
+  "FORAGING.description": "消耗。 NL 将一个随机[gold]食物牌[/gold]添加进你的手牌。",
+  "FULL_BELLY_PUNCH.title": "饱腹拳",
+  "FULL_BELLY_PUNCH.description": "造成{Damage:diff()}点伤害。 NL 如果上一张打出的牌是[gold]食物牌[/gold]，则额外给予{VulnerablePower:diff()}层[red]易伤[/red]。",
+  "THE_WRATH_OF_THE_FOOD_GOD.title": "食神之怒",
+  "THE_WRATH_OF_THE_FOOD_GOD.description": "造成{CalculatedDamage:diff()}点伤害（基础13点，你的[gold]卡组[/gold]中每有一张[gold]食物牌[/gold]额外增加{ExtraDamage:diff()}点伤害）。",
+  "ELIXIR_MUSHROOM.title": "灵药菇",
+  "ELIXIR_MUSHROOM.description": "消耗。 NL 获得{RegenPower:diff()}点[gold]再生[/gold]。",
+  "PANACEA.title": "万灵药",
+  "PANACEA.description": "消耗。 NL 失去至多20点[gold]炎热[/gold]、20层[green]中毒[/green]、20层[green]孢子[/green]、1层[red]虚弱[/red]、1层[red]脆弱[/red]、1层[red]易伤[/red]。 NL 回复{Heal:diff()}点生命。"
 }

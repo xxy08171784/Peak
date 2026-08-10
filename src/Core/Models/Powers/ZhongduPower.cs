@@ -42,6 +42,28 @@ public sealed class ZhongduPower : PowerModel
 		await Task.CompletedTask;
 	}
 
+	/// <summary>
+	/// 被移除时触发（如骸骨之书用 PowerCmd.Remove 移除 debuff）。
+	/// 若玩家有百毒不侵，则按移除的层数给予所有敌人原版中毒。
+	/// </summary>
+	public override async Task AfterRemoved(Creature oldOwner)
+	{
+		// 只在玩家身上且拥有百毒不侵时触发反击
+		if (oldOwner.IsPlayer && oldOwner.GetPower<ImmuneToAllPoisonsPower>() != null)
+		{
+			int removedLayers = (int)Amount; // RemoveInternal 不清空 Amount，此处仍保留原层数
+			if (removedLayers > 0)
+			{
+				ImmuneToAllPoisonsPower? immune = oldOwner.GetPower<ImmuneToAllPoisonsPower>();
+				if (immune != null)
+				{
+					await immune.ApplyPoisonToAllEnemies(new ThrowingPlayerChoiceContext(), removedLayers * immune.PoisonPerLoss);
+				}
+			}
+		}
+		await Task.CompletedTask;
+	}
+
 	/// <summary>回合结束时：对玩家造成中毒伤害</summary>
 	public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
 	{
