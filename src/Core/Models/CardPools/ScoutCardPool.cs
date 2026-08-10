@@ -80,6 +80,14 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<TheWrathOfTheFoodGod>(),
 			ModelDb.Card<ElixirMushroom>(),
 			ModelDb.Card<Panacea>(),
+			ModelDb.Card<AllOrNothing>(),
+			ModelDb.Card<Rope>(),
+			ModelDb.Card<RescueGrapple>(),
+			ModelDb.Card<ElasticMushroom>(),
+			ModelDb.Card<PoisonThornArmor>(),
+			ModelDb.Card<MedicalKit>(),
+			ModelDb.Card<TheHandLanternOfFaery>(),
+			ModelDb.Card<Trumpet>(),
 		};
 	}
 

@@ -1346,5 +1346,21 @@
   "ELIXIR_MUSHROOM.title": "灵药菇",
   "ELIXIR_MUSHROOM.description": "消耗。 NL 获得{RegenPower:diff()}点[gold]再生[/gold]。",
   "PANACEA.title": "万灵药",
-  "PANACEA.description": "消耗。 NL 失去至多20点[gold]炎热[/gold]、20层[green]中毒[/green]、20层[green]孢子[/green]、1层[red]虚弱[/red]、1层[red]脆弱[/red]、1层[red]易伤[/red]。 NL 回复{Heal:diff()}点生命。"
+  "PANACEA.description": "消耗。 NL 失去至多20点[gold]炎热[/gold]、20层[green]中毒[/green]、20层[green]孢子[/green]、1层[red]虚弱[/red]、1层[red]脆弱[/red]、1层[red]易伤[/red]。 NL 回复{Heal:diff()}点生命。",
+  "ALL_OR_NOTHING.title": "孤注一掷",
+  "ALL_OR_NOTHING.description": "对所有敌人造成{CalculatedDamage:diff()}点伤害（自身每有一种[red]负面状态[/red]造成{ExtraDamage:diff()}点伤害，取平方）。",
+  "ROPE.title": "绳索",
+  "ROPE.description": "造成{Damage:diff()}点伤害。 NL 给予{TwinePower:diff()}层[red]缠绕[/red]。",
+  "RESCUE_GRAPPLE.title": "救援抓勾",
+  "RESCUE_GRAPPLE.description": "抽{Cards:diff()}张牌。 NL 下回合开始时额外抽{DrawCardsNextTurnPower:diff()}张牌。",
+  "ELASTIC_MUSHROOM.title": "弹力菇",
+  "ELASTIC_MUSHROOM.description": "如果你在回合结束时没有任何格挡，获得{PleurotusEryngiiPower:diff()}点[gold]格挡[/gold]。",
+  "POISON_THORN_ARMOR.title": "毒刺护体",
+  "POISON_THORN_ARMOR.description": "获得2层[green]中毒[/green]。 NL 当被敌人攻击命中时，反击该名敌人{TelsonPower:diff()}点[green]中毒[/green]。",
+  "MEDICAL_KIT.title": "医疗箱",
+  "MEDICAL_KIT.description": "失去你的所有[green]中毒[/green]，获得{Block:diff()}点[gold]格挡[/gold]。",
+  "THE_HAND_LANTERN_OF_FAERY.title": "仙子提灯",
+  "THE_HAND_LANTERN_OF_FAERY.description": "获得{TheHandLanternOfFaeryPower:diff()}回合的[gold]仙子提灯[/gold]：[gold]仙子提灯[/gold]在你的回合结束时，回复2生命，降低10[gold]炎热[/gold]，降低5[green]中毒[/green]。",
+  "TRUMPET.title": "喇叭",
+  "TRUMPET.description": "抽1张牌，获得1[gold]费[/gold]。 NL 每打出一次这张牌，本场战斗增加1费。"
 }

@@ -888,5 +888,17 @@
   "ZHONGDU_POWER.title": "中毒",
   "BUFFET_POWER.description": "每回合第一次抽到[gold]食物牌[/gold]时，额外抽[blue]2[/blue]张牌。",
   "BUFFET_POWER.smartDescription": "每回合第一次抽到[gold]食物牌[/gold]时，额外抽[blue]{Amount}[/blue]张牌。",
-  "BUFFET_POWER.title": "自助餐"
+  "BUFFET_POWER.title": "自助餐",
+  "TWINE_POWER.description": "你每次打出一张牌时，这个敌人失去[blue]1[/blue]点生命。",
+  "TWINE_POWER.smartDescription": "你每次打出一张牌时，这个敌人失去[blue]{Amount}[/blue]点生命。",
+  "TWINE_POWER.title": "缠绕",
+  "PLEUROTUS_ERYNGII_POWER.description": "如果你在回合结束时没有任何格挡，获得[blue]6[/blue]点[gold]格挡[/gold]。",
+  "PLEUROTUS_ERYNGII_POWER.smartDescription": "如果你在回合结束时没有任何格挡，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。",
+  "PLEUROTUS_ERYNGII_POWER.title": "弹力菇",
+  "TELSON_POWER.description": "当被敌人攻击命中时，反击该名敌人[blue]3[/blue]点[green]中毒[/green]。",
+  "TELSON_POWER.smartDescription": "当被敌人攻击命中时，反击该名敌人[blue]{Amount}[/blue]点[green]中毒[/green]。",
+  "TELSON_POWER.title": "毒刺",
+  "THE_HAND_LANTERN_OF_FAERY_POWER.description": "[blue]4[/blue]回合内，当你的回合结束时，回复[blue]2[/blue]生命，降低[blue]10[/blue][gold]炎热[/gold]，降低[blue]5[/blue][green]中毒[/green]。",
+  "THE_HAND_LANTERN_OF_FAERY_POWER.smartDescription": "[blue]{Amount}[/blue]回合内，当你的回合结束时，回复[blue]2[/blue]生命，降低[blue]10[/blue][gold]炎热[/gold]，降低[blue]5[/blue][green]中毒[/green]。",
+  "THE_HAND_LANTERN_OF_FAERY_POWER.title": "仙子提灯"
 }

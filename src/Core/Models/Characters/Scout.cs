@@ -67,12 +67,11 @@ public sealed class Scout : CharacterModel
 	// =====================================================================
 	// 重写基类中被允许 override 的虚属性（其余非虚属性交由 Harmony 补丁拦截重写）
 	// =====================================================================
-
-	// 重写按钮图标路径（指向铁甲兵图标）
-	protected override string CharacterSelectIconPath => "res://assets/packed/character_select/char_select_ironclad.png";
-
-	// 重写按钮未解锁时的图标路径
-	protected override string CharacterSelectLockedIconPath => "res://assets/packed/character_select/char_select_ironclad_locked.png";
+	// 角色选择图标使用基类默认路径：
+	//   res://images/packed/character_select/char_select_scout.png
+	//   res://images/packed/character_select/char_select_scout_locked.png
+	// （之前错误地指向 res://assets/packed/character_select/char_select_ironclad.png，
+	//   该路径在 mod 包中不存在，会导致加载失败）
 	// =====================================================================
 
 	public override float AttackAnimDelay => 0.15f;
