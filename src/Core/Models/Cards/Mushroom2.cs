@@ -26,7 +26,7 @@ public sealed class Mushroom2 : CardModel, IFoodCard
 	// 卡面图片（文件名与卡牌 ID 不一致，需显式指定）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mushroom_2.png");
 
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mushroom_2.png");
+	
 
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
@@ -62,7 +62,7 @@ public sealed class Mushroom2 : CardModel, IFoodCard
 
 		// 2. 对所有敌人造成 9（12）点伤害
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_blunt")
 			.Execute(choiceContext);

@@ -20,7 +20,7 @@ public sealed class MushroomBoxSet : CardModel
 	// 卡面图片（文件名与卡牌 ID 不一致，需显式指定）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mushroom_box_set.png");
 
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mushroom_box_set.png");
+	
 
 	// 虚无关键词（回合结束时自动消耗）
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Ethereal };

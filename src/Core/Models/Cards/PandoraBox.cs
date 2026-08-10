@@ -25,8 +25,7 @@ public sealed class PandoraBox : CardModel, IFoodCard
 {
 	// 卡面图片（文件名与卡牌 ID 不一致，需显式指定）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/Pandora_s_box.png");
-
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/Pandora_s_box.png");
+	
 
 	// 固有词条：消耗（升级后通过 OnUpgrade 添加保留）
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };

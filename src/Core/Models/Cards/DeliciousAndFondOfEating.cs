@@ -21,7 +21,7 @@ public sealed class DeliciousAndFondOfEating : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：delicious_and_fond_of_eating.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/delicious_and_fond_of_eating.png");
 
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/delicious_and_fond_of_eating.png");
+	
 
 	// 动态变量：基础每次抽 1 张牌（升级后 2 张）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

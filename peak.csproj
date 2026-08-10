@@ -20,6 +20,7 @@
     <Compile Remove="Patches\ModelDbAllCharactersPatch.cs" />
     <Compile Remove="_ref\**" />
     <Compile Remove="bulid\**" />
+    <Compile Remove="src\Core\Models\Cards\LateAtNightPower.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="localization\zhs\characters.json" />

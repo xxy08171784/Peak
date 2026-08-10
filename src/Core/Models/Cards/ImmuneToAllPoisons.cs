@@ -21,7 +21,7 @@ public sealed class ImmuneToAllPoisons : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：immune_to_all_poisons.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/immune_to_all_poisons.png");
 
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/immune_to_all_poisons.png");
+	
 
 	// 动态变量：基础给予敌人的中毒层数为 2 倍
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

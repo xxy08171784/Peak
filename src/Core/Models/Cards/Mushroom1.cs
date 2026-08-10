@@ -26,7 +26,7 @@ public sealed class Mushroom1 : CardModel, IFoodCard
 	// 卡面图片（文件名与卡牌 ID 不一致，需显式指定）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mushroom_1.png");
 
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mushroom_1.png");
+	 
 
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };

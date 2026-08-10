@@ -20,8 +20,7 @@ public sealed class SecretRecipeChiliSauce : CardModel
 {
 	// 卡面图片（文件名与卡牌 ID 一致：secret_recipe_chili_sauce.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/secret_recipe_chili_sauce.png");
-
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/secret_recipe_chili_sauce.png");
+	
 
 	// 动态变量：基础每次获得 6 点炎热值
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
