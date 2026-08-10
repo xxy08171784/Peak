@@ -74,6 +74,8 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<SecretRecipeChiliSauce>(),
 			ModelDb.Card<ImmuneToAllPoisons>(),
 			ModelDb.Card<DeliciousAndFondOfEating>(),
+			ModelDb.Card<Buffet>(),
+			ModelDb.Card<Foraging>(),
 		};
 	}
 

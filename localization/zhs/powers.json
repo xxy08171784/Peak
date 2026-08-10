@@ -882,5 +882,8 @@
   "TIRED_POWER.title": "疲劳",
   "ZHONGDU_POWER.description": "在你的回合结束时，受到[blue]1[/blue]点[green]中毒[/green]伤害。",
   "ZHONGDU_POWER.smartDescription": "在你的回合结束时，受到[blue]{Amount}[/blue]点[green]中毒[/green]伤害。",
-  "ZHONGDU_POWER.title": "中毒"
+  "ZHONGDU_POWER.title": "中毒",
+  "BUFFET_POWER.description": "每回合第一次抽到[gold]食物牌[/gold]时，额外抽[blue]2[/blue]张牌。",
+  "BUFFET_POWER.smartDescription": "每回合第一次抽到[gold]食物牌[/gold]时，额外抽[blue]{Amount}[/blue]张牌。",
+  "BUFFET_POWER.title": "自助餐"
 }
