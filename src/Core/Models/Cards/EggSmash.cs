@@ -42,7 +42,7 @@ public sealed class EggSmash : CardModel
 		// 1. 造成 6 点伤害
 		Godot.GD.Print($"[EggSmash] dealing damage {base.DynamicVars.Damage.BaseValue}");
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_slash")
 			.Execute(choiceContext);

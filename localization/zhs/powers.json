@@ -1,4 +1,7 @@
 {
+  "RED_HOT_POWER.title": "红温",
+  "RED_HOT_POWER.description": "如果你的[gold]炎热[/gold]大于等于你当前的生命值，你的所有攻击牌造成双倍伤害。",
+  "RED_HOT_POWER.smartDescription": "如果你的[gold]炎热[/gold]大于等于你当前的生命值，你的所有攻击牌造成双倍伤害。",
   "ARSON_EXPERT_POWER.description": "使[gold]炎热[/gold]值损失造成的伤害翻倍，并对所有敌人造成伤害。",
   "ARSON_EXPERT_POWER.smartDescription": "使[gold]炎热[/gold]值损失造成的伤害翻倍，并对所有敌人造成伤害。",
   "ARSON_EXPERT_POWER.title": "纵火高手",
