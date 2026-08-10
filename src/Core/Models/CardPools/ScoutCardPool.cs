@@ -45,11 +45,22 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<Banana>(),
 			ModelDb.Card<BananaPeel>(),
 			ModelDb.Card<Marshmallow>(),
-			ModelDb.Card<RoastEgg>(),
 			ModelDb.Card<Chili>(),
 			ModelDb.Card<Climb>(),
 			ModelDb.Card<ReachThePeak>(),
 			ModelDb.Card<ArsonExpert>(),
+			ModelDb.Card<IceDew>(),
+			ModelDb.Card<GoodnightBerry>(),
+			ModelDb.Card<WarmPaste>(),
+			ModelDb.Card<Sunshade>(),
+			ModelDb.Card<TheBookOfBones>(),
+			ModelDb.Card<LeaderTrumpet>(),
+			ModelDb.Card<SweatProfusely>(),
+			ModelDb.Card<Nourishing>(),
+			ModelDb.Card<PoisonTrumpetMushroom>(),
+			ModelDb.Card<EggSmash>(),
+			ModelDb.Card<RoastEgg>(),
+			ModelDb.Card<RoastChicken>(),
 		};
 	}
 

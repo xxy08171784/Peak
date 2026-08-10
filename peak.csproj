@@ -24,6 +24,7 @@
   <ItemGroup>
     <Content Include="localization\zhs\characters.json" />
     <Content Include="localization\zhs\cards.json" />
+    <Content Include="localization\zhs\powers.json" />
     <Content Include="localization\zhs\relics.json" />
   </ItemGroup>
 </Project>
