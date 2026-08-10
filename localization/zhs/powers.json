@@ -15,5 +15,7 @@
   "NOURISHING_POWER.name": "滋补",
   "NOURISHING_POWER.description": "每当你打出一张食物牌，获得{Amount}层覆甲，{Amount}点力量。",
   "ARSON_EXPERT_POWER.name": "纵火高手",
-  "ARSON_EXPERT_POWER.description": "使炎热值损失造成的伤害翻倍，并对所有敌人造成伤害。"
+  "ARSON_EXPERT_POWER.description": "使炎热值损失造成的伤害翻倍，并对所有敌人造成伤害。",
+  "TIRED_POWER.name": "疲劳",
+  "TIRED_POWER.description": "在下回合开始时，失去1点能量。"
 }

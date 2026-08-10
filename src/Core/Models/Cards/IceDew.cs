@@ -33,7 +33,7 @@ public sealed class IceDew : CardModel, IFoodCard
 	};
 
 	public IceDew()
-		: base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 	{
 	}
 

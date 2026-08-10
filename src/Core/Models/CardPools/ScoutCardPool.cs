@@ -61,6 +61,15 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<EggSmash>(),
 			ModelDb.Card<RoastEgg>(),
 			ModelDb.Card<RoastChicken>(),
+			ModelDb.Card<MedicinalRootstock>(),
+			ModelDb.Card<Lollipop>(),
+			ModelDb.Card<PandoraBox>(),
+			ModelDb.Card<MushroomBoxSet>(),
+			ModelDb.Card<Mushroom1>(),
+			ModelDb.Card<Mushroom2>(),
+			ModelDb.Card<Mushroom3>(),
+			ModelDb.Card<Mushroom4>(),
+			ModelDb.Card<Mushroom5>(),
 		};
 	}
 
