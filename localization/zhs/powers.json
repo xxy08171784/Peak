@@ -3,6 +3,7 @@
   "HEAT_POWER.description": "每当你失去炎热值时，对随机一名敌人造成等量的伤害。",
   "REJECTION_OF_HEAT.name": "散热",
   "REJECTION_OF_HEAT.description": "在你的回合结束时，失去7点炎热。",
+  "WARM_PASTE_POWER.title": "暖宝宝",
   "WARM_PASTE_POWER.name": "暖宝宝",
   "WARM_PASTE_POWER.description": "在你的回合开始时，获得{Amount}点炎热。",
   "SUNSHADE_POWER.name": "遮阳伞",

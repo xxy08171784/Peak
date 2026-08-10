@@ -45,7 +45,6 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<Banana>(),
 			ModelDb.Card<BananaPeel>(),
 			ModelDb.Card<Marshmallow>(),
-			ModelDb.Card<RoastEgg>(),
 			ModelDb.Card<Chili>(),
 			ModelDb.Card<Climb>(),
 			ModelDb.Card<ReachThePeak>(),
@@ -58,6 +57,10 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<LeaderTrumpet>(),
 			ModelDb.Card<SweatProfusely>(),
 			ModelDb.Card<Nourishing>(),
+			ModelDb.Card<PoisonTrumpetMushroom>(),
+			ModelDb.Card<EggSmash>(),
+			ModelDb.Card<RoastEgg>(),
+			ModelDb.Card<RoastChicken>(),
 		};
 	}
 
