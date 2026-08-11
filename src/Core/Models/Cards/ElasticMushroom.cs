@@ -21,6 +21,8 @@ public sealed class ElasticMushroom : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：elastic_mushroom.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/elastic_mushroom.png");
 
+	
+
 	// 动态变量：基础每次获得 6 点格挡（升级后 8 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{

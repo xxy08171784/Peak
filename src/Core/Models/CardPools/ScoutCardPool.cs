@@ -44,6 +44,7 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<HalfCoconut>(),
 			ModelDb.Card<Banana>(),
 			ModelDb.Card<BananaPeel>(),
+			ModelDb.Card<Bask>(),
 			ModelDb.Card<Marshmallow>(),
 			ModelDb.Card<Chili>(),
 			ModelDb.Card<Climb>(),
@@ -54,6 +55,7 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<WarmPaste>(),
 			ModelDb.Card<Sunshade>(),
 			ModelDb.Card<TheBookOfBones>(),
+			ModelDb.Card<LateAtNight>(),
 			ModelDb.Card<LeaderTrumpet>(),
 			ModelDb.Card<SweatProfusely>(),
 			ModelDb.Card<Nourishing>(),
@@ -72,12 +74,14 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<Mushroom5>(),
 			ModelDb.Card<Aftertaste>(),
 			ModelDb.Card<SecretRecipeChiliSauce>(),
+			ModelDb.Card<SporeCloud>(),
 			ModelDb.Card<ImmuneToAllPoisons>(),
 			ModelDb.Card<DeliciousAndFondOfEating>(),
 			ModelDb.Card<Buffet>(),
 			ModelDb.Card<Foraging>(),
 			ModelDb.Card<FullBellyPunch>(),
 			ModelDb.Card<TheWrathOfTheFoodGod>(),
+			ModelDb.Card<ThrowPoisonPack>(),
 			ModelDb.Card<ElixirMushroom>(),
 			ModelDb.Card<Panacea>(),
 			ModelDb.Card<AllOrNothing>(),
@@ -92,11 +96,27 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<BreakDown>(),
 			ModelDb.Card<Inventory>(),
 			ModelDb.Card<AllIntoBackpack>(),
+<<<<<<< HEAD
 			ModelDb.Card<Explosive>(),
 			ModelDb.Card<SmallRoast>(),
 			ModelDb.Card<Cannon>(),
 			ModelDb.Card<Oven>(),
 			ModelDb.Card<GastricPouch>(),
+=======
+			ModelDb.Card<CrushTheIce>(),
+			ModelDb.Card<GraduallyFreezing>(),
+			ModelDb.Card<TheMountainOfFlames>(),
+			ModelDb.Card<RedHot>(),
+			ModelDb.Card<Snowstorm>(),
+			ModelDb.Card<SnowArmor>(),
+			ModelDb.Card<ForestMushroom>(),
+			ModelDb.Card<Misfortune>(),
+			ModelDb.Card<AddInsultToInjury>(),
+			ModelDb.Card<ExperienceAndToughening>(),
+			ModelDb.Card<SnowballRolling>(),
+			ModelDb.Card<Snowball>(),
+			ModelDb.Card<ShareMisfortune>(),
+>>>>>>> origin/xxy
 		};
 	}
 
@@ -104,7 +124,7 @@ public sealed class ScoutCardPool : CardPoolModel
 	{
 		List<CardModel> list = cards.ToList();
 
-		// 原版游戏的卡牌通过“时代”（Epochs）系统来逐步解锁。
+		// 原版游戏的卡牌通过"时代"（Epochs）系统来逐步解锁。
 		// 如果您的 Mod 计划使用这种渐进式解锁机制，可以创建自定义的 Epoch 类并参考以下格式进行过滤。
 		// 如果不需要分阶段解锁卡牌，直接返回 list 即可。
 		/*

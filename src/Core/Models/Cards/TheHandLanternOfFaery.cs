@@ -21,6 +21,8 @@ public sealed class TheHandLanternOfFaery : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：the_hand_lantern_of_faery.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/the_hand_lantern_of_faery.png");
 
+	
+
 	// 动态变量：基础持续 4 回合（升级后 5 回合）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{

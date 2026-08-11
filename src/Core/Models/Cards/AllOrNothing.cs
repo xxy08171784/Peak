@@ -23,6 +23,8 @@ public sealed class AllOrNothing : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：all_or_nothing.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/all_or_nothing.png");
 
+	
+
 	// 动态变量：计算伤害 = 0 + 3 * (debuff种类数)² = 3x²
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
@@ -44,7 +46,7 @@ public sealed class AllOrNothing : CardModel
 	{
 		// 对所有敌人造成 3x² 点伤害（x = 自身 debuff 种类数）
 		await DamageCmd.Attack(base.DynamicVars.CalculatedDamage)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 			.Execute(choiceContext);

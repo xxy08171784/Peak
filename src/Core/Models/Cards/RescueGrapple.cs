@@ -20,6 +20,8 @@ public sealed class RescueGrapple : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：rescue_grapple.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/rescue_grapple.png");
 
+	
+
 	// 动态变量：基础抽牌数 3 张（升级后 4 张）、下回合额外抽 3 张
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{

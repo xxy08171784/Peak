@@ -18,6 +18,8 @@ public sealed class Trumpet : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：trumpet.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/trumpet.png");
 
+	
+
 	// 动态变量：基础抽 1 张牌、获得 1 费
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
@@ -44,7 +46,6 @@ public sealed class Trumpet : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级后获得固有词条
-		AddKeyword(CardKeyword.Innate);
+		// 无升级效果（费用递增机制不变）
 	}
 }

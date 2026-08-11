@@ -22,6 +22,8 @@ public sealed class Rope : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：rope.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/rope.png");
 
+	
+
 	// 动态变量：基础伤害 8 点、缠绕 1 层（升级后 2 层）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
@@ -46,7 +48,7 @@ public sealed class Rope : CardModel
 
 		// 1. 造成 8 点伤害
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_slash")
 			.Execute(choiceContext);

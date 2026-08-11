@@ -36,7 +36,7 @@ public sealed class Frisbee : CardModel
 
 		// 1. 造成 8 点伤害
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.Targeting(cardPlay.Target)
 			.Execute(choiceContext);
 

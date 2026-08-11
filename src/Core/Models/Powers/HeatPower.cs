@@ -17,7 +17,7 @@ namespace peak.Core.Models.Powers;
 public sealed class HeatPower : PowerModel
 {
 	// 炎热值是给自己施加的正向属性，因此是 Buff
-	public override PowerType Type => PowerType.Buff;
+	public override PowerType Type => PowerType.Debuff;
 	
 	// 使用层数堆叠
 	public override PowerStackType StackType => PowerStackType.Counter;

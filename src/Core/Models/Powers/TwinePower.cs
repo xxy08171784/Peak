@@ -27,7 +27,7 @@ public sealed class TwinePower : PowerModel
 	/// <summary>
 	/// 每次打出一张牌时敌人失去的生命值。
 	/// </summary>
-	public int DamagePerCard => Amount;
+	public decimal DamagePerCard => Amount;
 
 	/// <summary>
 	/// 每当玩家打出一张牌时，对这个敌人造成 1（2）点伤害。
@@ -48,8 +48,7 @@ public sealed class TwinePower : PowerModel
 			Owner,
 			DamagePerCard,
 			ValueProp.Unblockable | ValueProp.Unpowered,
-			null,
-			null
+			Owner
 		);
 	}
 }

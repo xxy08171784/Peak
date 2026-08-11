@@ -20,6 +20,8 @@ public sealed class Foraging : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：foraging.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/foraging.png");
 
+	
+
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 

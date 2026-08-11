@@ -62,7 +62,7 @@ public sealed class Mushroom2 : CardModel, IFoodCard
 
 		// 2. 对所有敌人造成 9（12）点伤害
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_blunt")
 			.Execute(choiceContext);

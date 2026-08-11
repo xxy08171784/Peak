@@ -20,6 +20,8 @@ public sealed class ElixirMushroom : CardModel, IFoodCard
 	// 卡面图片（文件名与卡牌 ID 一致：elixir_mushroom.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/elixir_mushroom.png");
 
+	
+
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 

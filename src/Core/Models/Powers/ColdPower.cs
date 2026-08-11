@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace peak.Core.Models.Powers;
 
@@ -37,10 +38,20 @@ public sealed class ColdPower : PowerModel
         Creature? applier, 
         CardModel? cardSource)
     {
-        // 安全拦截：只在改变的状态是“我自身”的时候才运行逻辑
+        // 安全拦截：只在改变的状态是”我自身”的时候才运行逻辑
         if (power != this)
         {
             return;
+        }
+
+        // 雪甲联动：当寒冷层数增加时，若施加者拥有雪甲，获得格挡
+        if (amount > 0 && applier != null)
+        {
+            SnowArmorPower? snowArmor = applier.GetPower<SnowArmorPower>();
+            if (snowArmor != null)
+            {
+                await CreatureCmd.GainBlock(applier, snowArmor.BlockPerLayer * amount, ValueProp.Unpowered, null);
+            }
         }
 
         // 使用 while 循环：防止一次性获得 4 层或更多寒冷时，无法连续触发转化
