@@ -1379,5 +1379,9 @@
 	"SMALL_ROAST.description": "烤1张手牌，对所有敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。\n烤：如果是食物卡，将其[gold]升级[/gold]，如果是其他卡，将其[gold]消耗[/gold]。",
 	"SMALL_ROAST.selectionScreenPrompt": "选择一张手牌烤",
 	"CANNON.title": "大炮",
-	"CANNON.description": "对所有敌人造成{Damage:diff()}点伤害。如果被[gold]烤[/gold]，自动打出并对所有敌人造成24点伤害，然后[gold]消耗[/gold]。"
+	"CANNON.description": "对所有敌人造成{Damage:diff()}点伤害。如果被[gold]烤[/gold]，自动打出并对所有敌人造成24点伤害，然后[gold]消耗[/gold]。",
+	"OVEN.title": "烤炉",
+	"OVEN.description": "获得{HeatPower:diff()}点[gold]炎热[/gold]。烤所有[gold]手牌[/gold]。\n烤：如果是食物卡，将其[gold]升级[/gold]，如果是其他卡，将其[gold]消耗[/gold]。",
+	"GASTRIC_POUCH.title": "胃袋",
+	"GASTRIC_POUCH.description": "造成{Damage:diff()}点伤害。你在本场战斗中每吃过一个食物，就额外打出一次。{InCombat:\n（攻击{CalculatedHits:diff()}次）|}"
 }

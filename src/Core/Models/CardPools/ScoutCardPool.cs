@@ -95,6 +95,8 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<Explosive>(),
 			ModelDb.Card<SmallRoast>(),
 			ModelDb.Card<Cannon>(),
+			ModelDb.Card<Oven>(),
+			ModelDb.Card<GastricPouch>(),
 		};
 	}
 
