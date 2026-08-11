@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace peak.Core.Models.Powers;
 
 /// <summary>
-/// 领队追杀：在你的回合结束时，受到 5 点伤害。
+/// 领队追杀：在你的回合结束时，受到伤害（每层 1 点）。
 /// </summary>
 public sealed class LeadersPursuitPower : PowerModel
 {
@@ -25,12 +25,12 @@ public sealed class LeadersPursuitPower : PowerModel
 	public override bool AllowNegative => false;
 
 	/// <summary>
-	/// 玩家回合结束时受到的自伤值（每层）。
+	/// 玩家回合结束时受到的自伤值（每层 = 1 点伤害）。
 	/// </summary>
-	public int DamagePerTurn => Amount * 5;
+	public int DamagePerTurn => Amount;
 
 	/// <summary>
-	/// 玩家回合结束时，受到 5 点伤害（可被格挡）。
+	/// 玩家回合结束时，受到伤害（每层 1 点，可被格挡）。
 	/// </summary>
 	public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
 	{
@@ -42,7 +42,7 @@ public sealed class LeadersPursuitPower : PowerModel
 
 		Flash(); // 领队追杀图标闪烁，提示玩家触发了效果
 
-		// 对自己造成伤害（每层 5 点，可被格挡）
+		// 对自己造成伤害（每层 1 点，可被格挡）
 		await CreatureCmd.Damage(
 			choiceContext,
 			Owner,

@@ -17,8 +17,8 @@ namespace peak.Core.Models.Cards;
 
 public sealed class ReachThePeak : CardModel
 {
-    // 基础消耗 1，技能卡，稀有度为 Rare，目标为自己
-    public ReachThePeak() : base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
+    // 基础消耗 1，技能卡，稀有度为先古，目标为自己
+    public ReachThePeak() : base(1, CardType.Skill, CardRarity.Ancient, TargetType.Self)
     {
     }
 

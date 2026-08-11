@@ -11,7 +11,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 能量饮料：消耗，获得 2 层虚弱，获得 2（3）点敏捷。
+/// 能量饮料：消耗，获得 2 层虚弱，获得 3（4）点敏捷。
 /// 2 费，食物牌（技能类型 + 食物接口），罕见稀有度，目标自身。
 /// </summary>
 public sealed class EnergyDrink : CardModel, IFoodCard
@@ -19,11 +19,11 @@ public sealed class EnergyDrink : CardModel, IFoodCard
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
-	// 动态变量：基础虚弱 2 层、基础敏捷 2 点（升级后 3 点）
+	// 动态变量：基础虚弱 2 层、基础敏捷 3 点（升级后 4 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
 		new PowerVar<WeakPower>(2m),
-		new PowerVar<DexterityPower>(2m)
+		new PowerVar<DexterityPower>(3m)
 	};
 
 	public EnergyDrink()
@@ -54,7 +54,7 @@ public sealed class EnergyDrink : CardModel, IFoodCard
 
 	protected override void OnUpgrade()
 	{
-		// 升级后敏捷 2 → 3
+		// 升级后敏捷 3 → 4 (+1)
 		base.DynamicVars["DexterityPower"].UpgradeValueBy(1m);
 	}
 }

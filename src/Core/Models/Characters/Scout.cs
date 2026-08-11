@@ -43,18 +43,18 @@ public sealed class Scout : CharacterModel
 
 	public override RelicPoolModel RelicPool => ModelDb.RelicPool<ScoutRelicPool>();
 
-	// 初始卡组
+	// 初始卡组：4 打击 + 4 防御 + 1 攀登 + 1 混合坚果
 	public override IEnumerable<CardModel> StartingDeck => new CardModel[10]
 	{
 		ModelDb.Card<StrikeScout>(),
 		ModelDb.Card<StrikeScout>(),
 		ModelDb.Card<StrikeScout>(),
 		ModelDb.Card<StrikeScout>(),
-		ModelDb.Card<StrikeScout>(),
 		ModelDb.Card<DefendScout>(),
 		ModelDb.Card<DefendScout>(),
 		ModelDb.Card<DefendScout>(),
 		ModelDb.Card<DefendScout>(),
+		ModelDb.Card<Climb>(),
 		ModelDb.Card<MixedNuts>()
 	};
 

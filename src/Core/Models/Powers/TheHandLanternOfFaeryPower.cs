@@ -26,9 +26,10 @@ public sealed class TheHandLanternOfFaeryPower : PowerModel
 	public override bool AllowNegative => false;
 
 	/// <summary>
-	/// 回合结束时：回复 2 生命，降低 10 炎热，降低 5 中毒，然后递减剩余回合数。
+	/// 回合结束时（在所有其他 AfterSideTurnEnd 之后）：回复 2 生命，降低 10 炎热，降低 5 中毒，然后递减剩余回合数。
+	/// 使用 Late 确保在散热等 power 之后执行，不干扰其他效果。
 	/// </summary>
-	public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+	public override async Task AfterSideTurnEndLate(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
 	{
 		if (!participants.Contains(Owner) || Owner.IsDead)
 		{
