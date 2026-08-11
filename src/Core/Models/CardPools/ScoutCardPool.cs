@@ -92,6 +92,9 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<BreakDown>(),
 			ModelDb.Card<Inventory>(),
 			ModelDb.Card<AllIntoBackpack>(),
+			ModelDb.Card<Explosive>(),
+			ModelDb.Card<SmallRoast>(),
+			ModelDb.Card<Cannon>(),
 		};
 	}
 

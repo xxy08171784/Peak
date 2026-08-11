@@ -14,7 +14,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 瓦解：失去所有覆甲，每失去一层覆甲就对所有敌人造成 4（6）点伤害一次。
+/// 瓦解：失去所有覆甲，每失去一层覆甲就对所有敌人造成 3（5）点伤害一次。
+/// 覆甲会一层一层消失，每消失一层造成一次伤害（连击效果）。
 /// 1 费，技能牌，罕见稀有度，目标自身。
 /// </summary>
 public sealed class BreakDown : CardModel
@@ -23,7 +24,7 @@ public sealed class BreakDown : CardModel
 
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
-		new DamageVar(4m, ValueProp.Move)
+		new DamageVar(3m, ValueProp.Move)
 	};
 
 	public BreakDown()
@@ -33,29 +34,34 @@ public sealed class BreakDown : CardModel
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		// 失去所有覆甲，计算层数
+		// 获取当前覆甲层数（不立即移除，由连击过程中逐层扣除）
 		PlatingPower? plating = base.Owner.Creature.GetPower<PlatingPower>();
-		int layersLost = 0;
-		if (plating != null && plating.Amount > 0)
-		{
-			layersLost = plating.Amount;
-			await PowerCmd.Remove(plating);
-		}
+		int layersLost = plating != null && plating.Amount > 0 ? plating.Amount : 0;
 
 		if (layersLost > 0)
 		{
-			// 每失去一层覆甲，对所有敌人造成 4（6）点伤害（总伤害 = 层数 * 4/6）
-			await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue * layersLost)
+			// 覆甲一层一层消失：每次造成伤害前扣除一层覆甲，形成连击
+			await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
+				.WithHitCount(layersLost)
 				.FromCard(this, cardPlay)
 				.TargetingAllOpponents(base.CombatState)
 				.WithHitFx("vfx/vfx_attack_blunt")
+				.WithWaitBeforeHit(0.08f, 0.12f)
+				.BeforeDamage(async () =>
+				{
+					// 每次造成伤害前，扣减一层覆甲（覆甲逐层消失）
+					if (plating != null && plating.Amount > 0)
+					{
+						await PowerCmd.ModifyAmount(choiceContext, plating, -1m, null, null);
+					}
+				})
 				.Execute(choiceContext);
 		}
 	}
 
 	protected override void OnUpgrade()
 	{
-		// 升级后伤害 4 -> 6 (+2)
+		// 升级后伤害 3 -> 5 (+2)
 		base.DynamicVars.Damage.UpgradeValueBy(2m);
 	}
 }

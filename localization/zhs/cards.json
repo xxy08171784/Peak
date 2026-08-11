@@ -1372,5 +1372,12 @@
 	"INVENTORY.selectionScreenPrompt": "选择一张手牌添加保留",
 	"ALL_INTO_BACKPACK.title": "塞包里",
 	"ALL_INTO_BACKPACK.description": "获得{Block:diff()}点[gold]格挡[/gold]。  将一张手牌放到抽牌堆顶。",
-	"ALL_INTO_BACKPACK.selectionScreenPrompt": "选择一张手牌放回抽牌堆"
+	"ALL_INTO_BACKPACK.selectionScreenPrompt": "选择一张手牌放回抽牌堆",
+	"EXPLOSIVE.title": "炸药",
+	"EXPLOSIVE.description": "对所有敌人造成{Damage:diff()}点伤害，对拥有[blue]渐冻[/blue]的敌人造成双倍伤害。",
+	"SMALL_ROAST.title": "小烤",
+	"SMALL_ROAST.description": "烤1张手牌，对所有敌人造成{Damage:diff()}点伤害{Repeat:diff()}次。\n烤：如果是食物卡，将其[gold]升级[/gold]，如果是其他卡，将其[gold]消耗[/gold]。",
+	"SMALL_ROAST.selectionScreenPrompt": "选择一张手牌烤",
+	"CANNON.title": "大炮",
+	"CANNON.description": "对所有敌人造成{Damage:diff()}点伤害。如果被[gold]烤[/gold]，自动打出并对所有敌人造成24点伤害，然后[gold]消耗[/gold]。"
 }
