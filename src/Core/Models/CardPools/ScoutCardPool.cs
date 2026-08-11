@@ -108,6 +108,7 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<ExperienceAndToughening>(),
 			ModelDb.Card<SnowballRolling>(),
 			ModelDb.Card<Snowball>(),
+			ModelDb.Card<ShareMisfortune>(),
 		};
 	}
 

@@ -1,4 +1,6 @@
 {
+  "SHARE_SUFFERING.title": "有难同当",
+  "SHARE_SUFFERING.description": "将你拥有的所有负面状态及其层数同步给予{IfUpgraded:show:所有敌人|一名敌人}。",
   "SNOWBALL_ROLLING.title": "滚雪球",
   "SNOWBALL_ROLLING.description": "若不存在[gold]雪球[/gold]，将1张[gold]雪球[/gold]加入你的[gold]手牌[/gold]。\n否则，使其所有数值增加1并移回[gold]手牌[/gold]。",
   "SNOWBALL.title": "雪球",
