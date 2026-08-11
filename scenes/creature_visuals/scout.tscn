@@ -20,7 +20,7 @@ IdleAnimation = "default"
 AttackAnimation = "attack"
 CastAnimation = null
 HurtAnimation = null
-DeathAnimation = null
+DeathAnimation = "death"
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true

@@ -12,8 +12,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 无尽攀登：获得 3（4）X 层覆甲。
-/// X 费（投入全部能量），技能牌，稀有稀有度，目标自身。
+/// 无尽攀登：获得 2（3）X 层覆甲。
+/// X 费（投入全部能量），技能牌，稀有稀有度，目标自身，消耗。
 /// </summary>
 public sealed class EndlessClimbing : CardModel
 {
@@ -21,9 +21,12 @@ public sealed class EndlessClimbing : CardModel
 
 	protected override bool HasEnergyCostX => true;
 
+	// 消耗关键词
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
-		new PowerVar<PlatingPower>(3m)
+		new PowerVar<PlatingPower>(2m)
 	};
 
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
@@ -52,7 +55,7 @@ public sealed class EndlessClimbing : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级后每 X 获得 3 -> 4 层覆甲
+		// 升级后每 X 获得 2 -> 3 层覆甲
 		base.DynamicVars["PlatingPower"].UpgradeValueBy(1m);
 	}
 }
