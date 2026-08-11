@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
-using peak.Core.Models.Powers;
 
 namespace peak.Core.Models.Cards;
 
@@ -16,11 +17,22 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class CheckpointFlag : CardModel
 {
+	private const string _checkpointHpKey = "CheckpointHp";
+
 	// 卡面图片（文件名与卡牌 ID 一致：checkpoint_flag.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/checkpoint_flag.png");
 
 	// 消耗 + 保留关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust, CardKeyword.Retain };
+
+	// 动态变量：CheckpointHp 显示"回到多少血"（战斗外/无记录时为当前生命值）
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new CalculationBaseVar(0m),
+		new CalculationExtraVar(1m),
+		new CalculatedVar(_checkpointHpKey).WithMultiplier((CardModel card, Creature? _) =>
+			CheckpointFlagTracker.GetLastTurnEndHp(card.Owner) ?? card.Owner.Creature.CurrentHp)
+	};
 
 	public CheckpointFlag()
 		: base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
@@ -29,26 +41,19 @@ public sealed class CheckpointFlag : CardModel
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		// 1. 确保检查点追踪器已生效（首次打出时给自己附加）
-		if (base.Owner.Creature.GetPower<CheckpointTrackerPower>() == null)
+		// 回溯生命值到上回合结束时的值
+		int? targetHp = CheckpointFlagTracker.GetLastTurnEndHp(base.Owner);
+		if (targetHp == null)
 		{
-			await PowerCmd.Apply<CheckpointTrackerPower>(
-				choiceContext,
-				base.Owner.Creature,
-				1m,
-				base.Owner.Creature,
-				this
-			);
+			return; // 无记录（例如第一回合），无事发生
 		}
 
-		// 2. 回溯生命值到上回合结束时的值
-		int targetHp = CheckpointFlagTracker.GetLastTurnEndHp(base.Owner);
 		int currentHp = base.Owner.Creature.CurrentHp;
 
 		// 只在实际值不同时更新（防止无效动画）
-		if (targetHp != currentHp)
+		if (targetHp.Value != currentHp)
 		{
-			await CreatureCmd.SetCurrentHp(base.Owner.Creature, targetHp);
+			await CreatureCmd.SetCurrentHp(base.Owner.Creature, targetHp.Value);
 		}
 	}
 
@@ -58,3 +63,4 @@ public sealed class CheckpointFlag : CardModel
 		base.EnergyCost.UpgradeBy(-1);
 	}
 }
+

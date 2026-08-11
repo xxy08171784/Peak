@@ -6,8 +6,8 @@
   "LATE_AT_NIGHT_POWER.description": "在你的回合开始时，给予所有角色[blue]1[/blue]层[gold]寒冷[/gold]。",
   "LATE_AT_NIGHT_POWER.smartDescription": "在你的回合开始时，给予所有角色[blue]{Amount}[/blue]层[gold]寒冷[/gold]。",
   "GRADUALLY_FREEZING_POWER.title": "渐冻",
-  "GRADUALLY_FREEZING_POWER.description": "在其回合开始时，失去[blue]10[/blue]点生命。",
-  "GRADUALLY_FREEZING_POWER.smartDescription": "在{OnPlayer:你的|其}回合开始时，失去[blue]{Amount}[/blue]点生命。",
+  "GRADUALLY_FREEZING_POWER.description": "在玩家的回合结束时，所有拥有[gold]渐冻[/gold]的敌人受到[blue]10[/blue] × 渐冻层数点伤害。",
+  "GRADUALLY_FREEZING_POWER.smartDescription": "在玩家的回合结束时，所有拥有[gold]渐冻[/gold]的敌人受到[blue]10[/blue] × 渐冻层数点伤害。",
   "CRUSH_THE_ICE_POWER.title": "碎冰",
   "CRUSH_THE_ICE_POWER.description": "对拥有[gold]渐冻[/gold]的敌人造成[blue]50%[/blue]额外伤害。",
   "CRUSH_THE_ICE_POWER.smartDescription": "对拥有[gold]渐冻[/gold]的敌人造成[blue]{Amount}%[/blue]额外伤害。",
@@ -924,8 +924,5 @@
   "FROSTBITE_POWER.smartDescription": "一种永久留存的[purple]减益印记[/purple]，不会自然流失。自身没有负面效果，但可以作为部分卡牌造成额外伤害的判定依据。",
   "MISFORTUNE_POWER.title": "厄运",
   "MISFORTUNE_POWER.description": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]7[/blue]点伤害。",
-  "MISFORTUNE_POWER.smartDescription": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。",
-  "CHECKPOINT_TRACKER_POWER.title": "检查点",
-  "CHECKPOINT_TRACKER_POWER.description": "记录你上回合结束时的生命值，供[gold]检查点旗帜[/gold]回溯。",
-  "CHECKPOINT_TRACKER_POWER.smartDescription": "记录你上回合结束时的生命值，供[gold]检查点旗帜[/gold]回溯。"
+  "MISFORTUNE_POWER.smartDescription": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。"
 }

@@ -10,47 +10,55 @@ using MegaCrit.Sts2.Core.Models;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 滚雪球：若雪球不存在则生成一张雪球加入手牌，若已存在则将其所有数值 +1 并移回手牌。
-/// 打出后滚雪球本身回到手牌底部。
-/// 1 费，技能牌，稀有稀有度，目标自身。升级后获得固有。
+/// 滚雪球：打出后：
+/// - 如果没有雪球，生成 1 张雪球加入手牌；
+/// - 如果手牌中有雪球，升级雪球；
+/// - 如果雪球存在但不在手牌，将雪球放入手牌并升级。
+/// 打出后滚雪球本身返回手牌。
+/// 1 费，技能牌，稀有稀有度，目标自身。
 /// </summary>
 public sealed class SnowballRolling : CardModel
 {
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/snowball_rolling.png");
+
 	public SnowballRolling()
-		: base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 	{
 	}
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		// 1. 搜索雪球
+		// 1. 搜索已存在的雪球
 		Snowball? existingSnowball = base.Owner.PlayerCombatState.AllCards
 			.OfType<Snowball>()
 			.FirstOrDefault();
 
-		if (existingSnowball != null)
+		if (existingSnowball == null)
 		{
-			existingSnowball.AddAllValues(1m);
+			// 1a. 没有雪球 -> 生成一张加入手牌
+			Snowball snowball = base.CombatState.CreateCard<Snowball>(base.Owner);
+			await CardPileCmd.AddGeneratedCardsToCombat(new[] { snowball }, PileType.Hand, base.Owner);
+		}
+		else
+		{
+			// 1b. 雪球不在手牌 -> 先移回手牌
 			if (existingSnowball.Pile?.Type != PileType.Hand)
 			{
 				await CardPileCmd.Add(existingSnowball, PileType.Hand);
 			}
-		}
-		else
-		{
-			Snowball snowball = base.CombatState.CreateCard<Snowball>(base.Owner);
-			await CardPileCmd.AddGeneratedCardsToCombat(new[] { snowball }, PileType.Hand, base.Owner);
+
+			// 1c. 升级雪球（可多次升级，每次 +1 级）
+			existingSnowball.UpgradeInternal();
+			existingSnowball.FinalizeUpgradeInternal();
 		}
 
-		// 🌟 关键：在 OnPlay 结束前，直接将自己移回手牌底部！
-		// 这样游戏后续就不会再把这张牌丢进弃牌堆了。
+		// 2. 打出后，滚雪球本身返回手牌底部
 		await CardPileCmd.Add(this, PileType.Hand, CardPilePosition.Bottom);
 	}
 
 	protected override void OnUpgrade()
 	{
-		// 升级后获得固有（每场战斗开局必定在手牌中）
-		AddKeyword(CardKeyword.Innate);
+		// 升级后费用 1 -> 0 (-1)
+		base.EnergyCost.UpgradeBy(-1);
 	}
 }

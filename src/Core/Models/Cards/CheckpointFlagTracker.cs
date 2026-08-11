@@ -5,7 +5,8 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 检查点追踪器：记录每位玩家"上回合结束时"的生命值。
-/// 由【检查点追踪器 Power】在每个玩家回合结束时更新。
+/// 由 Harmony Patch（CombatManager.EndPlayerTurnPhaseTwoInternal 的 Postfix）
+/// 在每个玩家回合结束时刷新记录。
 /// </summary>
 public static class CheckpointFlagTracker
 {
@@ -18,9 +19,20 @@ public static class CheckpointFlagTracker
 		_lastTurnEndHp[player] = hp;
 	}
 
-	/// <summary>获取指定玩家上回合结束时的生命值（无记录时返回当前生命值）。</summary>
-	public static int GetLastTurnEndHp(Player player)
+	/// <summary>获取指定玩家上回合结束时的生命值。</summary>
+	/// <returns>有记录返回记录值；无记录返回 null（用于卡面显示"回到多少血"）。</returns>
+	public static int? GetLastTurnEndHp(Player? player)
 	{
-		return _lastTurnEndHp.TryGetValue(player, out int hp) ? hp : player.Creature.CurrentHp;
+		if (player == null)
+		{
+			return null;
+		}
+		return _lastTurnEndHp.TryGetValue(player, out int hp) ? hp : null;
+	}
+
+	/// <summary>清空所有记录（战斗结束时调用，防止跨战斗残留）。</summary>
+	public static void Clear()
+	{
+		_lastTurnEndHp.Clear();
 	}
 }
