@@ -44,7 +44,7 @@ public sealed class TheWrathOfTheFoodGod : CardModel
 
 		// 造成动态计算的伤害：13 + 卡组中食物牌数量 * 3（5）
 		await DamageCmd.Attack(base.DynamicVars.CalculatedDamage)
-			.FromCard(this)
+			.FromCard(this, cardPlay)
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 			.Execute(choiceContext);

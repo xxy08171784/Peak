@@ -915,5 +915,14 @@
   "TELSON_POWER.title": "毒刺",
   "THE_HAND_LANTERN_OF_FAERY_POWER.description": "[blue]4[/blue]回合内，当你的回合结束时，回复[blue]2[/blue]生命，降低[blue]10[/blue][gold]炎热[/gold]，降低[blue]5[/blue][green]中毒[/green]。",
   "THE_HAND_LANTERN_OF_FAERY_POWER.smartDescription": "[blue]{Amount}[/blue]回合内，当你的回合结束时，回复[blue]2[/blue]生命，降低[blue]10[/blue][gold]炎热[/gold]，降低[blue]5[/blue][green]中毒[/green]。",
-  "THE_HAND_LANTERN_OF_FAERY_POWER.title": "仙子提灯"
+  "THE_HAND_LANTERN_OF_FAERY_POWER.title": "仙子提灯",
+  "COLD_POWER.title": "寒冷",
+  "COLD_POWER.description": "一种不会自然流失的[purple]减益印记[/purple]。每拥有[blue]2[/blue]层，转化为[blue]1[/blue]层[purple]易伤[/purple]、[blue]1[/blue]层[purple]虚弱[/purple]与[blue]1[/blue]层[gold]渐冻[/gold]。",
+  "COLD_POWER.smartDescription": "一种不会自然流失的[purple]减益印记[/purple]。每拥有[blue]2[/blue]层，转化为[blue]1[/blue]层[purple]易伤[/purple]、[blue]1[/blue]层[purple]虚弱[/purple]与[blue]1[/blue]层[gold]渐冻[/gold]。",
+  "FROSTBITE_POWER.title": "渐冻",
+  "FROSTBITE_POWER.description": "一种永久留存的[purple]减益印记[/purple]，不会自然流失。自身没有负面效果，但可以作为部分卡牌造成额外伤害的判定依据。",
+  "FROSTBITE_POWER.smartDescription": "一种永久留存的[purple]减益印记[/purple]，不会自然流失。自身没有负面效果，但可以作为部分卡牌造成额外伤害的判定依据。",
+  "MISFORTUNE_POWER.title": "厄运",
+  "MISFORTUNE_POWER.description": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]7[/blue]点伤害。",
+  "MISFORTUNE_POWER.smartDescription": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。"
 }

@@ -96,13 +96,11 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<BreakDown>(),
 			ModelDb.Card<Inventory>(),
 			ModelDb.Card<AllIntoBackpack>(),
-<<<<<<< HEAD
 			ModelDb.Card<Explosive>(),
 			ModelDb.Card<SmallRoast>(),
 			ModelDb.Card<Cannon>(),
 			ModelDb.Card<Oven>(),
 			ModelDb.Card<GastricPouch>(),
-=======
 			ModelDb.Card<CrushTheIce>(),
 			ModelDb.Card<GraduallyFreezing>(),
 			ModelDb.Card<TheMountainOfFlames>(),
@@ -116,7 +114,6 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<SnowballRolling>(),
 			ModelDb.Card<Snowball>(),
 			ModelDb.Card<ShareMisfortune>(),
->>>>>>> origin/xxy
 		};
 	}
 
