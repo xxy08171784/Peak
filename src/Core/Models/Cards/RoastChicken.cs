@@ -20,6 +20,9 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class RoastChicken : CardModel, IFoodCard
 {
+	// 消耗关键词
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+
 	// 动态变量：基础覆甲 6 层（升级后 8 层）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{

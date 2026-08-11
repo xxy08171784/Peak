@@ -22,8 +22,6 @@ public sealed class Rope : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：rope.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/rope.png");
 
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/rope.png");
-
 	// 动态变量：基础伤害 8 点、缠绕 1 层（升级后 2 层）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{

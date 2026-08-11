@@ -22,8 +22,6 @@ public sealed class TheWrathOfTheFoodGod : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：the_wrath_of_the_food_god.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/the_wrath_of_the_food_god.png");
 
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/the_wrath_of_the_food_god.png");
-
 	// 动态变量：基础伤害 13 点，每张食物牌 +3 点（升级后 +5 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{

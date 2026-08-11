@@ -47,11 +47,11 @@ public sealed class LeaderTrumpet : CardModel
 			base.Owner
 		);
 
-		// 3. 获得 1 层领队追杀
+		// 3. 获得 5 层领队追杀（每层 = 1 点伤害，显示和实际一致）
 		await PowerCmd.Apply<LeadersPursuitPower>(
 			choiceContext,
 			base.Owner.Creature,
-			1m,
+			5m,
 			base.Owner.Creature,
 			this
 		);

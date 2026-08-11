@@ -88,6 +88,10 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<MedicalKit>(),
 			ModelDb.Card<TheHandLanternOfFaery>(),
 			ModelDb.Card<Trumpet>(),
+			ModelDb.Card<EndlessClimbing>(),
+			ModelDb.Card<BreakDown>(),
+			ModelDb.Card<Inventory>(),
+			ModelDb.Card<AllIntoBackpack>(),
 		};
 	}
 

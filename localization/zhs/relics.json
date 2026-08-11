@@ -1,6 +1,6 @@
 {
   "MY_CLIMBING.title": "我的攀登",
-  "MY_CLIMBING.description": "初始遗物。环境值会在0到3之间循环变化。0: 获得3层[gold]覆甲[/gold]。1: 获得一个随机蘑菇。2: 失去10炎热并给予敌人1层寒冷。3: 获得15层炎热。",
+  "MY_CLIMBING.description": "战斗开始时切换到层数0。在每回合开始时，将层数增加1。\n0：海岛，获得3层[gold]覆甲[/gold]\n1：森蕈，获得一张[gold]蘑菇盲盒[/gold]\n2：方山，获得15层[red]炎热[/red]\n3：雪山，失去至多10点[red]炎热[/red]，给予所有敌人1层[blue]寒冷[/blue]",
   "MY_CLIMBING.flavor": "童子军必备技能——适应各种环境。",
   "AKABEKO.description": "在每场战斗开始时，获得[blue]{VigorPower}[/blue]点[gold]活力[/gold]。",
   "AKABEKO.flavor": "[red]这个遗物的细节将在未来揭晓……[/red]",

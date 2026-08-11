@@ -12,7 +12,7 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 棒棒糖：所有手牌在本回合内变成0费，下回合开始时失去1（0）费。
-/// 3 费（升级后 2 费），食物牌（技能类型 + 食物接口），稀有稀有度，目标自身，保留。
+/// 2 费，食物牌（技能类型 + 食物接口），稀有稀有度，目标自身，保留。
 /// </summary>
 public sealed class Lollipop : CardModel, IFoodCard
 {
@@ -26,7 +26,7 @@ public sealed class Lollipop : CardModel, IFoodCard
 	};
 
 	public Lollipop()
-		: base(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
+		: base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
 	{
 	}
 
@@ -57,8 +57,6 @@ public sealed class Lollipop : CardModel, IFoodCard
 
 	protected override void OnUpgrade()
 	{
-		// 升级后费用 3 → 2（-1）
-		base.EnergyCost.UpgradeBy(-1);
 		// 升级后疲劳层数降为 0（不给予疲劳 debuff）
 		base.DynamicVars["TiredPower"].UpgradeValueBy(-1m);
 	}

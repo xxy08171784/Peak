@@ -49,7 +49,6 @@ public sealed class TwinePower : PowerModel
 			DamagePerCard,
 			ValueProp.Unblockable | ValueProp.Unpowered,
 			null,
-			null,
 			null
 		);
 	}
