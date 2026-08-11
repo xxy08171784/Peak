@@ -13,38 +13,36 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace peak.Core.Models.Powers;
 
 /// <summary>
-/// 渐动：在你的回合开始时，对所有拥有渐冻的敌人造成伤害（每层 10/13 点）。
-/// Amount 即每回合造成的伤害值，多张渐动可叠加层数。
+/// 渐冻：在你的回合结束时，所有拥有渐冻的敌人受到 10 × 渐冻层数 点伤害。
+/// 伤害值与渐冻层数绑定，与自身层数无关。
 /// </summary>
 public sealed class GraduallyFreezingPower : PowerModel
 {
 	// 正向增益
 	public override PowerType Type => PowerType.Buff;
 
-	// 层数堆叠（层数 = 每回合伤害值）
+	// 层数堆叠（层数固定为 1，仅作标记）
 	public override PowerStackType StackType => PowerStackType.Counter;
 
 	// 不允许负数
 	public override bool AllowNegative => false;
 
-	/// <summary>
-	/// 每回合对拥有渐冻的敌人造成的伤害值。
-	/// </summary>
-	public int DamagePerTurn => Amount;
+	// 每层渐冻造成的伤害
+	private const decimal DamagePerFrostbiteStack = 10m;
 
 	/// <summary>
-	/// 玩家回合开始时，对所有拥有渐冻的敌人造成伤害。
+	/// 玩家回合结束时，对所有拥有渐冻的敌人造成 10 × 渐冻层数 点伤害。
 	/// </summary>
-	public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+	public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
 	{
-		// 只在宿主（玩家）自己的回合开始时触发
-		if (!participants.Contains(Owner))
+		// 只在玩家回合结束时触发
+		if (side != CombatSide.Player || !participants.Contains(Owner))
 		{
 			return;
 		}
 
 		// 获取所有拥有渐冻的敌人
-		List<Creature> frostbittenEnemies = combatState.HittableEnemies
+		List<Creature> frostbittenEnemies = Owner.CombatState.HittableEnemies
 			.Where(e => e.GetPower<FrostbitePower>() != null)
 			.ToList();
 
@@ -53,15 +51,21 @@ public sealed class GraduallyFreezingPower : PowerModel
 			return;
 		}
 
-		Flash(); // 渐动图标闪烁，提示玩家触发了效果
+		Flash(); // 渐冻图标闪烁，提示玩家触发了效果
 
-		// 对每个拥有渐冻的敌人造成伤害（失去生命 = 不可被格挡）
+		// 对每个拥有渐冻的敌人造成 10 × 渐冻层数 点伤害（失去生命 = 不可被格挡）
 		foreach (var enemy in frostbittenEnemies)
 		{
+			int frostbiteStacks = enemy.GetPower<FrostbitePower>()?.Amount ?? 0;
+			if (frostbiteStacks <= 0)
+			{
+				continue;
+			}
+
 			await CreatureCmd.Damage(
 				new ThrowingPlayerChoiceContext(),
 				enemy,
-				(decimal)DamagePerTurn,
+				DamagePerFrostbiteStack * frostbiteStacks,
 				ValueProp.Unpowered,
 				Owner
 			);
