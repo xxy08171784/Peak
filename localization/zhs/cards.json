@@ -2783,5 +2783,9 @@
   "EXPERIENCE_AND_TOUGHENING.title": "历练",
   "EXPERIENCE_AND_TOUGHENING.description": "每当你失去一个[red]负面状态[/red]时，获得{StrengthPower:diff()}点[gold]力量[/gold]。",
   "ADD_INSULT_TO_INJURY.title": "雪上加霜",
-  "ADD_INSULT_TO_INJURY.description": "使一名角色的所有负面状态翻倍"
+  "ADD_INSULT_TO_INJURY.description": "使一名角色的所有负面状态翻倍",
+  "CHECKPOINT_FLAG.title": "检查点旗帜",
+  "CHECKPOINT_FLAG.description": "将你的生命值回溯到你上回合结束时的值。",
+  "ANCIENT_CHEST.title": "古老宝箱",
+  "ANCIENT_CHEST.description": "失去{HpLoss:diff()}点生命值。将一个随机[gold]稀有道具[/gold]或[gold]食物卡[/gold]加入手牌。"
 }

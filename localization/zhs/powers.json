@@ -924,5 +924,8 @@
   "FROSTBITE_POWER.smartDescription": "一种永久留存的[purple]减益印记[/purple]，不会自然流失。自身没有负面效果，但可以作为部分卡牌造成额外伤害的判定依据。",
   "MISFORTUNE_POWER.title": "厄运",
   "MISFORTUNE_POWER.description": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]7[/blue]点伤害。",
-  "MISFORTUNE_POWER.smartDescription": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。"
+  "MISFORTUNE_POWER.smartDescription": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。",
+  "CHECKPOINT_TRACKER_POWER.title": "检查点",
+  "CHECKPOINT_TRACKER_POWER.description": "记录你上回合结束时的生命值，供[gold]检查点旗帜[/gold]回溯。",
+  "CHECKPOINT_TRACKER_POWER.smartDescription": "记录你上回合结束时的生命值，供[gold]检查点旗帜[/gold]回溯。"
 }
