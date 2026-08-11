@@ -63,7 +63,7 @@ public sealed class ForestMushroom : CardModel
 		await PowerCmd.Apply<SporePower>(
 			choiceContext,
 			base.Owner.Creature,
-			base.DynamicVars["Spore"].BaseValue,
+			base.DynamicVars["SporePower"].BaseValue,
 			base.Owner.Creature,
 			this
 		);

@@ -49,7 +49,7 @@ public sealed class Snowball : CardModel
 		await PowerCmd.Apply<ColdPower>(
 			choiceContext,
 			cardPlay.Target,
-			base.DynamicVars["Cold"].BaseValue,
+			base.DynamicVars["ColdPower"].BaseValue,
 			base.Owner.Creature,
 			this
 		);
@@ -58,7 +58,7 @@ public sealed class Snowball : CardModel
 		await PowerCmd.Apply<WeakPower>(
 			choiceContext,
 			cardPlay.Target,
-			base.DynamicVars["Weak"].BaseValue,
+			base.DynamicVars["WeakPower"].BaseValue,
 			base.Owner.Creature,
 			this
 		);
@@ -69,7 +69,7 @@ public sealed class Snowball : CardModel
 	/// </summary>
 	public void AddAllValues(decimal amount)
 	{
-		base.DynamicVars["Cold"].BaseValue += amount;
-		base.DynamicVars["Weak"].BaseValue += amount;
+		base.DynamicVars["ColdPower"].BaseValue += amount;
+		base.DynamicVars["WeakPower"].BaseValue += amount;
 	}
 }

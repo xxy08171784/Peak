@@ -29,6 +29,7 @@ public sealed class CrushTheIcePower : PowerModel
 
 	/// <summary>
 	/// 伤害修改钩子：对拥有渐冻的敌人造成额外伤害。
+	/// 与 RedHotPower 使用相同的 ModifyDamageGiven 钩子。
 	/// </summary>
 	public new decimal ModifyDamageGiven(
 		ICombatState combatState,
@@ -38,7 +39,7 @@ public sealed class CrushTheIcePower : PowerModel
 		Creature attacker)
 	{
 		// 只对拥有渐冻的目标生效
-		if (target.GetPower<FrostbitePower>() == null)
+		if (target == null || target.GetPower<FrostbitePower>() == null)
 		{
 			return damage;
 		}

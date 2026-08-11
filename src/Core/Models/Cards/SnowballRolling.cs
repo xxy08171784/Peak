@@ -12,13 +12,13 @@ namespace peak.Core.Models.Cards;
 /// <summary>
 /// 滚雪球：若雪球不存在则生成一张雪球加入手牌，若已存在则将其所有数值 +1 并移回手牌。
 /// 打出后滚雪球本身回到手牌底部。
-/// 1 费，技能牌，稀有稀有度，目标自身。升级后获得固有。
+/// 1 费，技能牌，罕见稀有度，目标自身。升级后获得固有。
 /// </summary>
 public sealed class SnowballRolling : CardModel
 {
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/snowball_rolling.png");
 	public SnowballRolling()
-		: base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 	{
 	}
 

@@ -33,12 +33,15 @@ public sealed class Misfortune : CardModel
 	};
 
 	public Misfortune()
-		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+		: base(1, CardType.Power, CardRarity.Uncommon, TargetType.Self)
 	{
 	}
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
+		// 播放能力强化动画
+		await CreatureCmd.TriggerAnim(base.Owner.Creature, "PowerUp", base.Owner.Character.PowerUpAnimDelay);
+
 		// 赋予玩家厄运能力，每次触发伤害 = 7（9）
 		await PowerCmd.Apply<MisfortunePower>(
 			choiceContext,

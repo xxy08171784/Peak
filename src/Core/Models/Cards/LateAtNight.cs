@@ -37,7 +37,7 @@ public sealed class LateAtNight : CardModel
         // 播放能力强化动画
         await CreatureCmd.TriggerAnim(base.Owner.Creature, "PowerUp", base.Owner.Character.PowerUpAnimDelay);
 
-        decimal coldAmount = base.DynamicVars["Cold"].BaseValue;
+        decimal coldAmount = base.DynamicVars["ColdPower"].BaseValue;
 
         // 赋予玩家 LateAtNightPower 能力
         var power = await PowerCmd.Apply<LateAtNightPower>(
