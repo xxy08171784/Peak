@@ -21,7 +21,7 @@ public sealed class Buffet : CardModel
 	// 卡面图片（文件名与卡牌 ID 一致：buffet.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/buffet.png");
 
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/buffet.png");
+	
 
 	// 动态变量：额外抽 2 张牌
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

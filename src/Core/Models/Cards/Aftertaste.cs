@@ -43,7 +43,7 @@ public sealed class Aftertaste : CardModel
 			await CardPileCmd.Add(food, PileType.Hand);
 		}
 	}
-
+	
 	protected override void OnUpgrade()
 	{
 		// 升级后费用 1 -> 0

@@ -21,8 +21,7 @@ public sealed class Panacea : CardModel, IFoodCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：panacea.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/panacea.png");
-
-	protected override string PortraitPngPath => ImageHelper.GetImagePath("packed/card_portraits/scout/panacea.png");
+	
 
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
