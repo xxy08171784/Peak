@@ -44,7 +44,7 @@ public sealed class Cannon : CardModel, IFoodCard
 		if (RoastTracker.WasRoasted(this))
 		{
 			await DamageCmd.Attack(24m)
-				.FromCard(this, cardPlay)
+				.FromCard(this)
 				.TargetingAllOpponents(base.CombatState)
 				.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 				.Execute(choiceContext);
@@ -53,7 +53,7 @@ public sealed class Cannon : CardModel, IFoodCard
 
 		// 未被烤：造成 12（15）点伤害
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 			.Execute(choiceContext);
@@ -61,15 +61,13 @@ public sealed class Cannon : CardModel, IFoodCard
 
 	/// <summary>
 	/// 被烤过的大炮打完自动进入消耗堆（而非弃牌堆）。
-	/// 该方法是 virtual 的，在 OnPlay 之前就被 OnPlayWrapper 调用以确定
-	/// 结果堆类型，因此能正确触发消耗视觉（tween 到消耗堆）。
 	/// </summary>
-	protected override CardLocation GetResultLocationForCardPlay()
+	protected override PileType GetResultPileTypeForCardPlay()
 	{
-		CardLocation result = base.GetResultLocationForCardPlay();
+		PileType result = base.GetResultPileTypeForCardPlay();
 		if (RoastTracker.WasRoasted(this))
 		{
-			result.pileType = PileType.Exhaust;
+			result = PileType.Exhaust;
 		}
 		return result;
 	}

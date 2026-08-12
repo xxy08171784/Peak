@@ -933,5 +933,8 @@
   "HIGH_MORALE_POWER.smartDescription": "每当你切换环境时，获得[blue]1[/blue]点[gold]覆甲[/gold]并抽{IfUpgraded:show:2|1}张牌。",
   "INITIAL_SUPPLIES_POWER.title": "初始物资",
   "INITIAL_SUPPLIES_POWER.description": "每当你回到0[gold]海岛[/gold]时，获得一张[gold]棉花糖[/gold]。",
-  "INITIAL_SUPPLIES_POWER.smartDescription": "每当你回到0[gold]海岛[/gold]时，获得一张[gold]棉花糖[/gold]。"
+  "INITIAL_SUPPLIES_POWER.smartDescription": "每当你回到0[gold]海岛[/gold]时，获得一张[gold]棉花糖[/gold]。",
+  "MAGIC_BEAN_POWER.title": "魔豆汁",
+  "MAGIC_BEAN_POWER.description": "每回合开始时获得 [blue]1[/blue] 点[gold]力量[/gold]和 [blue]1[/blue] 点[gold]敏捷[/gold]。",
+  "MAGIC_BEAN_POWER.smartDescription": "每回合开始时获得 [blue]{Amount}[/blue] 点[gold]力量[/gold]和 [blue]{Amount}[/blue] 点[gold]敏捷[/gold]。"
 }

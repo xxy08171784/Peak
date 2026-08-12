@@ -1,17 +1,23 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Nodes.Screens.CharacterSelect;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Characters;
+using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Managers;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Timeline;
+using MegaCrit.Sts2.Core.Logging;
 using peak.Core.Models.CardPools;
 using peak.Core.Models.Characters;
 using peak.Core.Models.PotionPools;
-using peak.Core.Models.RelicsPools; // 确保导入您的 Scout 命名空间
+using peak.Core.Models.RelicsPools;
+using peak.Core.Timeline.Epochs;
 
 namespace peak.Patches;
 
@@ -59,60 +65,126 @@ public static class ModelDbAllCharactersPatch
 }
 
 /// <summary>
-/// 跳过 Scout 角色的"打 Boss 解锁 Epoch"逻辑。
-/// Scout 是 Mod 自定义角色，没有注册 SCOUT2_EPOCH / SCOUT3_EPOCH / SCOUT4_EPOCH，
-/// 原版 ObtainCharUnlockEpoch 会因 EpochModel.Get 找不到 ID 而抛异常，
-/// 中断战斗胜利后的奖励流程（无法获得奖励、无法继续）。
-/// 这里在 Prefix 中直接拦截并跳过，让 UpdateAfterCombatWon 继续执行后续奖励逻辑。
+/// Scout2/3/4 的解锁由原版 ObtainCharUnlockEpoch 通过命名约定自动处理：
+///   Act1 Boss → SCOUT2_EPOCH
+///   Act2 Boss → SCOUT3_EPOCH
+///   Act3 Boss → SCOUT4_EPOCH
+/// 无需额外补丁——EpochRegistrationPatch 中的 EpochModel.Get(string) 补丁
+/// 已确保游戏能查找到这些 Scout epoch。
 /// </summary>
-[HarmonyPatch(typeof(ProgressSaveManager), "ObtainCharUnlockEpoch")]
-public static class ObtainCharUnlockEpochPatch
-{
-	[HarmonyPrefix]
-	static bool Prefix(Player localPlayer)
-	{
-		// 只跳过 Scout（通过角色 ID 判断，避免类型耦合）
-		if (localPlayer.Character.Id.Entry.Equals("scout", StringComparison.OrdinalIgnoreCase))
-		{
-			return false; // 跳过原方法
-		}
-		return true;
-	}
-}
 
 /// <summary>
-/// 跳过 Scout 角色的"检查击败15个精英的 Epoch"逻辑。
-/// 原版方法通过 if-else 链判断 character is Ironclad/Silent/Regent/Defect/Necrobinder/Deprived，
-/// Scout 不匹配任何类型，直接 throw ArgumentOutOfRangeException 中断流程。
+/// 为 Scout 角色处理"击败 15 个精英"的 Epoch 检测。
+/// 原版 CheckFifteenElitesDefeatedEpoch 使用硬编码类型检查链
+/// （if character is Ironclad/else if Silent/...），Scout 不在其中会抛异常。
+/// 此补丁在 Scout 情况下自行计数并获取 Scout5Epoch。
 /// </summary>
 [HarmonyPatch(typeof(ProgressSaveManager), "CheckFifteenElitesDefeatedEpoch")]
 public static class CheckFifteenElitesDefeatedEpochPatch
 {
+	private static MethodInfo? _getEliteEncountersMethod;
+	private static MethodInfo? _tryObtainEpochMidRunMethod;
+
 	[HarmonyPrefix]
-	static bool Prefix(Player localPlayer)
+	static bool Prefix(ProgressSaveManager __instance, Player localPlayer)
 	{
-		if (localPlayer.Character.Id.Entry.Equals("scout", StringComparison.OrdinalIgnoreCase))
+		if (!(localPlayer.Character is Scout))
 		{
-			return false;
+			return true; // 非 Scout 角色走原版逻辑
 		}
-		return true;
+
+		try
+		{
+			// 通过反射获取精英遭遇集合
+			_getEliteEncountersMethod ??= typeof(ProgressSaveManager)
+				.GetMethod("GetEliteEncounters", BindingFlags.NonPublic | BindingFlags.Static);
+			var eliteEncounters = (HashSet<ModelId>)_getEliteEncountersMethod!.Invoke(null, null)!;
+
+			// 统计 Scout 击败的精英数量
+			int count = 0;
+			foreach (var stats in __instance.Progress.EncounterStats.Values)
+			{
+				if (!eliteEncounters.Contains(stats.Id)) continue;
+				foreach (var fight in stats.FightStats)
+				{
+					if (fight.Character == localPlayer.Character.Id)
+					{
+						count += fight.Wins;
+						break;
+					}
+				}
+			}
+
+			if (count >= 15)
+			{
+				var epoch = EpochModel.Get(EpochModel.GetId<Scout5Epoch>());
+				_tryObtainEpochMidRunMethod ??= typeof(ProgressSaveManager)
+					.GetMethod("TryObtainEpochMidRun", BindingFlags.NonPublic | BindingFlags.Instance);
+				_tryObtainEpochMidRunMethod!.Invoke(__instance, new object[] { epoch, localPlayer });
+			}
+		}
+		catch (Exception ex)
+		{
+			Log.Error($"[Scout] CheckFifteenElitesDefeatedEpoch failed: {ex}");
+		}
+
+		return false; // 跳过原版方法
 	}
 }
 
 /// <summary>
-/// 跳过 Scout 角色的"检查击败15个 Boss 的 Epoch"逻辑，原因同上。
-/// 原版方法同样是 if-else 类型判断链，Scout 会抛 ArgumentOutOfRangeException。
+/// 为 Scout 角色处理"击败 15 个 Boss"的 Epoch 检测。
+/// 原版 CheckFifteenBossesDefeatedEpoch 同样使用硬编码类型检查链，
+/// Scout 不在其中会抛异常。此补丁在 Scout 情况下自行计数并获取 Scout6Epoch。
 /// </summary>
 [HarmonyPatch(typeof(ProgressSaveManager), "CheckFifteenBossesDefeatedEpoch")]
 public static class CheckFifteenBossesDefeatedEpochPatch
 {
+	private static MethodInfo? _tryObtainEpochMidRunMethod;
+
 	[HarmonyPrefix]
-	static bool Prefix(Player localPlayer)
+	static bool Prefix(ProgressSaveManager __instance, Player localPlayer)
 	{
-		if (localPlayer.Character.Id.Entry.Equals("scout", StringComparison.OrdinalIgnoreCase))
+		if (!(localPlayer.Character is Scout))
 		{
-			return false;
+			return true; // 非 Scout 角色走原版逻辑
 		}
-		return true;
+
+		try
+		{
+			// 收集所有 Boss 遭遇 ID
+			var bossIds = ModelDb.Acts
+				.SelectMany(a => a.AllBossEncounters.Select(e => e.Id))
+				.ToHashSet();
+
+			// 统计 Scout 击败的 Boss 数量
+			int count = 0;
+			foreach (var stats in __instance.Progress.EncounterStats.Values)
+			{
+				if (!bossIds.Contains(stats.Id)) continue;
+				foreach (var fight in stats.FightStats)
+				{
+					if (fight.Character == localPlayer.Character.Id)
+					{
+						count += fight.Wins;
+						break;
+					}
+				}
+			}
+
+			if (count >= 15)
+			{
+				var epoch = EpochModel.Get(EpochModel.GetId<Scout6Epoch>());
+				_tryObtainEpochMidRunMethod ??= typeof(ProgressSaveManager)
+					.GetMethod("TryObtainEpochMidRun", BindingFlags.NonPublic | BindingFlags.Instance);
+				_tryObtainEpochMidRunMethod!.Invoke(__instance, new object[] { epoch, localPlayer });
+			}
+		}
+		catch (Exception ex)
+		{
+			Log.Error($"[Scout] CheckFifteenBossesDefeatedEpoch failed: {ex}");
+		}
+
+		return false; // 跳过原版方法
 	}
 }

@@ -28,18 +28,27 @@ public sealed class ColdPower : PowerModel
 
     // 不重写 AfterSideTurnEnd 意味着它不会随着回合结束而自然减少
 
+    // 重入保护：防止 ModifyAmount 递归触发 AfterPowerAmountChanged
+    private bool _isProcessing;
+
     /// <summary>
     /// 当宿主身上的状态层数发生改变后触发自我检查。
     /// </summary>
     public override async Task AfterPowerAmountChanged(
-        PlayerChoiceContext choiceContext, 
-        PowerModel power, 
-        decimal amount, 
-        Creature? applier, 
+        PlayerChoiceContext choiceContext,
+        PowerModel power,
+        decimal amount,
+        Creature? applier,
         CardModel? cardSource)
     {
         // 安全拦截：只在改变的状态是”我自身”的时候才运行逻辑
         if (power != this)
+        {
+            return;
+        }
+
+        // 重入保护：如果已经在处理中，跳过（由外层循环统一处理）
+        if (_isProcessing)
         {
             return;
         }
@@ -54,24 +63,32 @@ public sealed class ColdPower : PowerModel
             }
         }
 
-        // 使用 while 循环：防止一次性获得 4 层或更多寒冷时，无法连续触发转化
-        // 添加安全计数器防止死循环（最大迭代 100 次，远超正常游戏场景）
-        int safetyCounter = 0;
-        while (Amount >= 2 && safetyCounter++ < 100)
+        _isProcessing = true;
+        try
         {
-            Flash(); // 状态图标闪烁，提示玩家触发了转化效果
+            // 使用 while 循环：防止一次性获得 4 层或更多寒冷时，无法连续触发转化
+            // 添加安全计数器防止死循环（最大迭代 100 次，远超正常游戏场景）
+            int safetyCounter = 0;
+            while (Amount >= 2 && safetyCounter++ < 100)
+            {
+                Flash(); // 状态图标闪烁，提示玩家触发了转化效果
 
-            // 1. 扣除 2 层寒冷值自身
-            await PowerCmd.ModifyAmount(choiceContext, this, -2, applier, cardSource);
+                // 1. 扣除 2 层寒冷值自身（重入保护已启用，不会递归触发）
+                await PowerCmd.ModifyAmount(choiceContext, this, -2, applier, cardSource);
 
-            // 2. 施加 1 层易伤 (Vulnerable)
-            await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner, 1, applier, cardSource);
+                // 2. 施加 1 层易伤 (Vulnerable)
+                await PowerCmd.Apply<VulnerablePower>(choiceContext, Owner, 1, applier, cardSource);
 
-            // 3. 施加 1 层虚弱 (Weak)
-            await PowerCmd.Apply<WeakPower>(choiceContext, Owner, 1, applier, cardSource);
+                // 3. 施加 1 层虚弱 (Weak)
+                await PowerCmd.Apply<WeakPower>(choiceContext, Owner, 1, applier, cardSource);
 
-            // 4. 施加 1 层渐冻 (Frostbite)
-            await PowerCmd.Apply<FrostbitePower>(choiceContext, Owner, 1, applier, cardSource);
+                // 4. 施加 1 层渐冻 (Frostbite)
+                await PowerCmd.Apply<FrostbitePower>(choiceContext, Owner, 1, applier, cardSource);
+            }
+        }
+        finally
+        {
+            _isProcessing = false;
         }
     }
 }

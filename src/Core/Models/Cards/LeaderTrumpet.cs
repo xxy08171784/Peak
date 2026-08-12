@@ -15,7 +15,7 @@ namespace peak.Core.Models.Cards;
 /// 领队追杀：在你的回合结束时，受到 5 点伤害。
 /// 0 费，技能牌，稀有稀有度，目标自身。
 /// </summary>
-public sealed class LeaderTrumpet : CardModel
+public sealed class LeaderTrumpet : CardModel, IItemCard
 {
 	// 动态变量：基础能量 2、基础抽牌 2
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

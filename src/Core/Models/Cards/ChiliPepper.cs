@@ -16,7 +16,7 @@ namespace peak.Core.Models.Cards;
 /// 辣椒：普通技能卡
 /// 1费，消耗，获得 17(25) 点炎热值
 /// </summary>
-public sealed class Chili : CardModel,IFoodCard
+public sealed class ChiliPepper : CardModel,IFoodCard
 {
     
     // 固有关键字：消耗（Exhaust）
@@ -28,7 +28,7 @@ public sealed class Chili : CardModel,IFoodCard
     // 将变量实例注册到卡牌变量池中（供本地化 JSON 渲染 {HeatPower:diff()}）
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[] { new PowerVar<HeatPower>(17m) };
 
-    public Chili()
+    public ChiliPepper()
         : base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
     {
     }

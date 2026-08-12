@@ -17,7 +17,7 @@ namespace peak.Core.Models.Cards;
 /// 万灵药：失去至多 20 点炎热、20 层中毒、20 层孢子、1 层虚弱、1 层脆弱、1 层易伤，回复 8（12）点生命值。
 /// 2 费，技能牌，稀有稀有度，目标自身，消耗，食物牌。
 /// </summary>
-public sealed class Panacea : CardModel, IFoodCard
+public sealed class Panacea : CardModel, IFoodCard, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：panacea.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/panacea.png");

@@ -15,7 +15,7 @@ namespace peak.Core.Models.Cards;
 /// 救援抓勾：抽 3（4）张牌，下回合开始时额外抽 3 张牌。
 /// 1 费，技能牌，稀有稀有度，目标自身。
 /// </summary>
-public sealed class RescueGrapple : CardModel
+public sealed class RescueGrapple : CardModel, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：rescue_grapple.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/rescue_grapple.png");

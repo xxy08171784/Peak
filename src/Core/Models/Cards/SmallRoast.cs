@@ -72,7 +72,7 @@ public sealed class SmallRoast : CardModel
 		int hitCount = base.IsUpgraded ? 3 : 2;
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
 			.WithHitCount(hitCount)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_slash")
 			.Execute(choiceContext);

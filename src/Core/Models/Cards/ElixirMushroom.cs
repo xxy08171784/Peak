@@ -15,7 +15,7 @@ namespace peak.Core.Models.Cards;
 /// 灵药菇：获得 3（4）点再生。
 /// 2 费，技能牌，罕见稀有度，目标自身，消耗，食物牌。
 /// </summary>
-public sealed class ElixirMushroom : CardModel, IFoodCard
+public sealed class ElixirMushroom : CardModel, IFoodCard, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：elixir_mushroom.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/elixir_mushroom.png");

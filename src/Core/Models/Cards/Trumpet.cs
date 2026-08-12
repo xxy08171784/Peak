@@ -13,7 +13,7 @@ namespace peak.Core.Models.Cards;
 /// 喇叭：抽 1 张牌，获得 1 费，每打出一次这张牌增加 1 费。
 /// 0 费，技能牌，罕见稀有度，目标自身。
 /// </summary>
-public sealed class Trumpet : CardModel
+public sealed class Trumpet : CardModel, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：trumpet.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/trumpet.png");

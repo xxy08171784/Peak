@@ -17,7 +17,7 @@ namespace peak.Core.Models.Cards;
 /// 烤：如果是食物卡，将其升级；如果是其他卡，将其消耗。
 /// 2 费（升级后 1 费），技能牌，罕见稀有度，目标自身。
 /// </summary>
-public sealed class Oven : CardModel
+public sealed class Oven : CardModel, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：oven.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/oven.png");

@@ -16,7 +16,7 @@ namespace peak.Core.Models.Cards;
 /// 4（5）回合内，当你的回合结束时，回复 2 生命，降低 10 炎热，降低 5 中毒。
 /// 1 费，能力牌，稀有稀有度，目标自身。
 /// </summary>
-public sealed class TheHandLanternOfFaery : CardModel
+public sealed class TheHandLanternOfFaery : CardModel, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：the_hand_lantern_of_faery.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/the_hand_lantern_of_faery.png");

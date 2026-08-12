@@ -15,7 +15,7 @@ namespace peak.Core.Models.Cards;
 /// 每回合开始时获得 7（10）点炎热。
 /// 1 费，能力牌，普通稀有度，目标自身。
 /// </summary>
-public sealed class WarmPaste : CardModel
+public sealed class WarmPaste : CardModel, IItemCard
 {
 	// 动态变量：基础每回合获得 7 点炎热值（升级后 10 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

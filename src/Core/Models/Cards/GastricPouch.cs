@@ -59,7 +59,7 @@ public sealed class GastricPouch : CardModel
 
 		// 造成 5（7）点伤害（每次打出执行一次）
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_blunt")
 			.Execute(choiceContext);
@@ -87,7 +87,7 @@ public sealed class GastricPouch : CardModel
 			return 0;
 		}
 		return CombatManager.Instance.History.CardPlaysFinished.Count(e =>
-			e.CardPlay.Player == card.Owner && e.CardPlay.Card is IFoodCard);
+			e.Actor == card.Owner.Creature && e.CardPlay.Card is IFoodCard);
 	}
 
 	protected override void OnUpgrade()
