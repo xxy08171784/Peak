@@ -46,7 +46,7 @@ public sealed class AllOrNothing : CardModel
 	{
 		// 对所有敌人造成 3x² 点伤害（x = 自身 debuff 种类数）
 		await DamageCmd.Attack(base.DynamicVars.CalculatedDamage)
-			.FromCard(this)
+			.FromCard(this, cardPlay)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 			.Execute(choiceContext);

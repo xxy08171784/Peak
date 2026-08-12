@@ -59,7 +59,7 @@ public sealed class GastricPouch : CardModel
 
 		// 造成 5（7）点伤害（每次打出执行一次）
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this)
+			.FromCard(this, cardPlay)
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_blunt")
 			.Execute(choiceContext);

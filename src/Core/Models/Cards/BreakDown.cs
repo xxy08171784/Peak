@@ -43,7 +43,7 @@ public sealed class BreakDown : CardModel
 			// 覆甲一层一层消失：每次造成伤害前扣除一层覆甲，形成连击
 			await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
 				.WithHitCount(layersLost)
-				.FromCard(this)
+				.FromCard(this, cardPlay)
 				.TargetingAllOpponents(base.CombatState)
 				.WithHitFx("vfx/vfx_attack_blunt")
 				.WithWaitBeforeHit(0.08f, 0.12f)

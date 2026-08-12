@@ -18,7 +18,7 @@ namespace peak.Core.Models.Cards;
 public sealed class InitialSupplies : CardModel
 {
 	// 卡面图片
-	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/initial_supplies.png");
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/Initial_supplies.png");
 
 	// 动态变量：基础 1 层能力
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
