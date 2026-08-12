@@ -16,11 +16,9 @@ scale = Vector2(0.204, 0.204)
 sprite_frames = ExtResource("2_afe8j")
 frame_progress = 0.21526378
 script = ExtResource("3_4b3i3")
-IdleAnimation = "default"
-AttackAnimation = "attack"
-CastAnimation = null
-HurtAnimation = null
-DeathAnimation = "death"
+IdleAnimation = null
+AttackAnimation = null
+DeathAnimation = null
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true

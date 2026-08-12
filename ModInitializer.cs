@@ -14,6 +14,7 @@ using peak.Core.Models.Cards;
 using peak.Core.Models.Characters;
 using peak.Core.Models.Potions;
 using peak.Core.Models.Relics;
+using peak.Patches;
 
 namespace peak
 {
@@ -27,7 +28,10 @@ namespace peak
 			var harmony = new Harmony("xxy_peak");
 			harmony.PatchAll();
 
-			// 2. 注册关联卡牌和遗物到对应的池子中（注意：这里只传递 typeof 结构，非常安全，不会触发任何实例化，因此绝不会导致闪退）
+			// 1.5. 用反射将 Scout epoch 注入 EpochModel._allEpochs（无法通过 Harmony getter 补丁实现）
+			ScoutEpochRegistrar.Register();
+
+			// 2. 注册关联卡牌和遗物到对应的池子中
 			// 混池遗物 — 普通
 			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Flintstone));
 			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Telescope));

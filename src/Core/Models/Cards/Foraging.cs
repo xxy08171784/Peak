@@ -29,7 +29,7 @@ public sealed class Foraging : CardModel
 	private static readonly Type[] FoodPool = new Type[]
 	{
 		typeof(Banana),
-		typeof(Chili),
+		typeof(ChiliPepper),
 		typeof(EnergyDrink),
 		typeof(GoodnightBerry),
 		typeof(GreenBerry),
