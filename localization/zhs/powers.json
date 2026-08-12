@@ -924,5 +924,14 @@
   "FROSTBITE_POWER.smartDescription": "一种永久留存的[purple]减益印记[/purple]，不会自然流失。自身没有负面效果，但可以作为部分卡牌造成额外伤害的判定依据。",
   "MISFORTUNE_POWER.title": "厄运",
   "MISFORTUNE_POWER.description": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]7[/blue]点伤害。",
-  "MISFORTUNE_POWER.smartDescription": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。"
+  "MISFORTUNE_POWER.smartDescription": "每当你给予敌人一次[purple]负面状态[/purple]时，对随机一名敌人造成[blue]{Amount}[/blue]点伤害。",
+  "RAPID_MARCH_POWER.title": "急行军",
+  "RAPID_MARCH_POWER.description": "每回合开始时，额外增加一次环境。",
+  "RAPID_MARCH_POWER.smartDescription": "每回合开始时，额外增加{Amount}次环境。",
+  "HIGH_MORALE_POWER.title": "士气高涨",
+  "HIGH_MORALE_POWER.description": "每当你切换环境时，获得[blue]1[/blue]点[gold]覆甲[/gold]并抽{IfUpgraded:show:2|1}张牌。",
+  "HIGH_MORALE_POWER.smartDescription": "每当你切换环境时，获得[blue]1[/blue]点[gold]覆甲[/gold]并抽{IfUpgraded:show:2|1}张牌。",
+  "INITIAL_SUPPLIES_POWER.title": "初始物资",
+  "INITIAL_SUPPLIES_POWER.description": "每当你回到0[gold]海岛[/gold]时，获得一张[gold]棉花糖[/gold]。",
+  "INITIAL_SUPPLIES_POWER.smartDescription": "每当你回到0[gold]海岛[/gold]时，获得一张[gold]棉花糖[/gold]。"
 }

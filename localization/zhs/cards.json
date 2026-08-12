@@ -2787,5 +2787,20 @@
   "CHECKPOINT_FLAG.title": "检查点旗帜",
   "CHECKPOINT_FLAG.description": "将你的生命值回溯到[gold]{CheckpointHp}点[/gold]。\n每回合结束时，会记录你当时的生命值。",
   "ANCIENT_CHEST.title": "古老宝箱",
-  "ANCIENT_CHEST.description": "失去{HpLoss:diff()}点生命值。将一个随机[gold]稀有道具[/gold]或[gold]食物卡[/gold]加入手牌。"
+  "ANCIENT_CHEST.description": "失去{HpLoss:diff()}点生命值。将一个随机[gold]稀有道具[/gold]或[gold]食物卡[/gold]加入手牌。",
+  "RAPID_MARCH.title": "急行军",
+  "RAPID_MARCH.description": "[gold]固有[/gold]。获得能力：每回合开始时，额外增加一次环境。",
+  "HIGH_MORALE.title": "士气高涨",
+  "HIGH_MORALE.description": "获得能力：每当你切换环境时，获得1点[gold]覆甲[/gold]并抽{IfUpgraded:show:2|1}张牌。",
+  "INITIAL_SUPPLIES.title": "初始物资",
+  "INITIAL_SUPPLIES.description": "获得能力：每当你回到0[gold]海岛[/gold]时，获得一张[gold]棉花糖[/gold]。",
+  "SURPRISE_ATTACK.title": "天降奇兵",
+  "SURPRISE_ATTACK.description": "从四个[gold]场景[/gold]中选择一个切换过去。",
+  "SURPRISE_ATTACK.selectionScreenPrompt": "选择要切换到的场景",
+  "WHERE_DREAMS_BEGIN.title": "梦开始的地方",
+  "WHERE_DREAMS_BEGIN.description": "切换到0[gold]海岛[/gold]。",
+  "STAGE_CLEAR_MASTER.title": "闯关高手",
+  "STAGE_CLEAR_MASTER.description": "将[gold]环境[/gold]增加X{IfUpgraded:show:+1}次。",
+  "PEAK.title": "PEAK",
+  "PEAK.description": "如果你在本回合内按[gold]01230[/gold]顺序切换过场景，获得本场战斗胜利。"
 }
