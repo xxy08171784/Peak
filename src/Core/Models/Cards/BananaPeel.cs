@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -18,6 +19,9 @@ namespace peak.Core.Models.Cards;
 
 public sealed class BananaPeel : CardModel
 {
+	// 卡面图片
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/banana_skin.png");
+
 	// 悬停提示：显示虚弱（WeakPower）说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => 
 		new IHoverTip[] { HoverTipFactory.FromPower<WeakPower>() };

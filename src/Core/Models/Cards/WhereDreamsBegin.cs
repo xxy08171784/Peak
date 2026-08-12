@@ -12,15 +12,15 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 梦开始的地方：切换到 0 海岛。
-/// 0 费，技能牌，普通稀有度，目标自身，保留。
+/// 0 费，技能牌，普通稀有度，目标自身，消耗。
 /// </summary>
 public sealed class WhereDreamsBegin : CardModel
 {
 	// 卡面图片
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/where_dreams_begin.png");
 
-	// 保留关键词
-	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Retain };
+	// 消耗关键词（升级前后都有）
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
 	public WhereDreamsBegin()
 		: base(0, CardType.Skill, CardRarity.Common, TargetType.Self)

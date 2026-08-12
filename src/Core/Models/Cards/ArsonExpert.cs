@@ -11,14 +11,12 @@ using peak.Core.Models.Powers;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 纵火高手：固有。获得 1 层纵火高手。
+/// 纵火高手：获得 1 层纵火高手。
 /// 纵火高手：HeatPower 回合结束伤害翻倍。
+/// 1 费，升级后 0 费，无固有词条。
 /// </summary>
 public sealed class ArsonExpert : CardModel
 {
-	// 固有关键字
-	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Innate };
-
 	public ArsonExpert()
 		: base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 	{
