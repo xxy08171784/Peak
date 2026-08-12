@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace peak.Core.Models.Relics;
 
-public sealed class MyClimbing : RelicModel
+public class MyClimbing : RelicModel
 {
 	private int _environmentValue = 0;
 	private bool _hasInitializedThisCombat = false;
@@ -63,7 +63,7 @@ public sealed class MyClimbing : RelicModel
 	/// <summary>
 	/// 修改环境值并触发一次效果（环境值循环 0-3：海岛/森蕈/方山/雪山）。
 	/// </summary>
-	public async Task ModifyEnvironmentValue(PlayerChoiceContext choiceContext, int amount)
+	public virtual async Task ModifyEnvironmentValue(PlayerChoiceContext choiceContext, int amount)
 	{
 		int previousValue = EnvironmentValue;
 
@@ -82,7 +82,7 @@ public sealed class MyClimbing : RelicModel
 	/// <summary>
 	/// 直接切换到指定场景（0-3），触发场景效果与环境切换事件。
 	/// </summary>
-	public async Task SetEnvironmentValue(PlayerChoiceContext choiceContext, int targetValue)
+	public virtual async Task SetEnvironmentValue(PlayerChoiceContext choiceContext, int targetValue)
 	{
 		int clamped = ((targetValue % 4) + 4) % 4;
 		int previousValue = EnvironmentValue;
@@ -118,7 +118,7 @@ public sealed class MyClimbing : RelicModel
 	/// <summary>
 	/// 公共方法：无视场景切换条件，直接强行触发指定场景的效果（供卡牌调用）
 	/// </summary>
-	public async Task ExecuteStateEffect(PlayerChoiceContext choiceContext, int stateValue)
+	public virtual async Task ExecuteStateEffect(PlayerChoiceContext choiceContext, int stateValue)
 	{
 		if (base.Owner?.Creature == null)
 		{

@@ -123,6 +123,7 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<WhereDreamsBegin>(),
 			ModelDb.Card<StageClearMaster>(),
 			ModelDb.Card<Peak>(),
+			ModelDb.Card<Override>(),
 		};
 	}
 

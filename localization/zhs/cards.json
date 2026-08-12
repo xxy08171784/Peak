@@ -1282,8 +1282,6 @@
 	"CHILI.description": "获得{HeatPower:diff()}层[gold]炎热[/gold]。",
 	"CLIMB.title": "攀登",
 	"CLIMB.description": "切换到下一个场景。",
-	"REACH_THE_PEAK.title": "勇攀高峰",
-	"REACH_THE_PEAK.description": "将[gold]环境值[/gold]切换为指定模式。",
 	"ARSON_EXPERT.title": "纵火高手",
 	"ARSON_EXPERT.description": "[gold]固有[/gold]。  获得1层[gold]纵火高手[/gold]。[gold]纵火高手[/gold]：使[gold]炎热值[/gold]损失造成的伤害翻倍，并对所有敌人造成伤害。",
 	"ICE_DEW.title": "冰露",
@@ -2677,8 +2675,8 @@
   "CHILI.description": "获得{HeatPower:diff()}点[gold]炎热[/gold]。",
   "CLIMB.title": "攀登",
   "CLIMB.description": "切换到下一个场景。",
-  "REACH_THE_PEAK.title": "勇攀高峰",
-  "REACH_THE_PEAK.description": "将[gold]环境值[/gold]切换为指定模式。",
+  "REACH_THE_PEAK.title": "登峰造极",
+  "REACH_THE_PEAK.description": "切换到下一个[gold]场景[/gold]，触发3次切换效果。",
   "ARSON_EXPERT.title": "纵火高手",
   "ARSON_EXPERT.description": "[gold]固有[/gold]。\n获得1层[gold]纵火高手[/gold]。\n[gold]纵火高手[/gold]：使[gold]炎热[/gold]损失造成的伤害翻倍，并对所有敌人造成伤害。",
   "ICE_DEW.title": "冰露",
@@ -2802,5 +2800,7 @@
   "STAGE_CLEAR_MASTER.title": "闯关高手",
   "STAGE_CLEAR_MASTER.description": "将[gold]环境[/gold]增加X{IfUpgraded:show:+1}次。",
   "PEAK.title": "PEAK",
-  "PEAK.description": "如果你在本回合内按[gold]01230[/gold]顺序切换过场景，获得本场战斗胜利。"
+  "PEAK.description": "如果你在本回合内按[gold]01230[/gold]顺序切换过场景，获得本场战斗胜利。",
+  "OVERRIDE.title": "凌驾",
+  "OVERRIDE.description": "[gold]固有[/gold]。\n获得{Energy:diff()}点[gold]能量[/gold]，抽{Cards:diff()}张牌，获得{PlatingPower:diff()}层[gold]覆甲[/gold]。"
 }
