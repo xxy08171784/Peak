@@ -116,6 +116,13 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<ShareMisfortune>(),
 			ModelDb.Card<CheckpointFlag>(),
 			ModelDb.Card<AncientChest>(),
+			ModelDb.Card<RapidMarch>(),
+			ModelDb.Card<HighMorale>(),
+			ModelDb.Card<InitialSupplies>(),
+			ModelDb.Card<SurpriseAttack>(),
+			ModelDb.Card<WhereDreamsBegin>(),
+			ModelDb.Card<StageClearMaster>(),
+			ModelDb.Card<Peak>(),
 		};
 	}
 

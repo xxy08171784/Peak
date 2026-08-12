@@ -12,6 +12,7 @@ using peak.Core.Models.CardPools;
 using peak.Core.Models.Cards;
 
 using peak.Core.Models.Characters;
+using peak.Core.Models.Potions;
 using peak.Core.Models.Relics;
 
 namespace peak
@@ -48,6 +49,16 @@ namespace peak
 			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(PotionTasting));
 			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(ThickSkin));
 			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(GoldenBinbang));
+			// 混池药水
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(PoisonedBottle));
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(CactusJuice));
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(SleepingPill));
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(MagicBeanJuice));
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(SpritePotion));
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(BottledMist));
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(BottledTornado));
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(MilkPotion));
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(FreezeBottle));
 			Log.Info("加载成功！");
 		}
 	}

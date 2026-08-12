@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -20,14 +21,20 @@ namespace peak.Core.Models.Relics;
 
 public class MyClimbing : RelicModel
 {
-	/// <summary>
-	/// 场景切换事件，参数为新场景值（0-3）。
-	/// 其他遗物（如 Alpenstock）可订阅此事件来响应场景变化。
-	/// </summary>
-	public event Action<int>? SceneChanged;
-
 	private int _environmentValue = 0;
 	private bool _hasInitializedThisCombat = false;
+
+	/// <summary>
+	/// 本回合内的环境切换序列（记录每次切换后的环境值，首元素为回合开始时的环境值）。
+	/// 供【PEAK】等卡牌判定本回合是否出现过 01230 切换。
+	/// </summary>
+	private readonly List<int> _turnEnvironmentSequence = new();
+
+	/// <summary>
+	/// 环境切换事件：玩家、环境变化前的值、环境变化后的值。
+	/// 供【士气高涨】【初始物资】等能力卡监听"切换环境"时机。
+	/// </summary>
+	public static event Action<Player, int, int>? EnvironmentChanged;
 
 	// 这是 Scout 的初始遗物，稀有度必须为 Starter，
 	// 否则会进入遗物袋被宝箱/精英/事件再次开出（官方初始遗物均为 Starter，会被遗物袋自动过滤）
@@ -37,7 +44,7 @@ public class MyClimbing : RelicModel
 
 	public override int DisplayAmount => EnvironmentValue;
 
-	protected int EnvironmentValue
+	private int EnvironmentValue
 	{
 		get => _environmentValue;
 		set
@@ -48,13 +55,13 @@ public class MyClimbing : RelicModel
 		}
 	}
 
-	protected void UpdateDisplay()
+	private void UpdateDisplay()
 	{
 		InvokeDisplayAmountChanged();
 	}
 
 	/// <summary>
-	/// 修改环境值并触发一次效果
+	/// 修改环境值并触发一次效果（环境值循环 0-3：海岛/森蕈/方山/雪山）。
 	/// </summary>
 	public async Task ModifyEnvironmentValue(PlayerChoiceContext choiceContext, int amount)
 	{
@@ -68,8 +75,19 @@ public class MyClimbing : RelicModel
 
 		EnvironmentValue = newValue;
 
-		// 通知订阅者场景已切换
-		SceneChanged?.Invoke(newValue);
+		// 触发阶段事件
+		await TriggerEnvironmentEffect(choiceContext, previousValue, EnvironmentValue);
+	}
+
+	/// <summary>
+	/// 直接切换到指定场景（0-3），触发场景效果与环境切换事件。
+	/// </summary>
+	public async Task SetEnvironmentValue(PlayerChoiceContext choiceContext, int targetValue)
+	{
+		int clamped = ((targetValue % 4) + 4) % 4;
+		int previousValue = EnvironmentValue;
+
+		EnvironmentValue = clamped;
 
 		// 触发阶段事件
 		await TriggerEnvironmentEffect(choiceContext, previousValue, EnvironmentValue);
@@ -83,6 +101,15 @@ public class MyClimbing : RelicModel
 		}
 
 		Flash();
+
+		// 环境切换事件：通知监听者（士气高涨、初始物资等）
+		if (previousValue != currentValue)
+		{
+			// 记录到本回合切换序列（供 PEAK 判定）
+			_turnEnvironmentSequence.Add(currentValue);
+
+			EnvironmentChanged?.Invoke(base.Owner, previousValue, currentValue);
+		}
 
 		// 执行当前状态的效果
 		await ExecuteStateEffect(choiceContext, currentValue);
@@ -139,7 +166,10 @@ public class MyClimbing : RelicModel
 		// 计数切到 0
 		_environmentValue = 0;
 		UpdateDisplay();
-		SceneChanged?.Invoke(0);
+
+		// 记录首回合初始环境值（0），作为切换序列的起点（供 PEAK 判定）
+		_turnEnvironmentSequence.Clear();
+		_turnEnvironmentSequence.Add(0);
 
 		var choiceContext = new ThrowingPlayerChoiceContext();
 
@@ -166,7 +196,10 @@ public class MyClimbing : RelicModel
 			// 兜底：如果 BeforeCombatStart 没有跑（理论上不会），首回合切到 0
 			_environmentValue = 0;
 			UpdateDisplay();
-			SceneChanged?.Invoke(0);
+
+			// 记录首回合初始环境值（0）
+			_turnEnvironmentSequence.Clear();
+			_turnEnvironmentSequence.Add(0);
 			return;
 		}
 
@@ -176,16 +209,23 @@ public class MyClimbing : RelicModel
 			return;
 		}
 
-		// 第二回合起：计数 +1 并触发新场景效果
+		// 第二回合起：清空上一回合的切换记录，记录本回合初始环境值，然后计数 +1 并触发新场景效果
+		_turnEnvironmentSequence.Clear();
+		_turnEnvironmentSequence.Add(EnvironmentValue);
+
 		int previousValue = EnvironmentValue;
 		int newValue = (previousValue + 1) % 4;
 		EnvironmentValue = newValue;
-		SceneChanged?.Invoke(newValue);
 
 		// 回合开始钩子无 PlayerChoiceContext，使用后台安全上下文
 		var choiceContext = new ThrowingPlayerChoiceContext();
 
 		Flash();
+
+		// 记录本次切换并通知监听者（士气高涨、初始物资等）
+		_turnEnvironmentSequence.Add(newValue);
+		EnvironmentChanged?.Invoke(base.Owner, previousValue, newValue);
+
 		await ExecuteStateEffect(choiceContext, newValue);
 	}
 
@@ -238,11 +278,41 @@ public class MyClimbing : RelicModel
 
 	#endregion
 
+	/// <summary>
+	/// 本回合内是否出现过 0→1→2→3→0 的环境切换子序列（允许前后有其他切换，如 301230 也成功）。
+	/// 供【PEAK】卡打出时判定。
+	/// </summary>
+	public bool HasSeen01230SequenceThisTurn
+	{
+		get
+		{
+			// 目标子序列：0→1→2→3→0
+			Span<int> target = stackalloc int[5] { 0, 1, 2, 3, 0 };
+
+			// 子序列匹配：在 _turnEnvironmentSequence 中查找是否包含 0,1,2,3,0（不要求连续）
+			int targetIndex = 0;
+			foreach (int value in _turnEnvironmentSequence)
+			{
+				if (value == target[targetIndex])
+				{
+					targetIndex++;
+					if (targetIndex == target.Length)
+					{
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
+	}
+
 	public override Task AfterCombatEnd(CombatRoom _)
 	{
 		base.Status = RelicStatus.Normal;
 		_environmentValue = 0;
 		_hasInitializedThisCombat = false;
+		_turnEnvironmentSequence.Clear();
 		return Task.CompletedTask;
 	}
 

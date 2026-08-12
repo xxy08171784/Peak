@@ -27,5 +27,6 @@
     <Content Include="localization\zhs\cards.json" />
     <Content Include="localization\zhs\powers.json" />
     <Content Include="localization\zhs\relics.json" />
+    <Content Include="localization\zhs\potions.json" />
   </ItemGroup>
 </Project>

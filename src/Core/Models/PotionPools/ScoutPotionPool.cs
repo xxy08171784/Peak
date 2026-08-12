@@ -6,8 +6,9 @@ using MegaCrit.Sts2.Core.Timeline.Epochs;
 using MegaCrit.Sts2.Core.Unlocks;
 
 // ===== 手动补充导入游戏本体的药水和模型命名空间 =====
-using MegaCrit.Sts2.Core.Models; 
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.PotionPools;
+using peak.Core.Models.Potions;
 
 namespace peak.Core.Models.PotionPools;
 
@@ -21,15 +22,12 @@ public sealed class ScoutPotionPool : PotionPoolModel
 
 	protected override IEnumerable<PotionModel> GenerateAllPotions()
 	{
-		// 暂时还没有专属药水，在此直接返回空数组以保证编译通过。
-		// 以后如果您设计了专属药水，可以像遗物池一样，使用以下数组形式返回：
-		/*
 		return new PotionModel[]
 		{
-			ModelDb.Potion<ScoutEnergyPotion>() // 假设的专属药水类
+			ModelDb.Potion<AloeJuice>(),
+			ModelDb.Potion<SnowballPotion>(),
+			ModelDb.Potion<PandoraPotion>()
 		};
-		*/
-		return Array.Empty<PotionModel>();
 	}
 
 	public override IEnumerable<PotionModel> GetUnlockedPotions(UnlockState unlockState)
