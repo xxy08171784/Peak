@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcfnexwpl4qd6"]
 
-[ext_resource type="Texture2D" uid="uid://c21lvi4xjvvfu" path="res://animations/character_select/scout/characterselect_scout.png" id="1_w7hfy"]
+[ext_resource type="Texture2D" uid="uid://c21lvi4xjvvfu" path="res://animations/character_select/scout/1.png" id="1_w7hfy"]
 
 [node name="char_select_bg_scout" type="TextureRect"]
 offset_left = 254.00002
