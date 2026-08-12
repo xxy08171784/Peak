@@ -3,62 +3,68 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace peak.Core.Models.Relics;
 
 /// <summary>
 /// 黄金宾邦：当你死亡时，回复 3 点生命，获得 2 层无实体，然后消耗（标记为已用完）。
 /// 稀有稀有度。
+/// 使用 LizardTail 同款的 ShouldDieLate + AfterPreventingDeath 模式。
 /// </summary>
 public sealed class GoldenBinbang : RelicModel
 {
+	private bool _wasUsed;
+
 	public override RelicRarity Rarity => RelicRarity.Rare;
 
-	public override bool IsUsedUp => _isUsed;
+	public override bool IsUsedUp => _wasUsed;
 
-	private bool _isUsed;
-
-	public override bool ShouldDie(Creature creature)
+	[SavedProperty]
+	public bool WasUsed
 	{
-		// 只保护持有者本人
-		if (creature != base.Owner?.Creature || _isUsed)
+		get => _wasUsed;
+		set
+		{
+			AssertMutable();
+			_wasUsed = value;
+			if (IsUsedUp)
+			{
+				base.Status = RelicStatus.Disabled;
+			}
+		}
+	}
+
+	public override bool ShouldDieLate(Creature creature)
+	{
+		if (creature != base.Owner?.Creature)
 		{
 			return true;
 		}
-
-		// 阻止死亡，触发效果
-		TaskHelper.RunSafely(TriggerSaveEffect());
+		if (WasUsed)
+		{
+			return true;
+		}
 		return false;
 	}
 
-	private async Task TriggerSaveEffect()
+	public override async Task AfterPreventingDeath(Creature creature)
 	{
-		if (base.Owner?.Creature == null)
-		{
-			return;
-		}
-
 		Flash();
-
-		var ctx = new ThrowingPlayerChoiceContext();
+		WasUsed = true;
 
 		// 回复 3 点生命
-		await CreatureCmd.Heal(base.Owner.Creature, 3m);
+		await CreatureCmd.Heal(creature, 3m);
 
 		// 获得 2 层无实体
 		await PowerCmd.Apply<IntangiblePower>(
-			ctx,
-			base.Owner.Creature,
+			new ThrowingPlayerChoiceContext(),
+			creature,
 			2m,
-			base.Owner.Creature,
+			creature,
 			null
 		);
-
-		// 标记为已用完
-		_isUsed = true;
-		InvokeDisplayAmountChanged();
 	}
 }

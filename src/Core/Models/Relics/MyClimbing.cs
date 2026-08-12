@@ -20,6 +20,12 @@ namespace peak.Core.Models.Relics;
 
 public class MyClimbing : RelicModel
 {
+	/// <summary>
+	/// 场景切换事件，参数为新场景值（0-3）。
+	/// 其他遗物（如 Alpenstock）可订阅此事件来响应场景变化。
+	/// </summary>
+	public event Action<int>? SceneChanged;
+
 	private int _environmentValue = 0;
 	private bool _hasInitializedThisCombat = false;
 
@@ -61,6 +67,9 @@ public class MyClimbing : RelicModel
 		}
 
 		EnvironmentValue = newValue;
+
+		// 通知订阅者场景已切换
+		SceneChanged?.Invoke(newValue);
 
 		// 触发阶段事件
 		await TriggerEnvironmentEffect(choiceContext, previousValue, EnvironmentValue);
@@ -130,6 +139,7 @@ public class MyClimbing : RelicModel
 		// 计数切到 0
 		_environmentValue = 0;
 		UpdateDisplay();
+		SceneChanged?.Invoke(0);
 
 		var choiceContext = new ThrowingPlayerChoiceContext();
 
@@ -156,6 +166,7 @@ public class MyClimbing : RelicModel
 			// 兜底：如果 BeforeCombatStart 没有跑（理论上不会），首回合切到 0
 			_environmentValue = 0;
 			UpdateDisplay();
+			SceneChanged?.Invoke(0);
 			return;
 		}
 
@@ -169,6 +180,7 @@ public class MyClimbing : RelicModel
 		int previousValue = EnvironmentValue;
 		int newValue = (previousValue + 1) % 4;
 		EnvironmentValue = newValue;
+		SceneChanged?.Invoke(newValue);
 
 		// 回合开始钩子无 PlayerChoiceContext，使用后台安全上下文
 		var choiceContext = new ThrowingPlayerChoiceContext();

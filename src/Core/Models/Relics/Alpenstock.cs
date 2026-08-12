@@ -1,60 +1,58 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.ValueProps;
 
 namespace peak.Core.Models.Relics;
 
 /// <summary>
 /// 登山杖：每次切换场景时获得 3 点防御。
-/// 通过监听 MyClimbing 的场景计数器变化来触发。
+/// 通过订阅 MyClimbing.SceneChanged 事件来实时响应场景切换（包括 Climb 卡牌触发的切换）。
 /// 商店稀有度。
 /// </summary>
 public sealed class Alpenstock : RelicModel
 {
-	private int _lastKnownSceneValue = -1;
+	private MyClimbing? _climbingRelic;
 
 	public override RelicRarity Rarity => RelicRarity.Shop;
 
-	public override async Task BeforeCombatStart()
+	private void OnSceneChanged(int newScene)
 	{
-		_lastKnownSceneValue = GetSceneValue();
-	}
-
-	public override async Task AfterSideTurnStart(
-		CombatSide side,
-		IReadOnlyList<Creature> participants,
-		ICombatState combatState)
-	{
-		if (!participants.Contains(base.Owner?.Creature))
+		if (base.Owner?.Creature == null || CombatManager.Instance.IsOverOrEnding)
 		{
 			return;
 		}
 
-		int currentScene = GetSceneValue();
-
-		// 场景发生变化时获得 3 点防御
-		if (_lastKnownSceneValue >= 0 && currentScene != _lastKnownSceneValue && base.Owner?.Creature != null)
-		{
-			Flash();
-			await CreatureCmd.GainBlock(base.Owner.Creature, 3m, ValueProp.Move, null);
-		}
-
-		_lastKnownSceneValue = currentScene;
+		Flash();
+		TaskHelper.RunSafely(
+			CreatureCmd.GainBlock(base.Owner.Creature, 3m, ValueProp.Move, null));
 	}
 
-	/// <summary>
-	/// 获取当前 MyClimbing（或其子类）的场景值。
-	/// 如果玩家没有该遗物则返回 -1。
-	/// </summary>
-	private int GetSceneValue()
+	public override Task BeforeCombatStart()
 	{
-		MyClimbing? climbing = base.Owner?.Relics.OfType<MyClimbing>().FirstOrDefault();
-		return climbing?.DisplayAmount ?? -1;
+		// 每场战斗开始时重新绑定事件
+		_climbingRelic = base.Owner?.Relics.OfType<MyClimbing>().FirstOrDefault();
+		if (_climbingRelic != null)
+		{
+			_climbingRelic.SceneChanged += OnSceneChanged;
+		}
+		return Task.CompletedTask;
+	}
+
+	public override Task AfterCombatEnd(CombatRoom _)
+	{
+		// 战斗结束时解绑
+		if (_climbingRelic != null)
+		{
+			_climbingRelic.SceneChanged -= OnSceneChanged;
+			_climbingRelic = null;
+		}
+		base.Status = RelicStatus.Normal;
+		return Task.CompletedTask;
 	}
 }

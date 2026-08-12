@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace peak.Core.Models.Relics;
 
 /// <summary>
-/// 皮糙肉厚：当你被给与一种 debuff 时，获得 5 点防御。
+/// 皮糙肉厚：当你被给与一种新的 debuff 时（首次施加，不含层数叠加），获得 5 点格挡。
 /// 稀有稀有度。
 /// </summary>
 public sealed class ThickSkin : RelicModel
@@ -24,13 +24,18 @@ public sealed class ThickSkin : RelicModel
 		Creature? applier,
 		CardModel? cardSource)
 	{
-		// 只处理：owner 被施加 debuff 且层数增加
-		if (power.Owner != base.Owner?.Creature || amount <= 0 || power.Type != PowerType.Debuff)
+		// 只处理：owner 本身被施加 debuff
+		if (power.Owner != base.Owner?.Creature || power.Type != PowerType.Debuff)
 		{
 			return;
 		}
 
-		Flash();
-		await CreatureCmd.GainBlock(base.Owner!.Creature, 5m, ValueProp.Move, null);
+		// amount == power.Amount 意味着这是首次施加（新创建的 power）
+		// amount > 0 确保是获得而非失去
+		if (amount > 0 && power.Amount == amount)
+		{
+			Flash();
+			await CreatureCmd.GainBlock(base.Owner!.Creature, 5m, ValueProp.Move, null);
+		}
 	}
 }

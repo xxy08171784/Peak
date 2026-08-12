@@ -26,7 +26,7 @@ public sealed class ScoutRelicPool : RelicPoolModel
 			// 角色专属遗物
 			ModelDb.Relic<Match>(),
 			ModelDb.Relic<HotWater>(),
-			ModelDb.Relic<Toolbox>(),
+			ModelDb.Relic<ScoutToolbox>(),
 			ModelDb.Relic<PortableRations>(),
 			ModelDb.Relic<NutritionPyramid>(),
 			ModelDb.Relic<ColdStorage>(),
