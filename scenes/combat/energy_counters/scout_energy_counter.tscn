@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://2sf3now6f604"]
+[gd_scene load_steps=4 format=3 uid="uid://2sf3now6f604"]
 
 [ext_resource type="Script" uid="uid://vg6uk2fmddpm" path="res://CustomEnergyCounter.cs" id="1_ho4xi"]
 [ext_resource type="Script" uid="uid://bl7yakgklqxom" path="res://CustomMegaLabel.cs" id="2_5g3tq"]
+[ext_resource type="Texture2D" uid="uid://cr63mwgfvwh5a" path="res://images/ui/energys/energy_scout.png" id="2_uowpn"]
 
 [node name="ScoutEnergyCounter" type="Control"]
 layout_mode = 3
@@ -9,9 +10,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_ho4xi")
-
-[node name="BurstBack" type="CPUParticles2D" parent="."]
-unique_name_in_owner = true
 
 [node name="Layers" type="Control" parent="."]
 unique_name_in_owner = true
@@ -25,14 +23,25 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BurstFront" type="CPUParticles2D" parent="."]
-unique_name_in_owner = true
+[node name="TextureRect" type="TextureRect" parent="Layers"]
+layout_mode = 0
+offset_left = -23.999998
+offset_top = -23.999998
+offset_right = 232.0
+offset_bottom = 232.0
+scale = Vector2(0.7990793, 0.7990793)
+texture = ExtResource("2_uowpn")
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 48.999996
+offset_top = 65.0
+offset_right = 104.0
+offset_bottom = 175.0
+scale = Vector2(1.099977, 0.9233759)
+theme_override_font_sizes/font_size = 36
+text = "3/3"
 script = ExtResource("2_5g3tq")
 AutoSizeEnabled = null
 MinFontSize = null
