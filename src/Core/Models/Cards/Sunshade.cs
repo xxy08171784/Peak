@@ -15,7 +15,7 @@ namespace peak.Core.Models.Cards;
 /// 每回合结束时额外失去 9（12）点炎热。
 /// 1 费，能力牌，普通稀有度，目标自身。
 /// </summary>
-public sealed class Sunshade : CardModel
+public sealed class Sunshade : CardModel, IItemCard
 {
 	// 动态变量：基础每回合额外失去 9 点炎热值（升级后 12 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

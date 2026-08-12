@@ -15,7 +15,7 @@ namespace peak.Core.Models.Cards;
 /// 检查点旗帜：将你的生命值回溯到你上回合结束时的值。
 /// 2 费，技能牌，稀有稀有度，目标自身，消耗，保留。
 /// </summary>
-public sealed class CheckpointFlag : CardModel
+public sealed class CheckpointFlag : CardModel, IItemCard
 {
 	private const string _checkpointHpKey = "CheckpointHp";
 

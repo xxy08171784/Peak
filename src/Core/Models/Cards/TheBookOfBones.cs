@@ -15,7 +15,7 @@ namespace peak.Core.Models.Cards;
 /// 骸骨之书：保留。失去 5 点生命上限，移除所有负面状态，给予自己 99 层易伤，回复满生命。
 /// 0 费，技能牌，稀有稀有度，目标自身。
 /// </summary>
-public sealed class TheBookOfBones : CardModel
+public sealed class TheBookOfBones : CardModel, IItemCard
 {
 	// 保留关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Retain };

@@ -15,7 +15,7 @@ namespace peak.Core.Models.Cards;
 /// 医疗箱：失去你的所有中毒，获得 16（20）点格挡。
 /// 2 费，技能牌，罕见稀有度，目标自身。
 /// </summary>
-public sealed class MedicalKit : CardModel
+public sealed class MedicalKit : CardModel, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：medical_kit.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/medical_kit.png");

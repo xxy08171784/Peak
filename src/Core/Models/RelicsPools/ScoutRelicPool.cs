@@ -20,11 +20,18 @@ public sealed class ScoutRelicPool : RelicPoolModel
 		// 在这里注册属于童子军的所有专属遗物
 		return new RelicModel[]
 		{
-			ModelDb.Relic<MyClimbing>() // 注册您刚刚写好的初始遗物
-			
-			// 示例占位（当您以后设计了新遗物时，可以解开注释并在此处添加）：
-			// ModelDb.Relic<ScoutBadge>(),
-			// ModelDb.Relic<CampingTent>()
+			// 初始遗物
+			ModelDb.Relic<MyClimbing>(),
+			ModelDb.Relic<MountaineeringExpert>(),
+			// 角色专属遗物
+			ModelDb.Relic<Match>(),
+			ModelDb.Relic<HotWater>(),
+			ModelDb.Relic<Toolbox>(),
+			ModelDb.Relic<PortableRations>(),
+			ModelDb.Relic<NutritionPyramid>(),
+			ModelDb.Relic<ColdStorage>(),
+			// 商店角色遗物
+			ModelDb.Relic<Alpenstock>()
 		};
 	}
 

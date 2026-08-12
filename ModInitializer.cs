@@ -6,11 +6,13 @@ using MegaCrit.Sts2.Core.Modding;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.PotionPools;
+using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using peak.Core.Models.CardPools;
 using peak.Core.Models.Cards;
 
-using peak.Core.Models.Characters; 
+using peak.Core.Models.Characters;
+using peak.Core.Models.Relics;
 
 namespace peak
 {
@@ -21,16 +23,31 @@ namespace peak
 		{
 			Godot.Bridge.ScriptManagerBridge.LookupScriptsInAssembly(Assembly.GetExecutingAssembly());
 			// 1. 初始化 Harmony（这会自动激活我们在 ScoutUnlockPatch 中写的所有安全重定向补丁）
-			var harmony = new Harmony("xxy_peak");   
+			var harmony = new Harmony("xxy_peak");
 			harmony.PatchAll();
 
-			 //2. 注册关联卡牌和遗物到对应的池子中（注意：这里只传递 typeof 结构，非常安全，不会触发任何实例化，因此绝不会导致闪退）
-			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(RockBolt));
-			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(StrikeScout));
-			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(DefendScout));
-			ModHelper.AddModelToPool(typeof(ScoutCardPool), typeof(MixedNuts));
-			// 注意：MyClimbing 是 Scout 的初始遗物（Starter 稀有度），
-			// 不加入 SharedRelicPool —— 否则会进入全角色共享遗物袋，被宝箱/精英再次开出导致流程异常
+			// 2. 注册关联卡牌和遗物到对应的池子中（注意：这里只传递 typeof 结构，非常安全，不会触发任何实例化，因此绝不会导致闪退）
+			// 混池遗物 — 普通
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Flintstone));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Telescope));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Tick));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(StumblingBlock));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Cactus));
+			// 混池遗物 — 罕见
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(PirateCompass));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(GlowStick));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Rivet));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(HeavyBackpack));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Inertia));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(Tumbleweed));
+			// 混池遗物 — 稀有
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(InventoryRelic));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(ClimbingSuit));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(BalloonBouquet));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(TowRope));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(PotionTasting));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(ThickSkin));
+			ModHelper.AddModelToPool(typeof(SharedRelicPool), typeof(GoldenBinbang));
 			Log.Info("加载成功！");
 		}
 	}

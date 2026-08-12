@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 namespace peak.Core.Models.Relics;
 
-public sealed class MyClimbing : RelicModel
+public class MyClimbing : RelicModel
 {
 	private int _environmentValue = 0;
 	private bool _hasInitializedThisCombat = false;
@@ -31,7 +31,7 @@ public sealed class MyClimbing : RelicModel
 
 	public override int DisplayAmount => EnvironmentValue;
 
-	private int EnvironmentValue
+	protected int EnvironmentValue
 	{
 		get => _environmentValue;
 		set
@@ -42,7 +42,7 @@ public sealed class MyClimbing : RelicModel
 		}
 	}
 
-	private void UpdateDisplay()
+	protected void UpdateDisplay()
 	{
 		InvokeDisplayAmountChanged();
 	}

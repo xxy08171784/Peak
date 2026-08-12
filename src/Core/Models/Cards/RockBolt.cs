@@ -9,7 +9,7 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 namespace peak.Core.Models.Cards
 {
-	public sealed class RockBolt : CardModel
+	public sealed class RockBolt : CardModel, IItemCard
 	{
 		// 定义卡牌所需的动态变量
 		protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[2]
