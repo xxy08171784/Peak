@@ -39,37 +39,24 @@ public sealed class Cannon : CardModel, IFoodCard
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		// 被烤过：造成 24 点伤害。消耗由 GetResultPileTypeAndPositionForCardPlay
-		// 重写返回 Exhaust 自动处理（带正确视觉 tween）。
+		// 被烤过：造成 24 点伤害后自消耗。
 		if (RoastTracker.WasRoasted(this))
 		{
 			await DamageCmd.Attack(24m)
-				.FromCard(this, cardPlay)
+				.FromCard(this)
 				.TargetingAllOpponents(base.CombatState)
 				.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 				.Execute(choiceContext);
+			await CardCmd.Exhaust(choiceContext, this);
 			return;
 		}
 
 		// 未被烤：造成 12（15）点伤害
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this, cardPlay)
+			.FromCard(this)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 			.Execute(choiceContext);
-	}
-
-	/// <summary>
-	/// 被烤过的大炮打完自动进入消耗堆（而非弃牌堆）。
-	/// </summary>
-	protected override CardLocation GetResultLocationForCardPlay()
-	{
-		CardLocation result = base.GetResultLocationForCardPlay();
-		if (RoastTracker.WasRoasted(this))
-		{
-			result.pileType = PileType.Exhaust;
-		}
-		return result;
 	}
 
 	protected override void OnUpgrade()

@@ -33,7 +33,7 @@ public sealed class Coconut : CardModel
 
         // 1. 造成 10 点伤害
         await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-            .FromCard(this, cardPlay)
+            .FromCard(this)
             .Targeting(cardPlay.Target)
             .WithHitFx("vfx/vfx_attack_slash")
             .Execute(choiceContext);

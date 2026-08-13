@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://2sf3now6f604"]
+[gd_scene load_steps=4 format=3 uid="uid://2sf3now6f604"]
 
 [ext_resource type="Script" uid="uid://vg6uk2fmddpm" path="res://CustomEnergyCounter.cs" id="1_ho4xi"]
 [ext_resource type="Script" uid="uid://bl7yakgklqxom" path="res://CustomMegaLabel.cs" id="2_5g3tq"]
+[ext_resource type="Texture2D" uid="uid://k045ernkxw0s" path="res://images/atlases/ui_atlas.sprites/card/energy_scout.tres" id="2_uowpn"]
 
 [node name="ScoutEnergyCounter" type="Control"]
 layout_mode = 3
@@ -19,6 +20,10 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="EnergyScout" type="Sprite2D" parent="Layers"]
+position = Vector2(7, -9)
+texture = ExtResource("2_uowpn")
+
 [node name="RotationLayers" type="Control" parent="Layers"]
 unique_name_in_owner = true
 anchors_preset = 0
@@ -31,8 +36,10 @@ unique_name_in_owner = true
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
+offset_left = -6.0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 27.0
+text = "3/3"
 script = ExtResource("2_5g3tq")
 AutoSizeEnabled = null
 MinFontSize = null

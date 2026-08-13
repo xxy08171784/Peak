@@ -53,7 +53,7 @@ public sealed class Explosive : CardModel
 			}
 
 			await DamageCmd.Attack(damage)
-				.FromCard(this, cardPlay)
+				.FromCard(this)
 				.Targeting(enemy)
 				.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 				.Execute(choiceContext);

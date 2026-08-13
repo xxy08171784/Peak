@@ -53,8 +53,7 @@ public sealed class AncientChest : CardModel
 			base.Owner.Creature,
 			base.DynamicVars.HpLoss.BaseValue,
 			ValueProp.Unblockable | ValueProp.Unpowered | ValueProp.Move,
-			this,
-			cardPlay
+			this
 		);
 
 		// 2. 从奖励池中随机选择一张
