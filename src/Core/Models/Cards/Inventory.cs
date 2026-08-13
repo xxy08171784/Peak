@@ -36,12 +36,12 @@ public sealed class Inventory : CardModel
 			context: choiceContext,
 			player: base.Owner,
 			prefs: new CardSelectorPrefs(base.SelectionScreenPrompt, 1),
-			filter: null,
+			filter: c => !c.Keywords.Contains(CardKeyword.Retain),
 			source: this)).FirstOrDefault();
 
 		if (selected != null)
 		{
-			selected.AddKeyword(CardKeyword.Retain);
+			CardCmd.ApplyKeyword(selected, CardKeyword.Retain);
 		}
 	}
 

@@ -89,11 +89,13 @@ public static class StoryModelGetPatch
 /// <summary>
 /// 补丁 NeowEpoch.QueueUnlocks()，仿 Silent1Epoch 模式：
 /// 在首次打开时间线时获得 Scout1Epoch（第一章）。
+/// 必须用 Prefix（在 QueueTimelineExpansion 之前获得），
+/// 这样 UnlockSlot 才能把 Scout1 从 ObtainedNoSlot 提升为 Obtained。
 /// </summary>
 [HarmonyPatch(typeof(NeowEpoch), nameof(NeowEpoch.QueueUnlocks))]
 public static class NeowEpochQueueUnlocksPatch
 {
-	static void Postfix()
+	static void Prefix()
 	{
 		SaveManager.Instance.ObtainEpochOverride(
 			EpochModel.GetId<Scout1Epoch>(), EpochState.ObtainedNoSlot);

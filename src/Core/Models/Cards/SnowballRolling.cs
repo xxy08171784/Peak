@@ -58,7 +58,7 @@ public sealed class SnowballRolling : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级后费用 1 -> 0 (-1)
-		base.EnergyCost.UpgradeBy(-1);
+		// 升级后依旧 1 费，新增保留词条
+		AddKeyword(CardKeyword.Retain);
 	}
 }

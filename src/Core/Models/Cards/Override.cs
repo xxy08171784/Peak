@@ -12,16 +12,13 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 凌驾：固有。获得 3（4）点能量，抽 3 张牌，获得 4 层覆甲。
-/// 0 费，能力牌，先古稀有度，目标自身。
+/// 凌驾：获得 3（4）点能量，抽 3 张牌，获得 4 层覆甲。
+/// 0 费，能力牌，先古稀有度，目标自身。未升级无固有，升级后获得固有。
 /// </summary>
 public sealed class Override : CardModel
 {
 	// 卡面图片
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/override.png");
-
-	// 固有关键字
-	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Innate };
 
 	// 动态变量：基础能量 3、抽牌 3、覆甲 4
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
@@ -68,5 +65,8 @@ public sealed class Override : CardModel
 	{
 		// 升级后能量 3 -> 4 (+1)
 		base.DynamicVars["Energy"].UpgradeValueBy(1m);
+
+		// 升级后新增固有词条
+		AddKeyword(CardKeyword.Innate);
 	}
 }
