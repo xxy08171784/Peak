@@ -16,7 +16,7 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 森蕈：切换到森蕈场景（将一张带虚无的蘑菇盲盒加入手牌），获得 5 层孢子。
-/// 0 费，技能牌，普通稀有度，目标自身。
+/// 1 费，技能牌，普通稀有度，目标自身。升级后 0 费。
 /// </summary>
 public sealed class ForestMushroom : CardModel
 {
@@ -35,7 +35,7 @@ public sealed class ForestMushroom : CardModel
 	};
 
 	public ForestMushroom()
-		: base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+		: base(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 	{
 	}
 
@@ -71,6 +71,7 @@ public sealed class ForestMushroom : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 暂无升级效果
+		// 升级后费用 -1（1费 → 0费）
+		base.EnergyCost.UpgradeBy(-1);
 	}
 }

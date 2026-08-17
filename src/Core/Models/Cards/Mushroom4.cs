@@ -17,7 +17,7 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 蘑菇4：给自己 4 层孢子，给自己 1 层虚弱和 1 层脆弱。
-/// 1 费，token 稀有度，目标自身，消耗（保留），食物牌。
+/// 1 费（升级后 0 费），token 稀有度，目标自身，消耗（保留），食物牌。
 /// 由【蘑菇盲盒】随机生成，不会出现在卡池中。
 /// </summary>
 public sealed class Mushroom4 : CardModel, IFoodCard
@@ -79,7 +79,8 @@ public sealed class Mushroom4 : CardModel, IFoodCard
 
 	protected override void OnUpgrade()
 	{
-		// 无升级效果
+		// 升级后费用 -1（1 费 → 0 费）
+		EnergyCost.UpgradeBy(-1);
 	}
 
 	/// <summary>

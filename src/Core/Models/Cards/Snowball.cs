@@ -92,6 +92,12 @@ public sealed class Snowball : CardModel
 				this
 			);
 		}
+
+		// 效果结算完成后，雪球降级回未升级状态（下次滚雪球从基础等级重新升级）
+		if (CurrentUpgradeLevel > 0)
+		{
+			DowngradeInternal();
+		}
 	}
 
 	protected override void OnUpgrade()

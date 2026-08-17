@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.Models;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 检查点旗帜：将你的生命值回溯到你上回合结束时的值。
+/// 检查点旗帜：将你的生命值回溯到你上回合玩家回合开始时的值。
 /// 2 费，技能牌，稀有稀有度，目标自身，消耗，保留。
 /// </summary>
 public sealed class CheckpointFlag : CardModel, IItemCard
@@ -31,7 +31,7 @@ public sealed class CheckpointFlag : CardModel, IItemCard
 		new CalculationBaseVar(0m),
 		new CalculationExtraVar(1m),
 		new CalculatedVar(_checkpointHpKey).WithMultiplier((CardModel card, Creature? _) =>
-			CheckpointFlagTracker.GetLastTurnEndHp(card.Owner) ?? card.Owner.Creature.CurrentHp)
+			CheckpointFlagTracker.GetLastTurnStartHp(card.Owner) ?? card.Owner.Creature.CurrentHp)
 	};
 
 	public CheckpointFlag()
@@ -41,8 +41,8 @@ public sealed class CheckpointFlag : CardModel, IItemCard
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		// 回溯生命值到上回合结束时的值
-		int? targetHp = CheckpointFlagTracker.GetLastTurnEndHp(base.Owner);
+		// 回溯生命值到上回合玩家回合开始时的值
+		int? targetHp = CheckpointFlagTracker.GetLastTurnStartHp(base.Owner);
 		if (targetHp == null)
 		{
 			return; // 无记录（例如第一回合），无事发生

@@ -124,6 +124,8 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<StageClearMaster>(),
 			ModelDb.Card<Peak>(),
 			ModelDb.Card<Override>(),
+			ModelDb.Card<FragmentationStrike>(),
+			ModelDb.Card<OvercomeAllTheDifficultiesInTheWay>(),
 		};
 	}
 

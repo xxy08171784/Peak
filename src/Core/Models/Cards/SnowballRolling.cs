@@ -35,19 +35,27 @@ public sealed class SnowballRolling : CardModel
 
 		if (existingSnowball == null)
 		{
-			// 1a. 没有雪球 -> 生成一张加入手牌
+			// 1a. 没有雪球 -> 生成一张加入手牌（从未升级状态开始）
 			Snowball snowball = base.CombatState.CreateCard<Snowball>(base.Owner);
 			await CardPileCmd.AddGeneratedCardsToCombat(new[] { snowball }, PileType.Hand, base.Owner);
 		}
 		else
 		{
+			bool wasInHand = existingSnowball.Pile?.Type == PileType.Hand;
+
 			// 1b. 雪球不在手牌 -> 先移回手牌
-			if (existingSnowball.Pile?.Type != PileType.Hand)
+			if (!wasInHand)
 			{
 				await CardPileCmd.Add(existingSnowball, PileType.Hand);
 			}
 
-			// 1c. 升级雪球（可多次升级，每次 +1 级）
+			// 1c. 升级雪球：
+			//     - 雪球本就在手牌中：连续堆雪球，升级 +1（0→1→2→3...）
+			//     - 雪球被召回（不在手牌）：从 0 级重新开始，先降级再升到 1 级
+			if (!wasInHand && existingSnowball.CurrentUpgradeLevel > 0)
+			{
+				existingSnowball.DowngradeInternal();
+			}
 			existingSnowball.UpgradeInternal();
 			existingSnowball.FinalizeUpgradeInternal();
 		}

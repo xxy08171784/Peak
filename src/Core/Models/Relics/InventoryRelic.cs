@@ -19,6 +19,9 @@ public sealed class InventoryRelic : RelicModel
 {
 	public override RelicRarity Rarity => RelicRarity.Rare;
 
+	// 图标使用 inventory.png（与图片资源命名对应）
+	protected override string IconBaseName => "inventory";
+
 	public override bool HasUponPickupEffect => true;
 
 	public override async Task AfterObtained()

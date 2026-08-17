@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Potions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using peak.Core.Models.Powers;
+using MegaCrit.Sts2.Core.Models.Powers;
 
 namespace peak.Core.Models.Potions;
 
@@ -23,7 +23,7 @@ public sealed class PoisonedBottle : PotionModel
 	{
 		foreach (Creature enemy in base.Owner.Creature.CombatState.HittableEnemies)
 		{
-			await PowerCmd.Apply<ZhongduPower>(choiceContext, enemy, 5m, base.Owner.Creature, null);
+			await PowerCmd.Apply<PoisonPower>(choiceContext, enemy, 5m, base.Owner.Creature, null);
 		}
 	}
 }

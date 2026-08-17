@@ -39,6 +39,7 @@ public sealed class WhereDreamsBegin : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级：无特殊变化（保持 0 费、保留）
+		// 升级后新增保留词条（升级前仅消耗，升级后消耗+保留）
+		AddKeyword(CardKeyword.Retain);
 	}
 }

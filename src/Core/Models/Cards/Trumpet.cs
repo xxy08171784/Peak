@@ -46,6 +46,7 @@ public sealed class Trumpet : CardModel, IItemCard
 
 	protected override void OnUpgrade()
 	{
-		// 无升级效果（费用递增机制不变）
+		// 升级后获得固有：战斗开始时自动进入手牌
+		AddKeyword(CardKeyword.Innate);
 	}
 }

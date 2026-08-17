@@ -25,17 +25,44 @@ public sealed class PleurotusEryngiiPower : PowerModel
 	// 不允许负数
 	public override bool AllowNegative => false;
 
-	/// <summary>
-	/// 回合结束时：若没有任何格挡，获得等同层数的格挡。
-	/// </summary>
-	public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
-	{
-		if (participants.Contains(Owner) && Owner.Block == 0)
-		{
-			Flash(); // 弹力菇图标闪烁，提示玩家触发了效果
+	private bool _shouldTrigger;
 
-			// 获得 6（8）点格挡
-			await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
+	/// <summary>
+	/// 每回合开始时重置标记。
+	/// </summary>
+	public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+	{
+		_shouldTrigger = false;
+		return Task.CompletedTask;
+	}
+
+	/// <summary>
+	/// 极早期阶段检查格挡状态（早于 PlatingPower 触发）。
+	/// 此时覆甲还没给盾，能正确判断 Owner.Block == 0。
+	/// </summary>
+	public override Task BeforeSideTurnEndVeryEarly(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+	{
+		if (!participants.Contains(Owner))
+		{
+			return Task.CompletedTask;
 		}
+		_shouldTrigger = Owner.Block == 0;
+		return Task.CompletedTask;
+	}
+
+	/// <summary>
+	/// 回合结束时（与覆甲同时触发）：根据 VeryEarly 阶段的判断，给予格挡。
+	/// </summary>
+	public override async Task BeforeSideTurnEndEarly(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
+	{
+		if (!_shouldTrigger)
+		{
+			return;
+		}
+		_shouldTrigger = false;
+		Flash(); // 弹力菇图标闪烁，提示玩家触发了效果
+
+		// 获得 6（8）点格挡
+		await CreatureCmd.GainBlock(Owner, Amount, ValueProp.Unpowered, null);
 	}
 }

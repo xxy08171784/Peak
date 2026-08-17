@@ -16,7 +16,7 @@
   "SPRITE_POTION.title": "雪碧",
   "SPRITE_POTION.description": "获得 3 点能量。",
   "BOTTLED_MIST.title": "瓶装云雾",
-  "BOTTLED_MIST.description": "这回合受到的伤害减少一半。",
+  "BOTTLED_MIST.description": "获得 3 点[gold]敏捷[/gold]。",
   "BOTTLED_TORNADO.title": "瓶装龙卷风",
   "BOTTLED_TORNADO.description": "对所有敌人造成 25 点伤害，给予 2 层[gold]易伤[/gold]。",
   "MILK_POTION.title": "奶白金",

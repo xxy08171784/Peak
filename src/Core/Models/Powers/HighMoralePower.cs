@@ -14,8 +14,8 @@ using peak.Core.Models.Relics;
 namespace peak.Core.Models.Powers;
 
 /// <summary>
-/// 士气高涨：每当玩家切换环境时，获得 1 点覆甲并抽 1（升级后 2）张牌。
-/// Amount >= 2 视为已升级（抽牌 2），否则抽牌 1。覆甲始终为 1。
+/// 士气高涨：每当玩家切换环境时，获得 1 点覆甲并抽 1 张牌。
+/// 覆甲固定为 1，抽牌固定为 1。
 /// </summary>
 public sealed class HighMoralePower : PowerModel
 {
@@ -31,8 +31,8 @@ public sealed class HighMoralePower : PowerModel
 	// 每次切换环境获得的覆甲（固定 1 点）
 	public int BlockPerTrigger => 1;
 
-	// 每次切换环境抽的牌数：升级后（Amount >= 2）抽 2 张，否则抽 1 张
-	public int CardsPerTrigger => Amount >= 2 ? 2 : 1;
+	// 每次切换环境抽的牌数（固定 1 张）
+	public int CardsPerTrigger => 1;
 
 	// 是否已订阅事件
 	private bool _subscribed;

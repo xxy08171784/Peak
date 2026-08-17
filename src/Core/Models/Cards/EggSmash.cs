@@ -17,6 +17,9 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class EggSmash : CardModel
 {
+	// 消耗关键词（升级前后都有）
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+
 	// 侧边栏悬停预览：显示煎蛋与火鸡（若主卡已升级，预览也动态展示升级版）
 	protected override IEnumerable<IHoverTip> ExtraHoverTips =>
 		new IHoverTip[]

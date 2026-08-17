@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -27,9 +28,6 @@ public sealed class MountaineeringExpert : MyClimbing
 		// 先执行基类的场景初始化（切到 0 海岛 + 触发海岛效果）
 		await base.BeforeCombatStart();
 
-		// 额外：获得 1 能量
-		await PlayerCmd.GainEnergy(1m, base.Owner);
-
 		// 额外：获得 2 层覆甲
 		var choiceContext = new ThrowingPlayerChoiceContext();
 		await PowerCmd.Apply<PlatingPower>(
@@ -41,5 +39,27 @@ public sealed class MountaineeringExpert : MyClimbing
 		);
 
 		Flash();
+	}
+
+	/// <summary>
+	/// 每回合开始、能量重置（恢复到 MaxEnergy）之后运行。
+	/// 第一回合：能量先恢复到 3 费，再额外 +1（总 4 费），
+	/// 避免在 BeforeCombatStart 提前加费被回合开始的能量重置覆盖。
+	/// 之后回合不再加（保持"战斗开始时获得 1 能量"的设计）。
+	/// </summary>
+	public override async Task AfterEnergyReset(Player player)
+	{
+		if (player != base.Owner)
+		{
+			return;
+		}
+
+		// 仅第一回合生效
+		if (base.Owner.PlayerCombatState?.TurnNumber > 1)
+		{
+			return;
+		}
+
+		await PlayerCmd.GainEnergy(1m, base.Owner);
 	}
 }

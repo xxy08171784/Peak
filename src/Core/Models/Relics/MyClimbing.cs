@@ -25,6 +25,17 @@ public class MyClimbing : RelicModel
 	private bool _hasInitializedThisCombat = false;
 
 	/// <summary>
+	/// 本场战斗累计的环境切换次数（每次环境值发生实际变化时 +1）。
+	/// 供【过关斩将】等卡牌按"场景切换次数"结算伤害。
+	/// </summary>
+	private int _totalEnvironmentSwitches = 0;
+
+	/// <summary>
+	/// 本场战斗累计的环境切换次数（供【过关斩将】结算）。
+	/// </summary>
+	public int TotalEnvironmentSwitches => _totalEnvironmentSwitches;
+
+	/// <summary>
 	/// 本回合内的环境切换序列（记录每次切换后的环境值，首元素为回合开始时的环境值）。
 	/// 供【PEAK】等卡牌判定本回合是否出现过 01230 切换。
 	/// </summary>
@@ -107,6 +118,19 @@ public class MyClimbing : RelicModel
 		{
 			// 记录到本回合切换序列（供 PEAK 判定）
 			_turnEnvironmentSequence.Add(currentValue);
+
+			// 累计本场战斗切换次数（供过关斩将结算）
+			_totalEnvironmentSwitches++;
+
+			EnvironmentChanged?.Invoke(base.Owner, previousValue, currentValue);
+		}
+		else
+		{
+			// 环境值未实际变化（如已在 0 海岛时再次"回到" 0）：
+			// 仍通知"回到该场景"的监听者（初始物资等），
+			// 并计入本场战斗切换次数（供过关斩将结算），
+			// 但不记录到本回合切换序列（保持 PEAK 的 01230 判定不受影响）
+			_totalEnvironmentSwitches++;
 
 			EnvironmentChanged?.Invoke(base.Owner, previousValue, currentValue);
 		}
@@ -224,6 +248,7 @@ public class MyClimbing : RelicModel
 
 		// 记录本次切换并通知监听者（士气高涨、初始物资等）
 		_turnEnvironmentSequence.Add(newValue);
+		_totalEnvironmentSwitches++;
 		EnvironmentChanged?.Invoke(base.Owner, previousValue, newValue);
 
 		await ExecuteStateEffect(choiceContext, newValue);
@@ -312,6 +337,7 @@ public class MyClimbing : RelicModel
 		base.Status = RelicStatus.Normal;
 		_environmentValue = 0;
 		_hasInitializedThisCombat = false;
+		_totalEnvironmentSwitches = 0;
 		_turnEnvironmentSequence.Clear();
 		return Task.CompletedTask;
 	}

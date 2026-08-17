@@ -82,15 +82,15 @@ public sealed class ShareMisfortune : CardModel
 			if (zhongdu?.Amount > 0)
 				await PowerCmd.Apply<ZhongduPower>(choiceContext, target, zhongdu.Amount, player, this);
 
-			// 孢子 → 灾厄
+			// 孢子 → 灾厄（DoomPower，与原版 NO_ESCAPE 的灾厄一致）
 			SporePower? spore = player.GetPower<SporePower>();
 			if (spore?.Amount > 0)
-				await PowerCmd.Apply<CalamityPower>(choiceContext, target, spore.Amount, player, this);
+				await PowerCmd.Apply<DoomPower>(choiceContext, target, spore.Amount, player, this);
 
-			// 炎热 → 灾厄
+			// 炎热 → 灾厄（DoomPower，与原版 NO_ESCAPE 的灾厄一致）
 			HeatPower? heat = player.GetPower<HeatPower>();
 			if (heat?.Amount > 0)
-				await PowerCmd.Apply<CalamityPower>(choiceContext, target, heat.Amount, player, this);
+				await PowerCmd.Apply<DoomPower>(choiceContext, target, heat.Amount, player, this);
 		}
 	}
 

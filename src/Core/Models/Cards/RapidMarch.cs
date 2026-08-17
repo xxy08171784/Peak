@@ -12,16 +12,13 @@ using peak.Core.Models.Powers;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 急行军：固有。获得急行军能力：每回合开始时，额外增加一次环境。
-/// 1 费，能力牌，罕见稀有度，目标自身。
+/// 急行军：获得急行军能力：每回合开始时，额外增加一次环境。
+/// 1 费（升级后 0 费），能力牌，罕见稀有度，目标自身。无固有词条。
 /// </summary>
 public sealed class RapidMarch : CardModel
 {
 	// 卡面图片
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/rapid_march.png");
-
-	// 固有关键词
-	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Innate };
 
 	// 动态变量：基础每回合额外增加 1 次环境
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

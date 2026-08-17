@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w3ye5o88y6t6"
-path="res://.godot/imported/backpack.png-2b1f541d62df0b186f0e6bb8bec9a3b7.ctex"
+uid="uid://ueaajiw24u2u"
+path="res://.godot/imported/hot_water.png-af92056e6c9c3081e280628334095271.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/relics/backpack.png"
-dest_files=["res://.godot/imported/backpack.png-2b1f541d62df0b186f0e6bb8bec9a3b7.ctex"]
+source_file="res://images/relics/hot_water.png"
+dest_files=["res://.godot/imported/hot_water.png-af92056e6c9c3081e280628334095271.ctex"]
 
 [params]
 

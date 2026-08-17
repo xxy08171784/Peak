@@ -30,5 +30,6 @@
     <Content Include="localization\zhs\potions.json" />
     <Content Include="localization\zhs\epochs.json" />
     <Content Include="localization\zhs\ancients.json" />
+    <Content Include="localization\zhs\card_library.json" />
   </ItemGroup>
 </Project>

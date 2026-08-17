@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c62ebj8lkmfav"
-path="res://.godot/imported/angry_power.png-e33aad34e45d8d7a3f7f68e70054bfd3.ctex"
+path="res://.godot/imported/red_hot_power.png-bb6bcf82be51426eb1038486edda046f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/angry_power.png"
-dest_files=["res://.godot/imported/angry_power.png-e33aad34e45d8d7a3f7f68e70054bfd3.ctex"]
+source_file="res://images/powers/red_hot_power.png"
+dest_files=["res://.godot/imported/red_hot_power.png-bb6bcf82be51426eb1038486edda046f.ctex"]
 
 [params]
 
