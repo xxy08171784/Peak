@@ -43,7 +43,7 @@ public sealed class ExperienceAndTougheningPower : PowerModel
 		if (amount < 0
 			&& power.GetTypeForAmount(amount) == PowerType.Debuff
 			&& power.Owner == base.Owner
-			&& power is not ITemporaryPower)
+			)
 		{
 			Flash(); // 历练图标闪烁
 

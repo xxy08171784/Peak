@@ -13,7 +13,7 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 历练：获得能力"历练"：每当你失去一次负面状态时，获得 1 点力量（按次数，不按层数）。
-/// 1 费，能力牌，稀有稀有度，目标自身。升级后获得固有。
+/// 1 费，能力牌，稀有稀有度，目标自身。升级后获得保留。
 /// </summary>
 public sealed class ExperienceAndToughening : CardModel
 {
@@ -53,7 +53,7 @@ public sealed class ExperienceAndToughening : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级后获得固有（每场战斗开局必定在手牌中）
+		// 升级后获得固有
 		AddKeyword(CardKeyword.Innate);
 	}
 }

@@ -14,21 +14,12 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// PEAK：如果你在本回合内按"01230"顺序切换过场景，获得本场战斗胜利。
-/// 2 费，技能牌，稀有稀有度，目标自身。
+/// 2 费，技能牌，稀有稀有度，目标自身，升级后获得保留。
 /// </summary>
 public sealed class Peak : CardModel
 {
 	// 卡面图片
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/peak.png");
-
-	// 保留关键字
-	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Retain };
-
-	// 悬停提示：显示保留关键字
-	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
-	{
-		HoverTipFactory.FromKeyword(CardKeyword.Retain)
-	};
 
 	public Peak()
 		: base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)
@@ -59,5 +50,8 @@ public sealed class Peak : CardModel
 	{
 		// 升级后费用 2 -> 1 (-1)
 		base.EnergyCost.UpgradeBy(-1);
+
+		// 升级后获得保留
+		AddKeyword(CardKeyword.Retain);
 	}
 }
