@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c6kuy386va51s"
-path="res://.godot/imported/multiplayer_hand_scout_rock.png-2bfb15bf2fd017aff75029b22ad845ee.ctex"
+uid="uid://d28ku02depy70"
+path="res://.godot/imported/multiplayer_hand_scout_rock.png-ecb36e057a339ac57a5848b496501aa3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ui/hand/multiplayer_hand_scout_rock.png"
-dest_files=["res://.godot/imported/multiplayer_hand_scout_rock.png-2bfb15bf2fd017aff75029b22ad845ee.ctex"]
+source_file="res://images/ui/hands/multiplayer_hand_scout_rock.png"
+dest_files=["res://.godot/imported/multiplayer_hand_scout_rock.png-ecb36e057a339ac57a5848b496501aa3.ctex"]
 
 [params]
 

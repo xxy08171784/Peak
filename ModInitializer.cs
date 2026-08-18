@@ -62,8 +62,11 @@ namespace peak
 			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(BottledMist));
 			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(BottledTornado));
 			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(MilkPotion));
-			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(FreezeBottle));
-			Log.Info("加载成功！");
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(FreezeBottle));		// 多人混池卡牌（无色池，仅多人模式出现）
+		ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(PrankTeammate));
+		ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(LowerRope));
+		ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(CursedSkull));
+		ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(FriendshipHorn));			Log.Info("加载成功！");
 		}
 	}
 }

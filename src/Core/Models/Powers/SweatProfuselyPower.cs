@@ -32,6 +32,12 @@ public sealed class SweatProfuselyPower : PowerModel
 	/// </summary>
 	public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
+		// 只对打出者是自己时生效（多人模式：其他玩家打出的牌不触发本能力）
+		if (cardPlay.Card.Owner != Owner.Player)
+		{
+			return;
+		}
+
 		// 只对攻击牌生效
 		if (cardPlay.Card.Type != CardType.Attack)
 		{

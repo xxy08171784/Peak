@@ -28,11 +28,11 @@ public sealed class HighMoralePower : PowerModel
 	// 不允许负数
 	public override bool AllowNegative => false;
 
-	// 每次切换环境获得的覆甲（固定 1 点）
-	public int BlockPerTrigger => 1;
+	// 每次切换环境获得的覆甲（随层数叠加，层数即 Amount）
+	public int BlockPerTrigger => Amount;
 
-	// 每次切换环境抽的牌数（固定 1 张）
-	public int CardsPerTrigger => 1;
+	// 每次切换环境抽的牌数（随层数叠加，层数即 Amount）
+	public int CardsPerTrigger => Amount;
 
 	// 是否已订阅事件
 	private bool _subscribed;

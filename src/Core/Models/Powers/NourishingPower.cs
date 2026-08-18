@@ -33,6 +33,12 @@ public sealed class NourishingPower : PowerModel
 	/// </summary>
 	public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
+		// 只对打出者是自己时生效（多人模式：其他玩家打出的牌不触发本能力）
+		if (cardPlay.Card.Owner != Owner.Player)
+		{
+			return;
+		}
+
 		// 只对食物牌生效（IFoodCard 是 mod 自定义的接口）
 		if (cardPlay.Card is not IFoodCard)
 		{

@@ -91,6 +91,11 @@ public sealed class ShareMisfortune : CardModel
 			HeatPower? heat = player.GetPower<HeatPower>();
 			if (heat?.Amount > 0)
 				await PowerCmd.Apply<DoomPower>(choiceContext, target, heat.Amount, player, this);
+
+			// 领队追杀：同步给目标（目标在自己的回合结束时受到等量自伤）
+			LeadersPursuitPower? pursuit = player.GetPower<LeadersPursuitPower>();
+			if (pursuit?.Amount > 0)
+				await PowerCmd.Apply<LeadersPursuitPower>(choiceContext, target, pursuit.Amount, player, this);
 		}
 	}
 

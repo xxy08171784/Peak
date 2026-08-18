@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dt78v2hohwyv1"
-path="res://.godot/imported/multiplayer_hand_scout_paper.png-1951b4aaa7184af5d238387d8825f745.ctex"
+uid="uid://c3bxnbh1l0mry"
+path="res://.godot/imported/multiplayer_hand_scout_scissors.png-c592d06d1b10438ec3aa489287b50c92.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ui/hand/multiplayer_hand_scout_paper.png"
-dest_files=["res://.godot/imported/multiplayer_hand_scout_paper.png-1951b4aaa7184af5d238387d8825f745.ctex"]
+source_file="res://images/ui/hands/multiplayer_hand_scout_scissors.png"
+dest_files=["res://.godot/imported/multiplayer_hand_scout_scissors.png-c592d06d1b10438ec3aa489287b50c92.ctex"]
 
 [params]
 

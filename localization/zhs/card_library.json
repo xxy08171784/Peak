@@ -11,7 +11,6 @@
   "POOL_ANCIENT_TIP": "[gold]先古之民[/gold]给予的牌。",
   "POOL_COLORLESS_TIP": "无色牌。",
   "POOL_MISC_TIP": "状态、[purple]诅咒[/purple]、[green]事件[/green]、[orange]任务[/orange]和衍生牌。",
-  "POOL_SCOUT_TIP": "[gold]童军队员[/gold]的卡牌。",
   "RARITY_COMMON": "普通",
   "RARITY_COMMON_TIP": "筛选普通牌。",
   "RARITY_OTHER": "其他",
@@ -30,5 +29,6 @@
   "VICTORIES": "[gold]胜场：[/gold]{Victories}局",
   "VIEW_MULTIPLAYER_CARDS": "多人模式卡牌",
   "VIEW_STATS": "查看数据",
-  "VIEW_UPGRADES": "查看升级"
+  "VIEW_UPGRADES": "查看升级",
+  "POOL_SCOUT_TIP": "[gold]童军队员[/gold]的卡牌。"
 }

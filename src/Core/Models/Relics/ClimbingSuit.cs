@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace peak.Core.Models.Relics;
 
 /// <summary>
-/// 登山服：每回合开始时获得 1 点防御和 1 层覆甲。
+/// 登山服：每回合开始时获得 2 层覆甲。
 /// 稀有稀有度。
 /// </summary>
 public sealed class ClimbingSuit : RelicModel
@@ -32,7 +32,6 @@ public sealed class ClimbingSuit : RelicModel
 
 		Flash();
 		var ctx = new ThrowingPlayerChoiceContext();
-		await CreatureCmd.GainBlock(base.Owner!.Creature, 1m, ValueProp.Move, null);
-		await PowerCmd.Apply<PlatingPower>(ctx, base.Owner.Creature, 1m, base.Owner.Creature, null);
+		await PowerCmd.Apply<PlatingPower>(ctx, base.Owner.Creature, 2m, base.Owner.Creature, null);
 	}
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8nytmrvtmkm7"
-path="res://.godot/imported/multiplayer_hand_scout_point.png-5c09a2023024f431862e9c1e8166bec7.ctex"
+uid="uid://r8j8deai7d1l"
+path="res://.godot/imported/multiplayer_hand_scout_paper.png-10fd9f112df9e79e28f8996b5f91d4bb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/ui/hand/multiplayer_hand_scout_point.png"
-dest_files=["res://.godot/imported/multiplayer_hand_scout_point.png-5c09a2023024f431862e9c1e8166bec7.ctex"]
+source_file="res://images/ui/hands/multiplayer_hand_scout_paper.png"
+dest_files=["res://.godot/imported/multiplayer_hand_scout_paper.png-10fd9f112df9e79e28f8996b5f91d4bb.ctex"]
 
 [params]
 

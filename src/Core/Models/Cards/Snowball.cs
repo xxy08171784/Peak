@@ -24,7 +24,7 @@ public sealed class Snowball : CardModel
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
 	// 可多次升级（由滚雪球逐级强化）
-	public override int MaxUpgradeLevel => 99;
+	public override int MaxUpgradeLevel => 999;
 
 	// 悬停预览
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]

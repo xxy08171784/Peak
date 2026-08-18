@@ -37,8 +37,8 @@ public sealed class PandoraBox : CardModel, IFoodCard
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		// 使用 System.Random 生成随机值
-		Random rng = new Random();
+		// 使用共享种子 RNG（多人模式下各客户端随机结果必须一致，否则闪退）
+		var rng = base.Owner.RunState.Rng.CombatCardGeneration;
 
 		// 1. 失去所有费用（当前能量置零）
 		await PlayerCmd.LoseEnergy(base.Owner.PlayerCombatState.Energy, base.Owner);
@@ -53,12 +53,12 @@ public sealed class PandoraBox : CardModel, IFoodCard
 		}
 
 		// 3. 获得随机费用（0-4）
-		decimal randomEnergy = rng.Next(0, 5);
+		decimal randomEnergy = rng.NextInt(0, 5);
 		await PlayerCmd.GainEnergy(randomEnergy, base.Owner);
 
 		// 4. 获得随机状态
 		// 力量：-1~3
-		int strength = rng.Next(-1, 4);
+		int strength = rng.NextInt(-1, 4);
 		if (strength != 0)
 		{
 			await PowerCmd.Apply<StrengthPower>(choiceContext, base.Owner.Creature, Math.Abs(strength), base.Owner.Creature, this);
@@ -74,7 +74,7 @@ public sealed class PandoraBox : CardModel, IFoodCard
 		}
 
 		// 敏捷：-1~3
-		int dexterity = rng.Next(-1, 4);
+		int dexterity = rng.NextInt(-1, 4);
 		if (dexterity != 0)
 		{
 			await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, Math.Abs(dexterity), base.Owner.Creature, this);
@@ -89,35 +89,35 @@ public sealed class PandoraBox : CardModel, IFoodCard
 		}
 
 		// 再生：0~4
-		int regen = rng.Next(0, 5);
+		int regen = rng.NextInt(0, 5);
 		if (regen > 0)
 		{
 			await PowerCmd.Apply<RegenPower>(choiceContext, base.Owner.Creature, regen, base.Owner.Creature, this);
 		}
 
 		// 虚弱：0~1
-		int weak = rng.Next(0, 2);
+		int weak = rng.NextInt(0, 2);
 		if (weak > 0)
 		{
 			await PowerCmd.Apply<WeakPower>(choiceContext, base.Owner.Creature, weak, base.Owner.Creature, this);
 		}
 
 		// 脆弱：0~1
-		int frail = rng.Next(0, 2);
+		int frail = rng.NextInt(0, 2);
 		if (frail > 0)
 		{
 			await PowerCmd.Apply<FrailPower>(choiceContext, base.Owner.Creature, frail, base.Owner.Creature, this);
 		}
 
 		// 易伤：0~1
-		int vulnerable = rng.Next(0, 2);
+		int vulnerable = rng.NextInt(0, 2);
 		if (vulnerable > 0)
 		{
 			await PowerCmd.Apply<VulnerablePower>(choiceContext, base.Owner.Creature, vulnerable, base.Owner.Creature, this);
 		}
 
 		// 缓冲：0~1
-		int buffer = rng.Next(0, 2);
+		int buffer = rng.NextInt(0, 2);
 		if (buffer > 0)
 		{
 			await PowerCmd.Apply<BufferPower>(choiceContext, base.Owner.Creature, buffer, base.Owner.Creature, this);
@@ -125,21 +125,21 @@ public sealed class PandoraBox : CardModel, IFoodCard
 
 		// 5. 获得随机 buff
 		// 孢子：0~20
-		int spore = rng.Next(0, 21);
+		int spore = rng.NextInt(0, 21);
 		if (spore > 0)
 		{
 			await PowerCmd.Apply<SporePower>(choiceContext, base.Owner.Creature, spore, base.Owner.Creature, this);
 		}
 
 		// 中毒：0~10
-		int zhongdu = rng.Next(0, 11);
+		int zhongdu = rng.NextInt(0, 11);
 		if (zhongdu > 0)
 		{
 			await PowerCmd.Apply<ZhongduPower>(choiceContext, base.Owner.Creature, zhongdu, base.Owner.Creature, this);
 		}
 
 		// 炎热：0~20
-		int heat = rng.Next(0, 21);
+		int heat = rng.NextInt(0, 21);
 		if (heat > 0)
 		{
 			await PowerCmd.Apply<HeatPower>(choiceContext, base.Owner.Creature, heat, base.Owner.Creature, this);

@@ -126,6 +126,10 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<Override>(),
 			ModelDb.Card<FragmentationStrike>(),
 			ModelDb.Card<OvercomeAllTheDifficultiesInTheWay>(),
+			ModelDb.Card<ShareABite>(),
+			ModelDb.Card<BlowgunRescue>(),
+			ModelDb.Card<KindFeeding>(),
+			ModelDb.Card<HuddleTogether>(),
 		};
 	}
 

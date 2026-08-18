@@ -27,22 +27,23 @@ public sealed class PandoraPotion : PotionModel
 	{
 		AssertValidForTargetedPotion(target);
 
-		var rng = new Random();
-		int effect = rng.Next(5);
+		// 使用共享种子 RNG（多人模式下各客户端随机结果必须一致，否则闪退）
+		var rng = base.Owner.RunState.Rng.CombatCardGeneration;
+		int effect = rng.NextInt(5);
 
 		switch (effect)
 		{
 			case 0:
 				await PowerCmd.Apply<VulnerablePower>(choiceContext, target,
-					rng.Next(4), base.Owner.Creature, null);
+					rng.NextInt(4), base.Owner.Creature, null);
 				break;
 			case 1:
 				await PowerCmd.Apply<WeakPower>(choiceContext, target,
-					rng.Next(4), base.Owner.Creature, null);
+					rng.NextInt(4), base.Owner.Creature, null);
 				break;
 			case 2:
 				// 减力量：0 到 3 层负力量
-				int strLoss = rng.Next(4);
+				int strLoss = rng.NextInt(4);
 				if (strLoss > 0)
 				{
 					await PowerCmd.Apply<StrengthPower>(choiceContext, target,
@@ -51,11 +52,11 @@ public sealed class PandoraPotion : PotionModel
 				break;
 			case 3:
 				await PowerCmd.Apply<ZhongduPower>(choiceContext, target,
-					rng.Next(13), base.Owner.Creature, null);
+					rng.NextInt(13), base.Owner.Creature, null);
 				break;
 			case 4:
 				await PowerCmd.Apply<ColdPower>(choiceContext, target,
-					rng.Next(4), base.Owner.Creature, null);
+					rng.NextInt(4), base.Owner.Creature, null);
 				break;
 		}
 	}

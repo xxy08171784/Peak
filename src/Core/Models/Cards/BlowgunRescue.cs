@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Cards;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
+
+namespace peak.Core.Models.Cards;
+
+/// <summary>
+/// 吹箭救援：消耗，指定一名队友，给予 1 层无实体，5 层再生，结束他的回合。
+/// 2 费，技能牌，稀有稀有度，目标任意队友。
+/// 多人专属卡牌。
+/// </summary>
+public sealed class BlowgunRescue : CardModel
+{
+	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
+
+	// 消耗关键词
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+
+	// 卡面尚未绘制，暂用 beta 占位图
+	public override string PortraitPath => CardModel.MissingPortraitPath;
+
+	public BlowgunRescue()
+		: base(2, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)
+	{
+	}
+
+	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
+	{
+		ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
+
+		// 1. 给予 1 层无实体
+		await PowerCmd.Apply<IntangiblePower>(
+			choiceContext, cardPlay.Target, 1m, base.Owner.Creature, this);
+
+		// 2. 给予 5 层再生
+		await PowerCmd.Apply<RegenPower>(
+			choiceContext, cardPlay.Target, 5m, base.Owner.Creature, this);
+
+		// 3. 结束队友的回合
+		PlayerCmd.EndTurn(cardPlay.Target.Player!, canBackOut: false);
+	}
+}
