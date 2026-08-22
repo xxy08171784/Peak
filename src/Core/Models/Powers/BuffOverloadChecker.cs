@@ -139,8 +139,8 @@ public static class BuffOverloadChecker
             }
             // 失去 7 炎热 → 触发 HeatPower 被动（对随机敌人造成 7 伤，纵火高手则 AOE 翻倍）= 加强
             await PowerCmd.Apply<HeatPower>(choiceContext, owner, -HeatCostPerTick, owner, null);
-            // 对自己造成 1 点伤害
-            await CreatureCmd.Damage(choiceContext, owner, 1m, ValueProp.Unpowered, null, null);
+            // 对自己造成 1 点可格挡伤害（ValueProp.Move = 可被格挡）
+            await CreatureCmd.Damage(choiceContext, owner, 1m, ValueProp.Move, null, null);
             if (i < HeatTicks - 1)
             {
                 await Cmd.CustomScaledWait(0.1f, 0.25f);

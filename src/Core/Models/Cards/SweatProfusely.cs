@@ -12,12 +12,12 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 挥汗如雨：能力牌，获得挥汗如雨 Power。
-/// 每打出一张攻击牌，失去 5（7）点炎热。
+/// 每打出一张牌，失去至多 5（8）点炎热。
 /// 1 费，能力牌，罕见稀有度，目标自身。
 /// </summary>
 public sealed class SweatProfusely : CardModel
 {
-	// 动态变量：基础每张攻击牌失去 5 点炎热值（升级后 7 点）
+	// 动态变量：基础每张牌失去 5 点炎热值（升级后 8 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
 		new PowerVar<SweatProfuselyPower>(5m)
@@ -47,7 +47,7 @@ public sealed class SweatProfusely : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级后每张攻击牌失去炎热值从 5 提升到 7 (+2)
-		base.DynamicVars["SweatProfuselyPower"].UpgradeValueBy(2m);
+		// 升级后每张牌失去炎热值从 5 提升到 8 (+3)
+		base.DynamicVars["SweatProfuselyPower"].UpgradeValueBy(3m);
 	}
 }

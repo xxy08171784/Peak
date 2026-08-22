@@ -876,7 +876,7 @@
   "REJECTION_OF_HEAT_POWER.smartDescription": "在你的回合结束时，失去[blue]7[/blue]点[gold]炎热[/gold]。",
   "REJECTION_OF_HEAT_POWER.title": "散热",
   "SUNSHADE_POWER.description": "在你的回合结束时，额外失去[blue]1[/blue]点[gold]炎热[/gold]。",
-  "SUNSHADE_POWER.smartDescription": "在你的回合结束时，额外失去[blue]{Amount}[/blue]点[gold]炎热[/gold]。",
+  "SUNSHADE_POWER.smartDescription": "在你的回合结束时，额外失去[blue]{Amount}%[/blue]的[gold]炎热[/gold]。",
   "SUNSHADE_POWER.title": "遮阳伞",
   "SWEAT_PROFUSELY_POWER.description": "每打出一张攻击牌，失去[blue]1[/blue]点[gold]炎热[/gold]。",
   "SWEAT_PROFUSELY_POWER.smartDescription": "每打出一张攻击牌，失去[blue]{Amount}[/blue]点[gold]炎热[/gold]。",

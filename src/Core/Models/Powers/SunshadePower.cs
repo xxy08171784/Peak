@@ -11,8 +11,9 @@ using MegaCrit.Sts2.Core.Models;
 namespace peak.Core.Models.Powers;
 
 /// <summary>
-/// 遮阳伞：在你的回合结束时，额外失去 9（12）点炎热。
+/// 遮阳伞：在你的回合结束时，额外失去至多 35%（50%）炎热值。
 /// 与散热（RejectionOfHeatPower）是独立能力，各自扣除炎热值。
+/// （失去的炎热值向上取整）
 /// </summary>
 public sealed class SunshadePower : PowerModel
 {
@@ -26,12 +27,12 @@ public sealed class SunshadePower : PowerModel
 	public override bool AllowNegative => false;
 
 	/// <summary>
-	/// 玩家回合结束时额外失去的炎热值层数。
+	/// 每回合结束时额外失去的炎热值百分比（35/50）。
 	/// </summary>
-	public int HeatLossPerTurn => Amount;
+	public int PercentLossPerTurn => Amount;
 
 	/// <summary>
-	/// 玩家回合结束时，额外失去等同于层数的炎热值。
+	/// 玩家回合结束时，额外失去至多 Amount%（向上取整）的炎热值。
 	/// </summary>
 	public override async Task BeforeSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
 	{
@@ -50,8 +51,12 @@ public sealed class SunshadePower : PowerModel
 
 		Flash(); // 遮阳伞图标闪烁，提示玩家触发了效果
 
-		// 额外扣除炎热值（不可为负）
-		int toLose = Math.Min(heatPower.Amount, HeatLossPerTurn);
-		await PowerCmd.ModifyAmount(choiceContext, heatPower, -toLose, Owner, null);
+		// 计算至多 PercentLossPerTurn% 的炎热值（向上取整）
+		int toLose = (int)Math.Ceiling(heatPower.Amount * PercentLossPerTurn / 100.0);
+		toLose = Math.Min(toLose, heatPower.Amount); // 不可为负
+		if (toLose > 0)
+		{
+			await PowerCmd.ModifyAmount(choiceContext, heatPower, -toLose, Owner, null);
+		}
 	}
 }

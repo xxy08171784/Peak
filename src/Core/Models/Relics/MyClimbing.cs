@@ -189,8 +189,8 @@ public class MyClimbing : RelicModel
 				break;
 
 			case 2:
-				// 方山：获得 15 层炎热
-				await GainHeat(choiceContext, 15m);
+				// 方山：获得 14 层炎热
+				await GainHeat(choiceContext, 14m);
 				break;
 
 			case 3:

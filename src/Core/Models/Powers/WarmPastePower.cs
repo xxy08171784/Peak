@@ -11,8 +11,9 @@ using MegaCrit.Sts2.Core.Models;
 namespace peak.Core.Models.Powers;
 
 /// <summary>
-/// 暖宝宝：在你的回合开始时，获得 7（10）点炎热。
+/// 暖宝宝：在你的回合开始时，获得 6（9）点炎热。
 /// 炎热值获得会由 HeatPower.AfterPowerAmountChanged 自动补充散热。
+/// 注意：卡牌 OnPlay 中的立即获得 9/13 炎热在 Power 外部处理。
 /// </summary>
 public sealed class WarmPastePower : PowerModel
 {
