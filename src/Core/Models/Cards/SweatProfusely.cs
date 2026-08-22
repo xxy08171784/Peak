@@ -26,7 +26,8 @@ public sealed class SweatProfusely : CardModel
 	// 悬停提示：显示挥汗如雨的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<SweatProfuselyPower>()
+		HoverTipFactory.FromPower<SweatProfuselyPower>(),
+		HoverTipFactory.FromPower<HeatPower>()
 	};
 
 	public SweatProfusely()

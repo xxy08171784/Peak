@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -20,6 +22,18 @@ public sealed class BlowgunRescue : CardModel
 
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<IntangiblePower>(),
+		HoverTipFactory.FromPower<RegenPower>()
+	};
+
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new PowerVar<IntangiblePower>(1m),
+		new PowerVar<RegenPower>(5m)
+	};
 
 	// 卡面尚未绘制，暂用 beta 占位图
 	public override string PortraitPath => CardModel.MissingPortraitPath;
@@ -41,11 +55,11 @@ public sealed class BlowgunRescue : CardModel
 
 		// 1. 给予 1 层无实体
 		await PowerCmd.Apply<IntangiblePower>(
-			choiceContext, cardPlay.Target, 1m, base.Owner.Creature, this);
+			choiceContext, cardPlay.Target, base.DynamicVars["IntangiblePower"].BaseValue, base.Owner.Creature, this);
 
 		// 2. 给予 5 层再生
 		await PowerCmd.Apply<RegenPower>(
-			choiceContext, cardPlay.Target, 5m, base.Owner.Creature, this);
+			choiceContext, cardPlay.Target, base.DynamicVars["RegenPower"].BaseValue, base.Owner.Creature, this);
 
 		// 3. 结束队友的回合
 		PlayerCmd.EndTurn(cardPlay.Target.Player!, canBackOut: false);

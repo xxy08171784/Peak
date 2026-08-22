@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -20,6 +21,11 @@ namespace peak.Core.Models.Cards;
 public sealed class TheMountainOfFlames : CardModel
 {
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/the_mountain_of_flames.png");
+
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<HeatPower>()
+	};
 
 	// 基础变量：额外获得 10 点炎热（升级后 15 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

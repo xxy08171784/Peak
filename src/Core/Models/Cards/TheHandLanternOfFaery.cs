@@ -32,7 +32,9 @@ public sealed class TheHandLanternOfFaery : CardModel, IItemCard
 	// 悬停提示：显示仙子提灯的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<TheHandLanternOfFaeryPower>()
+		HoverTipFactory.FromPower<TheHandLanternOfFaeryPower>(),
+		HoverTipFactory.FromPower<HeatPower>(),
+		HoverTipFactory.FromPower<ZhongduPower>()
 	};
 
 	public TheHandLanternOfFaery()

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -17,14 +18,20 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class PrankTeammate : CardModel
 {
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		base.EnergyHoverTip
+	};
+
 	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
 	// 卡面尚未绘制，暂用 beta 占位图
 	public override string PortraitPath => CardModel.MissingPortraitPath;
 
-	// 动态变量：对队友造成伤害 5（升级后 1）
+	// 动态变量：获得 2 点能量；对队友造成伤害 5（升级后 1）。
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
+		new EnergyVar(2),
 		new DamageVar(5m, ValueProp.Move)
 	};
 
@@ -38,7 +45,7 @@ public sealed class PrankTeammate : CardModel
 		ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
 		// 1. 自己获得 2 费
-		await PlayerCmd.GainEnergy(2m, base.Owner);
+		await PlayerCmd.GainEnergy(base.DynamicVars["Energy"].BaseValue, base.Owner);
 
 		// 2. 给队友造成 5（1）点伤害
 		await CreatureCmd.Damage(

@@ -14,7 +14,7 @@ namespace peak.Core.Models.Cards;
 /// 海螺：造成 12（16）点伤害。
 /// 1 费，攻击牌，普通稀有度，单体敌人目标。
 /// </summary>
-public sealed class Conch : CardModel
+public sealed class Conch : CardModel, IItemCard
 {
 	// 动态变量：基础伤害 12 点
 	protected override IEnumerable<DynamicVar> CanonicalVars => new[] { new DamageVar(12m, ValueProp.Move) };

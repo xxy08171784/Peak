@@ -27,6 +27,7 @@ public sealed class LeaderTrumpet : CardModel, IItemCard
 	// 悬停提示：显示领队追杀的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
+		base.EnergyHoverTip,
 		HoverTipFactory.FromPower<LeadersPursuitPower>()
 	};
 

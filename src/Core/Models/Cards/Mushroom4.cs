@@ -30,16 +30,20 @@ public sealed class Mushroom4 : CardModel, IFoodCard
 	// 消耗 + 保留关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust, CardKeyword.Retain };
 
-	// 悬停提示：显示孢子的机制说明
+	// 悬停提示：按卡面顺序显示全部状态说明。
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<SporePower>()
+		HoverTipFactory.FromPower<SporePower>(),
+		HoverTipFactory.FromPower<WeakPower>(),
+		HoverTipFactory.FromPower<FrailPower>()
 	};
 
-	// 动态变量：孢子 4 层
+	// 动态变量：孢子 4 层、虚弱 1 层、脆弱 1 层。
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
-		new PowerVar<SporePower>(4m)
+		new PowerVar<SporePower>(4m),
+		new PowerVar<WeakPower>(1m),
+		new PowerVar<FrailPower>(1m)
 	};
 
 	public Mushroom4()
@@ -62,7 +66,7 @@ public sealed class Mushroom4 : CardModel, IFoodCard
 		await PowerCmd.Apply<WeakPower>(
 			choiceContext,
 			base.Owner.Creature,
-			1m,
+			base.DynamicVars["WeakPower"].BaseValue,
 			base.Owner.Creature,
 			this
 		);
@@ -71,7 +75,7 @@ public sealed class Mushroom4 : CardModel, IFoodCard
 		await PowerCmd.Apply<FrailPower>(
 			choiceContext,
 			base.Owner.Creature,
-			1m,
+			base.DynamicVars["FrailPower"].BaseValue,
 			base.Owner.Creature,
 			this
 		);

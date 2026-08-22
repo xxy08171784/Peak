@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using peak.Core.Models.Powers;
@@ -23,6 +24,20 @@ public sealed class ShareMisfortune : CardModel
 
 	// 保留关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Retain };
+
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<VulnerablePower>(),
+		HoverTipFactory.FromPower<FrailPower>(),
+		HoverTipFactory.FromPower<WeakPower>(),
+		HoverTipFactory.FromPower<StrengthPower>(),
+		HoverTipFactory.FromPower<DexterityPower>(),
+		HoverTipFactory.FromPower<ZhongduPower>(),
+		HoverTipFactory.FromPower<SporePower>(),
+		HoverTipFactory.FromPower<HeatPower>(),
+		HoverTipFactory.FromPower<DoomPower>(),
+		HoverTipFactory.FromPower<LeadersPursuitPower>()
+	};
 
 	// 升级后目标变为所有敌人
 	public override TargetType TargetType =>

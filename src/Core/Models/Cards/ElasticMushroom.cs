@@ -16,7 +16,7 @@ namespace peak.Core.Models.Cards;
 /// 如果你在回合结束时没有任何格挡，获得 5（7）点格挡。
 /// 1 费，能力牌，普通稀有度，目标自身。
 /// </summary>
-public sealed class ElasticMushroom : CardModel, IItemCard
+public sealed class ElasticMushroom : CardModel
 {
 	// 卡面图片（文件名与卡牌 ID 一致：elastic_mushroom.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/elastic_mushroom.png");

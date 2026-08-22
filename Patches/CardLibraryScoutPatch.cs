@@ -1,5 +1,8 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using Godot;
 using HarmonyLib;
@@ -27,8 +30,8 @@ namespace peak.Patches;
 ///  1. CardLibraryScoutReadyPatch（_Ready Postfix）：动态创建一个 Scout 专属筛选按钮，
 ///     与铁甲战士/静默猎手的按钮完全一致（使用 character_icon_scout.png 图标），
 ///     注册进 _poolFilters / _cardPoolFilters，点击即可只看 Scout 卡牌；
-///  2. CardLibraryScoutPatch（OnSubmenuOpened Prefix）：防御性兜底 —— 万一按钮创建
-///     失败，仍把 Scout 映射到 Ironclad 按钮，保证图鉴不会崩溃。
+///  2. CardLibraryScoutPatch（OnSubmenuOpened Prefix）：进入图鉴前验证 Scout 映射
+///     已经存在；若注册链路失效，抛出包含上下文的错误，禁止无内容灰屏静默通过。
 /// </summary>
 
 [HarmonyPatch(typeof(NCardLibrary), "_Ready")]
@@ -42,103 +45,70 @@ public static class CardLibraryScoutReadyPatch
 	[HarmonyPostfix]
 	static void Postfix(NCardLibrary __instance)
 	{
-		try
+		FieldInfo cardPoolFiltersField = AccessTools.Field(typeof(NCardLibrary), "_cardPoolFilters")
+			?? throw new MissingFieldException(typeof(NCardLibrary).FullName, "_cardPoolFilters");
+		FieldInfo poolFiltersField = AccessTools.Field(typeof(NCardLibrary), "_poolFilters")
+			?? throw new MissingFieldException(typeof(NCardLibrary).FullName, "_poolFilters");
+		FieldInfo ironcladField = AccessTools.Field(typeof(NCardLibrary), "_ironcladFilter")
+			?? throw new MissingFieldException(typeof(NCardLibrary).FullName, "_ironcladFilter");
+
+		Dictionary<CharacterModel, NCardPoolFilter> cardPoolFilters =
+			cardPoolFiltersField.GetValue(__instance) as Dictionary<CharacterModel, NCardPoolFilter>
+			?? throw new InvalidDataException("NCardLibrary._cardPoolFilters has an unexpected runtime type.");
+		Dictionary<NCardPoolFilter, Func<CardModel, bool>> poolFilters =
+			poolFiltersField.GetValue(__instance) as Dictionary<NCardPoolFilter, Func<CardModel, bool>>
+			?? throw new InvalidDataException("NCardLibrary._poolFilters has an unexpected runtime type.");
+		NCardPoolFilter ironcladFilter = ironcladField.GetValue(__instance) as NCardPoolFilter
+			?? throw new InvalidDataException("NCardLibrary._ironcladFilter is missing or has an unexpected runtime type.");
+
+		CharacterModel scoutModel = ModelDb.Character<Scout>();
+		if (cardPoolFilters.ContainsKey(scoutModel))
 		{
-			// 1. 读取私有字段
-			FieldInfo? cardPoolFiltersField = AccessTools.Field(typeof(NCardLibrary), "_cardPoolFilters");
-			FieldInfo? poolFiltersField = AccessTools.Field(typeof(NCardLibrary), "_poolFilters");
-			FieldInfo? ironcladField = AccessTools.Field(typeof(NCardLibrary), "_ironcladFilter");
-			if (cardPoolFiltersField == null || poolFiltersField == null || ironcladField == null)
-			{
-				return;
-			}
-			if (cardPoolFiltersField.GetValue(__instance) is not Dictionary<CharacterModel, NCardPoolFilter> cardPoolFilters ||
-				poolFiltersField.GetValue(__instance) is not Dictionary<NCardPoolFilter, Func<CardModel, bool>> poolFilters)
-			{
-				return;
-			}
-			if (ironcladField.GetValue(__instance) is not NCardPoolFilter ironcladFilter)
-			{
-				return;
-			}
-
-			// 已注册过 Scout（防御，正常不会走到）
-			CharacterModel scoutModel = ModelDb.Character<Scout>();
-			if (cardPoolFilters.ContainsKey(scoutModel))
-			{
-				return;
-			}
-
-			// 2. 实例化筛选按钮场景（与铁甲战士同一模板，自带 Image/Shadow/%SelectionReticle）
-			PackedScene? poolToggleScene = GD.Load<PackedScene>(PoolToggleScenePath);
-			if (poolToggleScene == null)
-			{
-				return;
-			}
-			NCardPoolFilter scoutFilter = poolToggleScene.Instantiate<NCardPoolFilter>();
-			scoutFilter.Name = ScoutNodeName;
-
-			// 3. 换成 Scout 图标（Image 及其 Shadow 子节点）
-			Texture2D? scoutIcon = GD.Load<Texture2D>(ScoutIconPath);
-			if (scoutIcon != null)
-			{
-				if (scoutFilter.GetNodeOrNull<TextureRect>("Image") is TextureRect image)
-				{
-					image.Texture = scoutIcon;
-				}
-				if (scoutFilter.GetNodeOrNull<TextureRect>("Image/Shadow") is TextureRect shadow)
-				{
-					shadow.Texture = scoutIcon;
-				}
-			}
-
-			// 4. 加入 PoolFilters 容器（铁甲按钮的父节点）；AddChild 后 _Ready 自动执行
-			if (ironcladFilter.GetParent() is not GridContainer poolFiltersContainer)
-			{
-				scoutFilter.Free();
-				return;
-			}
-			poolFiltersContainer.AddChild(scoutFilter);
-
-			// 5. 连接 Toggled → UpdateCardPoolFilter（私有方法，反射构造 Callable）
-			MethodInfo? updateMethod = AccessTools.Method(typeof(NCardLibrary), "UpdateCardPoolFilter");
-			if (updateMethod != null)
-			{
-				Callable callable = Callable.From<NCardPoolFilter>(filter =>
-					updateMethod.Invoke(__instance, new object[] { filter }));
-				scoutFilter.Connect(NCardPoolFilter.SignalName.Toggled, callable);
-			}
-
-			// 6. 注册过滤条件与角色映射
-			poolFilters[scoutFilter] = (CardModel c) => c.Pool is ScoutCardPool;
-			cardPoolFilters[scoutModel] = scoutFilter;
-
-			// 7. 悬浮提示 + 可见性（Scout 默认解锁）
-			scoutFilter.Loc = LocString.GetIfExists("card_library", ScoutPoolLocKey);
-			scoutFilter.Visible = true;
-
-			// 8. 焦点进入时记录到 _lastHoveredControl（与其它按钮行为一致）
-			FieldInfo? lastHoveredField = AccessTools.Field(typeof(NCardLibrary), "_lastHoveredControl");
-			if (lastHoveredField != null)
-			{
-				scoutFilter.Connect(Control.SignalName.FocusEntered, Callable.From(() =>
-					lastHoveredField.SetValue(__instance, scoutFilter)));
-			}
-
-			Log.Info("CardLibraryScoutReadyPatch: Scout pool filter button created.");
+			Log.Info("CardLibraryScoutReadyPatch: Scout pool filter was already registered.");
+			return;
 		}
-		catch (Exception e)
-		{
-			// 创建失败不阻塞图鉴，由 OnSubmenuOpened 的 Prefix 兜底
-			Log.Error($"CardLibraryScoutReadyPatch failed: {e}");
-		}
+
+		PackedScene poolToggleScene = GD.Load<PackedScene>(PoolToggleScenePath)
+			?? throw new FileNotFoundException("Required Scout card-library filter scene is missing.", PoolToggleScenePath);
+		Texture2D scoutIcon = GD.Load<Texture2D>(ScoutIconPath)
+			?? throw new FileNotFoundException("Required Scout card-library icon is missing.", ScoutIconPath);
+		NCardPoolFilter scoutFilter = poolToggleScene.Instantiate<NCardPoolFilter>();
+		scoutFilter.Name = ScoutNodeName;
+
+		TextureRect image = scoutFilter.GetNodeOrNull<TextureRect>("Image")
+			?? throw new InvalidDataException("Scout card-library filter scene has no Image TextureRect.");
+		TextureRect shadow = scoutFilter.GetNodeOrNull<TextureRect>("Image/Shadow")
+			?? throw new InvalidDataException("Scout card-library filter scene has no Image/Shadow TextureRect.");
+		image.Texture = scoutIcon;
+		shadow.Texture = scoutIcon;
+
+		GridContainer poolFiltersContainer = ironcladFilter.GetParent() as GridContainer
+			?? throw new InvalidDataException("Ironclad card-library filter parent is not a GridContainer.");
+		poolFiltersContainer.AddChild(scoutFilter);
+
+		MethodInfo updateMethod = AccessTools.Method(typeof(NCardLibrary), "UpdateCardPoolFilter")
+			?? throw new MissingMethodException(typeof(NCardLibrary).FullName, "UpdateCardPoolFilter");
+		Callable callable = Callable.From<NCardPoolFilter>(filter =>
+			updateMethod.Invoke(__instance, new object[] { filter }));
+		scoutFilter.Connect(NCardPoolFilter.SignalName.Toggled, callable);
+
+		poolFilters[scoutFilter] = (CardModel c) => c.Pool is ScoutCardPool;
+		cardPoolFilters[scoutModel] = scoutFilter;
+		scoutFilter.Loc = LocString.GetIfExists("card_library", ScoutPoolLocKey);
+		scoutFilter.Visible = true;
+
+		FieldInfo lastHoveredField = AccessTools.Field(typeof(NCardLibrary), "_lastHoveredControl")
+			?? throw new MissingFieldException(typeof(NCardLibrary).FullName, "_lastHoveredControl");
+		scoutFilter.Connect(Control.SignalName.FocusEntered, Callable.From(() =>
+			lastHoveredField.SetValue(__instance, scoutFilter)));
+
+		Log.Info($"CardLibraryScoutReadyPatch: Scout pool filter registered; poolCards={ModelDb.CardPool<ScoutCardPool>().AllCards.Count()}.");
 	}
 }
 
 /// <summary>
-/// 防御性兜底：OnSubmenuOpened 之前确保 Scout 已注册到 _cardPoolFilters，
-/// 避免 KeyNotFoundException 导致图鉴卡死。
-/// 正常情况（Scout 专属按钮已创建）下会直接跳过。
+/// OnSubmenuOpened 之前验证 Scout 已注册到 _cardPoolFilters。
+/// 缺失映射时立即抛错并输出已注册角色，禁止再次静默卡在灰色遮罩。
 /// </summary>
 [HarmonyPatch(typeof(NCardLibrary), "OnSubmenuOpened")]
 public static class CardLibraryScoutPatch
@@ -146,50 +116,28 @@ public static class CardLibraryScoutPatch
 	[HarmonyPrefix]
 	static void Prefix(NCardLibrary __instance)
 	{
-		try
+		FieldInfo runStateField = AccessTools.Field(typeof(NCardLibrary), "_runState")
+			?? throw new MissingFieldException(typeof(NCardLibrary).FullName, "_runState");
+		IRunState? runState = runStateField.GetValue(__instance) as IRunState;
+		Player? localPlayer = LocalContext.GetMe(runState);
+		CharacterModel? character = localPlayer?.Character;
+		if (character is not Scout)
 		{
-			// 读取私有字段 _runState 以获取当前角色
-			FieldInfo? runStateField = AccessTools.Field(typeof(NCardLibrary), "_runState");
-			IRunState? runState = runStateField?.GetValue(__instance) as IRunState;
-
-			Player? localPlayer = LocalContext.GetMe(runState);
-			CharacterModel? character = localPlayer?.Character;
-			if (character == null)
-			{
-				return; // 主菜单打开时无角色上下文，原逻辑走 Ironclad 分支
-			}
-
-			// 读取 _cardPoolFilters 字典
-			if (AccessTools.Field(typeof(NCardLibrary), "_cardPoolFilters")?.GetValue(__instance)
-				is not Dictionary<CharacterModel, NCardPoolFilter> cardPoolFilters)
-			{
-				return;
-			}
-
-			// 已有映射（含 Scout 专属按钮），无需处理
-			if (cardPoolFilters.ContainsKey(character))
-			{
-				return;
-			}
-
-			// 兜底：映射到 Ironclad 按钮，并扩展其过滤条件包含 Scout 卡池
-			if (AccessTools.Field(typeof(NCardLibrary), "_ironcladFilter")?.GetValue(__instance)
-				is not NCardPoolFilter ironcladFilter)
-			{
-				return;
-			}
-			cardPoolFilters[character] = ironcladFilter;
-
-			if (AccessTools.Field(typeof(NCardLibrary), "_poolFilters")?.GetValue(__instance)
-				is Dictionary<NCardPoolFilter, Func<CardModel, bool>> poolFilters &&
-				poolFilters.TryGetValue(ironcladFilter, out Func<CardModel, bool>? existing))
-			{
-				poolFilters[ironcladFilter] = (CardModel c) => existing(c) || c.Pool is ScoutCardPool;
-			}
+			return;
 		}
-		catch
+
+		FieldInfo cardPoolFiltersField = AccessTools.Field(typeof(NCardLibrary), "_cardPoolFilters")
+			?? throw new MissingFieldException(typeof(NCardLibrary).FullName, "_cardPoolFilters");
+		Dictionary<CharacterModel, NCardPoolFilter> cardPoolFilters =
+			cardPoolFiltersField.GetValue(__instance) as Dictionary<CharacterModel, NCardPoolFilter>
+			?? throw new InvalidDataException("NCardLibrary._cardPoolFilters has an unexpected runtime type.");
+
+		if (!cardPoolFilters.ContainsKey(character))
 		{
-			// 兜底失败也不能让图鉴崩溃
+			throw new InvalidOperationException(
+				$"Scout card-library filter was not registered. Registered characters: {string.Join(", ", cardPoolFilters.Keys)}");
 		}
+
+		Log.Info("CardLibraryScoutPatch: Scout filter invariant verified before opening the library.");
 	}
 }

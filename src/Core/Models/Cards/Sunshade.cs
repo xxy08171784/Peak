@@ -26,7 +26,8 @@ public sealed class Sunshade : CardModel, IItemCard
 	// 悬停提示：显示遮阳伞的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<SunshadePower>()
+		HoverTipFactory.FromPower<SunshadePower>(),
+		HoverTipFactory.FromPower<HeatPower>()
 	};
 
 	public Sunshade()

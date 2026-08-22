@@ -32,7 +32,8 @@ public sealed class Mushroom5 : CardModel, IFoodCard
 	// 悬停提示：显示孢子的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<SporePower>()
+		HoverTipFactory.FromPower<SporePower>(),
+		base.EnergyHoverTip
 	};
 
 	// 动态变量：基础孢子 4 层（升级后 0 层）、能量 2 点

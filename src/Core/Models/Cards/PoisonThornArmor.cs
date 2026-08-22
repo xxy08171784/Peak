@@ -23,15 +23,17 @@ public sealed class PoisonThornArmor : CardModel
 
 	
 
-	// 动态变量：基础毒刺反击 3 点中毒（升级后 4 点）
+	// 动态变量：自己获得 2 层中毒；毒刺反击 3 点中毒（升级后 4 点）。
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
+		new PowerVar<ZhongduPower>(2m),
 		new PowerVar<TelsonPower>(3m)
 	};
 
-	// 悬停提示：显示毒刺的机制说明
+	// 悬停提示：按卡面顺序显示中毒与毒刺说明。
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
+		HoverTipFactory.FromPower<ZhongduPower>(),
 		HoverTipFactory.FromPower<TelsonPower>()
 	};
 
@@ -46,7 +48,7 @@ public sealed class PoisonThornArmor : CardModel
 		await PowerCmd.Apply<ZhongduPower>(
 			choiceContext,
 			base.Owner.Creature,
-			2m,
+			base.DynamicVars["ZhongduPower"].BaseValue,
 			base.Owner.Creature,
 			this
 		);
