@@ -1,0 +1,1 @@
+# Build tools and generated artifacts must never be imported as game resources.

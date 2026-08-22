@@ -1,48 +1,92 @@
-[gd_scene load_steps=4 format=3 uid="uid://2sf3now6f604"]
+[gd_scene load_steps=7 format=3 uid="uid://2sf3now6f604"]
 
 [ext_resource type="Script" uid="uid://vg6uk2fmddpm" path="res://CustomEnergyCounter.cs" id="1_ho4xi"]
 [ext_resource type="Script" uid="uid://bl7yakgklqxom" path="res://CustomMegaLabel.cs" id="2_5g3tq"]
 [ext_resource type="Texture2D" uid="uid://cr63mwgfvwh5a" path="res://images/ui/energys/energy_scout.png" id="2_uowpn"]
+[ext_resource type="Script" path="res://CustomEnergyVfxContainer.cs" id="3_vfx"]
+
+[sub_resource type="SystemFont" id="SystemFont_energy"]
+font_names = PackedStringArray("Arial")
+font_weight = 700
+
+[sub_resource type="FontVariation" id="FontVariation_energy"]
+base_font = SubResource("SystemFont_energy")
 
 [node name="ScoutEnergyCounter" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 128.0
+offset_bottom = 128.0
+pivot_offset = Vector2(64, 64)
 script = ExtResource("1_ho4xi")
+
+[node name="EnergyVfxBack" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(64, 64)
+script = ExtResource("3_vfx")
 
 [node name="Layers" type="Control" parent="."]
 unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="EnergyOrb" type="TextureRect" parent="Layers"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_uowpn")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="RotationLayers" type="Control" parent="Layers"]
 unique_name_in_owner = true
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="TextureRect" type="TextureRect" parent="Layers"]
-layout_mode = 0
-offset_left = -23.999998
-offset_top = -23.999998
-offset_right = 232.0
-offset_bottom = 232.0
-scale = Vector2(0.7990793, 0.7990793)
-texture = ExtResource("2_uowpn")
+[node name="EnergyVfxFront" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(64, 64)
+script = ExtResource("3_vfx")
 
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 48.999996
-offset_top = 65.0
-offset_right = 104.0
-offset_bottom = 175.0
-scale = Vector2(1.099977, 0.9233759)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -29.0
+offset_right = -16.0
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.9647, 0.8863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.1882)
+theme_override_colors/font_outline_color = Color(0.2706, 0.102, 0.3529, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = SubResource("FontVariation_energy")
 theme_override_font_sizes/font_size = 36
 text = "3/3"
+horizontal_alignment = 1
+vertical_alignment = 1
 script = ExtResource("2_5g3tq")
-AutoSizeEnabled = null
-MinFontSize = null
-MaxFontSize = null
+MinFontSize = 32
+MaxFontSize = 36
