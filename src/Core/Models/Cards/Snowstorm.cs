@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -21,6 +22,11 @@ namespace peak.Core.Models.Cards;
 public sealed class Snowstorm : CardModel
 {
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/snowstorm.png");
+
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<ColdPower>()
+	};
 
 	// 基础变量：给予所有敌人 1 层寒冷（升级后 2）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

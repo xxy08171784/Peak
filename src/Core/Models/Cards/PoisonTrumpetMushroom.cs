@@ -26,6 +26,7 @@ public sealed class PoisonTrumpetMushroom : CardModel, IFoodCard
 	// 悬停提示：显示中毒的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
+		base.EnergyHoverTip,
 		HoverTipFactory.FromPower<ZhongduPower>()
 	};
 

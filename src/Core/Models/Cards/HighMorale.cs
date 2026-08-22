@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using peak.Core.Models.Powers;
 
 namespace peak.Core.Models.Cards;
@@ -29,7 +30,8 @@ public sealed class HighMorale : CardModel
 	// 悬停提示：显示士气高涨能力说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<HighMoralePower>()
+		HoverTipFactory.FromPower<HighMoralePower>(),
+		HoverTipFactory.FromPower<PlatingPower>()
 	};
 
 	public HighMorale()

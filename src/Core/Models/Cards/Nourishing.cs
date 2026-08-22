@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using peak.Core.Models.Powers;
 
 namespace peak.Core.Models.Cards;
@@ -26,7 +27,9 @@ public sealed class Nourishing : CardModel
 	// 悬停提示：显示滋补的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<NourishingPower>()
+		HoverTipFactory.FromPower<NourishingPower>(),
+		HoverTipFactory.FromPower<PlatingPower>(),
+		HoverTipFactory.FromPower<StrengthPower>()
 	};
 
 	public Nourishing()

@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Models.Cards;
 using MegaCrit.Sts2.Core.Models.PotionPools;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Saves.Runs;
-using peak.Core.Models.CardPools;
 using peak.Core.Models.Cards;
 
 using peak.Core.Models.Characters;
@@ -62,11 +61,15 @@ namespace peak
 			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(BottledMist));
 			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(BottledTornado));
 			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(MilkPotion));
-			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(FreezeBottle));		// 多人混池卡牌（无色池，仅多人模式出现）
-		ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(PrankTeammate));
-		ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(LowerRope));
-		ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(CursedSkull));
-		ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(FriendshipHorn));			Log.Info("加载成功！");
+			ModHelper.AddModelToPool(typeof(SharedPotionPool), typeof(FreezeBottle));
+
+			// 多人混池卡牌（无色池，仅多人模式出现）
+			ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(PrankTeammate));
+			ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(LowerRope));
+			ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(CursedSkull));
+			ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(FriendshipHorn));
+
+			Log.Info("Peak v1.0.5 initialized; upstream=f15bf98; harmony=xxy_peak.");
 		}
 	}
 }

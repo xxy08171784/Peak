@@ -16,7 +16,7 @@ namespace peak.Core.Models.Cards;
 /// 绳索：给予 1（2）层缠绕效果。
 /// 1 费，技能牌，普通稀有度，目标任意敌人。
 /// </summary>
-public sealed class Rope : CardModel
+public sealed class Rope : CardModel, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：rope.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/rope.png");

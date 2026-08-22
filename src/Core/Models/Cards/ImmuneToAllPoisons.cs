@@ -32,7 +32,8 @@ public sealed class ImmuneToAllPoisons : CardModel
 	// 悬停提示：显示百毒不侵的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<ImmuneToAllPoisonsPower>()
+		HoverTipFactory.FromPower<ImmuneToAllPoisonsPower>(),
+		HoverTipFactory.FromPower<ZhongduPower>()
 	};
 
 	public ImmuneToAllPoisons()

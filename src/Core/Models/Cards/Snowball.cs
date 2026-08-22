@@ -18,7 +18,7 @@ namespace peak.Core.Models.Cards;
 /// 可被【滚雪球】多次升级：
 /// - 升级 n 次：给予 (n+1) 层寒冷、n 层易伤、n 层虚弱（n ≥ 1）。
 /// </summary>
-public sealed class Snowball : CardModel
+public sealed class Snowball : CardModel, IItemCard
 {
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
