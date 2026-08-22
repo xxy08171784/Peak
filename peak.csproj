@@ -20,6 +20,12 @@
     <Reference Include="GodotSharp">
       <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\GodotSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Sentry">
+      <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\Sentry.dll</HintPath>
+    </Reference>
+    <Reference Include="Sentry.Godot">
+      <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\Sentry.Godot.dll</HintPath>
+    </Reference>
     <Reference Include="sts2">
       <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\sts2.dll</HintPath>
     </Reference>

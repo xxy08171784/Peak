@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/skeleton_scout_17.png-074dd55757c1e66aaee1afa
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
