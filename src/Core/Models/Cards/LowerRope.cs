@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -15,6 +17,16 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class LowerRope : CardModel
 {
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<DexterityPower>()
+	};
+
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new PowerVar<DexterityPower>(2m)
+	};
+
 	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
 	// 消耗关键词
@@ -36,7 +48,7 @@ public sealed class LowerRope : CardModel
 			if (creature.IsAlive && creature.IsPlayer)
 			{
 				await PowerCmd.Apply<DexterityPower>(
-					choiceContext, creature, 2m, base.Owner.Creature, this);
+					choiceContext, creature, base.DynamicVars["DexterityPower"].BaseValue, base.Owner.Creature, this);
 			}
 		}
 	}

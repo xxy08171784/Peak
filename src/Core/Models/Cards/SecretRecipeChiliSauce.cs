@@ -31,7 +31,8 @@ public sealed class SecretRecipeChiliSauce : CardModel
 	// 悬停提示：显示秘制辣酱的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<SecretRecipeChiliSaucePower>()
+		HoverTipFactory.FromPower<SecretRecipeChiliSaucePower>(),
+		HoverTipFactory.FromPower<HeatPower>()
 	};
 
 	public SecretRecipeChiliSauce()

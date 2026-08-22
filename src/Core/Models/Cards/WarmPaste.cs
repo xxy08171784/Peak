@@ -26,7 +26,8 @@ public sealed class WarmPaste : CardModel, IItemCard
 	// 悬停提示：显示暖宝宝的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<WarmPastePower>()
+		HoverTipFactory.FromPower<WarmPastePower>(),
+		HoverTipFactory.FromPower<HeatPower>()
 	};
 
 	public WarmPaste()

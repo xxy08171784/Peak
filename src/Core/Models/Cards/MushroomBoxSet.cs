@@ -33,7 +33,8 @@ public sealed class MushroomBoxSet : CardModel
 		HoverTipFactory.FromCard<Mushroom2>(base.IsUpgraded),
 		HoverTipFactory.FromCard<Mushroom3>(base.IsUpgraded),
 		HoverTipFactory.FromCard<Mushroom4>(base.IsUpgraded),
-		HoverTipFactory.FromCard<Mushroom5>(base.IsUpgraded)
+		HoverTipFactory.FromCard<Mushroom5>(base.IsUpgraded),
+		HoverTipFactory.FromPower<SporePower>()
 	};
 
 	// 动态变量：新增效果——获得 2 层孢子

@@ -32,10 +32,15 @@ public sealed class Panacea : CardModel, IFoodCard, IItemCard
 		new HealVar(8m)
 	};
 
-	// 悬停提示：显示中毒的机制说明
+	// 悬停提示：按卡面顺序显示所有会被移除的状态。
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<ZhongduPower>()
+		HoverTipFactory.FromPower<HeatPower>(),
+		HoverTipFactory.FromPower<ZhongduPower>(),
+		HoverTipFactory.FromPower<SporePower>(),
+		HoverTipFactory.FromPower<WeakPower>(),
+		HoverTipFactory.FromPower<FrailPower>(),
+		HoverTipFactory.FromPower<VulnerablePower>()
 	};
 
 	public Panacea()

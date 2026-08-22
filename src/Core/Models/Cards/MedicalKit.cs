@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -17,6 +18,11 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class MedicalKit : CardModel, IItemCard
 {
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<ZhongduPower>()
+	};
+
 	// 卡面图片（文件名与卡牌 ID 一致：medical_kit.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/medical_kit.png");
 

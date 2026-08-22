@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using peak.Core.Models.Powers;
@@ -29,6 +30,21 @@ public sealed class PandoraBox : CardModel, IFoodCard
 
 	// 固有词条：消耗（升级后通过 OnUpgrade 添加保留）
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		base.EnergyHoverTip,
+		HoverTipFactory.FromPower<StrengthPower>(),
+		HoverTipFactory.FromPower<DexterityPower>(),
+		HoverTipFactory.FromPower<RegenPower>(),
+		HoverTipFactory.FromPower<WeakPower>(),
+		HoverTipFactory.FromPower<FrailPower>(),
+		HoverTipFactory.FromPower<VulnerablePower>(),
+		HoverTipFactory.FromPower<BufferPower>(),
+		HoverTipFactory.FromPower<SporePower>(),
+		HoverTipFactory.FromPower<ZhongduPower>(),
+		HoverTipFactory.FromPower<HeatPower>()
+	};
 
 	public PandoraBox()
 		: base(2, CardType.Skill, CardRarity.Rare, TargetType.Self)

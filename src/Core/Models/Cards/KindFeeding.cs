@@ -6,6 +6,8 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -25,6 +27,19 @@ public sealed class KindFeeding : CardModel
 	// 卡面尚未绘制，暂用 beta 占位图
 	public override string PortraitPath => CardModel.MissingPortraitPath;
 
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		base.EnergyHoverTip,
+		HoverTipFactory.FromPower<ZhongduPower>()
+	};
+
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new EnergyVar(1),
+		new PowerVar<ZhongduPower>(3m),
+		new BlockVar(10m, ValueProp.Move)
+	};
+
 	public KindFeeding()
 		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
 	{
@@ -35,14 +50,14 @@ public sealed class KindFeeding : CardModel
 		ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");
 
 		// 1. 队友获得 1 费
-		await PlayerCmd.GainEnergy(1m, cardPlay.Target.Player!);
+		await PlayerCmd.GainEnergy(base.DynamicVars["Energy"].BaseValue, cardPlay.Target.Player!);
 
 		// 2. 队友获得 3 层中毒
 		await PowerCmd.Apply<ZhongduPower>(
-			choiceContext, cardPlay.Target, 3m, base.Owner.Creature, this);
+			choiceContext, cardPlay.Target, base.DynamicVars["ZhongduPower"].BaseValue, base.Owner.Creature, this);
 
 		// 3. 自己获得 10 点格挡
-		await CreatureCmd.GainBlock(base.Owner.Creature, 10m, ValueProp.Move, null);
+		await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars.Block, cardPlay: null);
 	}
 
 	protected override void OnUpgrade()

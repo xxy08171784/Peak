@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
@@ -15,6 +16,11 @@ namespace peak.Core.Models.Cards;
 
 public sealed class HalfCoconut : CardModel,IFoodCard
 {
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<HeatPower>()
+	};
+
     // 告诉系统此卡牌获得护甲（用于 Osty 自动目标等系统逻辑）
     public override bool GainsBlock => true;
 

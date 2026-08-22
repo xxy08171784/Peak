@@ -6,6 +6,8 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 
@@ -18,6 +20,16 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class TheBookOfBones : CardModel, IItemCard
 {
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<VulnerablePower>()
+	};
+
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new PowerVar<VulnerablePower>(99m)
+	};
+
 	public TheBookOfBones()
 		: base(0, CardType.Skill, CardRarity.Rare, TargetType.Self)
 	{
@@ -50,7 +62,7 @@ public sealed class TheBookOfBones : CardModel, IItemCard
 		await PowerCmd.Apply<VulnerablePower>(
 			choiceContext,
 			base.Owner.Creature,
-			99m,
+			base.DynamicVars["VulnerablePower"].BaseValue,
 			base.Owner.Creature,
 			this
 		);

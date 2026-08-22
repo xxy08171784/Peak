@@ -18,7 +18,7 @@ namespace peak.Core.Models.Cards;
 /// 2 费，攻击牌，罕见稀有度，目标所有敌人。
 /// 大炮不是食物牌。【小烤】/【烤炉】烤它时，会触发其自动打出（AutoPlay）。
 /// </summary>
-public sealed class Cannon : CardModel
+public sealed class Cannon : CardModel, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：cannon.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/cannon.png");
