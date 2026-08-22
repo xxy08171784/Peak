@@ -65,8 +65,8 @@ public sealed class BuffetPower : PowerModel
 
 		Flash(); // 自助餐图标闪烁，提示玩家触发了效果
 
-		// 额外抽 2 张牌
-		await CardPileCmd.Draw(choiceContext, 2m, Owner.Player);
+		// 额外抽 Amount × 2 张牌（堆叠时每层多抽 2 张）
+		await CardPileCmd.Draw(choiceContext, (decimal)Amount * 2m, Owner.Player);
 	}
 
 	/// <summary>

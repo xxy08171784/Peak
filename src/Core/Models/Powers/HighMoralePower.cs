@@ -15,9 +15,9 @@ namespace peak.Core.Models.Powers;
 
 /// <summary>
 /// 士气高涨：每当玩家切换环境时，获得 1 点覆甲并抽 1 张牌。
-/// 覆甲固定为 1，抽牌固定为 1。
+/// 通过 IEnvironmentAware 接口（替代旧的静态事件+async void 模式）。
 /// </summary>
-public sealed class HighMoralePower : PowerModel
+public sealed class HighMoralePower : PowerModel, IEnvironmentAware
 {
 	// 正向增益
 	public override PowerType Type => PowerType.Buff;
@@ -34,28 +34,10 @@ public sealed class HighMoralePower : PowerModel
 	// 每次切换环境抽的牌数（随层数叠加，层数即 Amount）
 	public int CardsPerTrigger => Amount;
 
-	// 是否已订阅事件
-	private bool _subscribed;
-
 	/// <summary>
-	/// Power 被施加时订阅环境切换事件。
+	/// 由 MyClimbing 在环境切换时调用（替代旧的 async void 事件处理器）。
 	/// </summary>
-	public override Task AfterApplied(Creature? applier, CardModel? cardSource)
-	{
-		SubscribeIfNeeded();
-		return Task.CompletedTask;
-	}
-
-	private void SubscribeIfNeeded()
-	{
-		if (!_subscribed)
-		{
-			_subscribed = true;
-			MyClimbing.EnvironmentChanged += OnEnvironmentChanged;
-		}
-	}
-
-	private async void OnEnvironmentChanged(Player player, int previous, int current)
+	public async Task OnEnvironmentChanged(PlayerChoiceContext choiceContext, Player player, int previousValue, int currentValue)
 	{
 		// 只响应自己所属的玩家
 		if (player != Owner.Player || Owner.IsDead || MegaCrit.Sts2.Core.Combat.CombatManager.Instance?.IsInProgress != true)
@@ -65,8 +47,6 @@ public sealed class HighMoralePower : PowerModel
 
 		Flash();
 
-		var choiceContext = new ThrowingPlayerChoiceContext();
-
 		// 1. 获得覆甲
 		await PowerCmd.Apply<PlatingPower>(choiceContext, Owner, BlockPerTrigger, Owner, null);
 
@@ -75,19 +55,5 @@ public sealed class HighMoralePower : PowerModel
 		{
 			await CardPileCmd.Draw(choiceContext, CardsPerTrigger, player);
 		}
-	}
-
-	public override Task AfterCombatEnd(CombatRoom room)
-	{
-		MyClimbing.EnvironmentChanged -= OnEnvironmentChanged;
-		_subscribed = false;
-		return base.AfterCombatEnd(room);
-	}
-
-	public override Task AfterRemoved(Creature oldOwner)
-	{
-		MyClimbing.EnvironmentChanged -= OnEnvironmentChanged;
-		_subscribed = false;
-		return base.AfterRemoved(oldOwner);
 	}
 }

@@ -41,11 +41,8 @@ public class MyClimbing : RelicModel
 	/// </summary>
 	private readonly List<int> _turnEnvironmentSequence = new();
 
-	/// <summary>
-	/// 环境切换事件：玩家、环境变化前的值、环境变化后的值。
-	/// 供【士气高涨】【初始物资】等能力卡监听"切换环境"时机。
-	/// </summary>
-	public static event Action<Player, int, int>? EnvironmentChanged;
+	// —— 以下字段/事件已废弃，改为 IEnvironmentAware 接口遍历 ——
+	//	public static event Action<Player, int, int>? EnvironmentChanged;
 
 	// 这是 Scout 的初始遗物，稀有度必须为 Starter，
 	// 否则会进入遗物袋被宝箱/精英/事件再次开出（官方初始遗物均为 Starter，会被遗物袋自动过滤）
@@ -104,6 +101,9 @@ public class MyClimbing : RelicModel
 		await TriggerEnvironmentEffect(choiceContext, previousValue, EnvironmentValue);
 	}
 
+	/// <summary>
+	/// 触发环境切换并广播给所有 IEnvironmentAware 监听者（替代旧的静态事件+async void 模式）。
+	/// </summary>
 	private async Task TriggerEnvironmentEffect(PlayerChoiceContext choiceContext, int previousValue, int currentValue)
 	{
 		if (base.Owner?.Creature == null)
@@ -113,7 +113,7 @@ public class MyClimbing : RelicModel
 
 		Flash();
 
-		// 环境切换事件：通知监听者（士气高涨、初始物资等）
+		// 环境切换事件：通知所有 IEnvironmentAware 监听者（士气高涨、初始物资等）
 		if (previousValue != currentValue)
 		{
 			// 记录到本回合切换序列（供 PEAK 判定）
@@ -122,7 +122,7 @@ public class MyClimbing : RelicModel
 			// 累计本场战斗切换次数（供过关斩将结算）
 			_totalEnvironmentSwitches++;
 
-			EnvironmentChanged?.Invoke(base.Owner, previousValue, currentValue);
+			await NotifyEnvironmentChanged(choiceContext, previousValue, currentValue);
 		}
 		else
 		{
@@ -132,11 +132,38 @@ public class MyClimbing : RelicModel
 			// 但不记录到本回合切换序列（保持 PEAK 的 01230 判定不受影响）
 			_totalEnvironmentSwitches++;
 
-			EnvironmentChanged?.Invoke(base.Owner, previousValue, currentValue);
+			await NotifyEnvironmentChanged(choiceContext, previousValue, currentValue);
 		}
 
 		// 执行当前状态的效果
 		await ExecuteStateEffect(choiceContext, currentValue);
+	}
+
+	/// <summary>
+	/// 遍历玩家的 Power 列表和遗物列表，通知所有实现 IEnvironmentAware 的监听者。
+	/// 替代旧的静态事件+async void 模式，消除联机锁步同步的分叉风险。
+	/// </summary>
+	private async Task NotifyEnvironmentChanged(PlayerChoiceContext choiceContext, int previousValue, int currentValue)
+	{
+		if (base.Owner?.Creature == null)
+		{
+			return;
+		}
+		Creature owner = base.Owner.Creature;
+		foreach (var power in owner.Powers)
+		{
+			if (power is IEnvironmentAware envPower)
+			{
+				await envPower.OnEnvironmentChanged(choiceContext, base.Owner, previousValue, currentValue);
+			}
+		}
+		foreach (var relic in base.Owner.Relics)
+		{
+			if (relic is IEnvironmentAware envRelic)
+			{
+				await envRelic.OnEnvironmentChanged(choiceContext, base.Owner, previousValue, currentValue);
+			}
+		}
 	}
 
 	/// <summary>
@@ -249,7 +276,7 @@ public class MyClimbing : RelicModel
 		// 记录本次切换并通知监听者（士气高涨、初始物资等）
 		_turnEnvironmentSequence.Add(newValue);
 		_totalEnvironmentSwitches++;
-		EnvironmentChanged?.Invoke(base.Owner, previousValue, newValue);
+		await NotifyEnvironmentChanged(choiceContext, previousValue, newValue);
 
 		await ExecuteStateEffect(choiceContext, newValue);
 	}

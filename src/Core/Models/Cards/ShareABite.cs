@@ -14,7 +14,7 @@ namespace peak.Core.Models.Cards;
 /// 1 费（升级后 0 费），技能牌，罕见稀有度，目标任意队友。
 /// 多人专属卡牌。
 /// </summary>
-public sealed class ShareABite : CardModel, IFoodCard
+public sealed class ShareABite : CardModel
 {
 	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 

@@ -29,6 +29,12 @@ public sealed class BlowgunRescue : CardModel
 	{
 	}
 
+	protected override void OnUpgrade()
+	{
+		// 升级后费用 2 -> 1
+		base.EnergyCost.UpgradeBy(-1);
+	}
+
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
 		ArgumentNullException.ThrowIfNull(cardPlay.Target, "cardPlay.Target");

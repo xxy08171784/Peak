@@ -22,10 +22,10 @@ public sealed class SecretRecipeChiliSauce : CardModel
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/secret_recipe_chili_sauce.png");
 	
 
-	// 动态变量：基础每次获得 6 点炎热值
+	// 动态变量：基础每次获得 9 点炎热值
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
-		new PowerVar<SecretRecipeChiliSaucePower>(6m)
+		new PowerVar<SecretRecipeChiliSaucePower>(9m)
 	};
 
 	// 悬停提示：显示秘制辣酱的机制说明

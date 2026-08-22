@@ -38,6 +38,10 @@ public sealed class SporeCloud : CardModel
     {
     }
 
+    // 升级后目标变为所有敌人（和 ShareMisfortune 同款模式）
+    public override TargetType TargetType => 
+        base.IsUpgraded ? TargetType.AllEnemies : TargetType.AnyEnemy;
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         // PowerVar<T> 默认键名 = C# 类名（SporePower / VulnerablePower）
@@ -53,19 +57,28 @@ public sealed class SporeCloud : CardModel
             this
         );
 
-        // 2. 给予敌人易伤（未升级：单体敌人；升级后：所有敌人）
+        // 2. 给予敌人易伤（未升级：单体；升级后：全体，用 IEnumerable 重载）
         if (base.IsUpgraded)
         {
-            foreach (var enemy in base.CombatState.HittableEnemies)
-            {
-                await PowerCmd.Apply<VulnerablePower>(choiceContext, enemy, vulnAmount, base.Owner.Creature, this);
-            }
+            await PowerCmd.Apply<VulnerablePower>(
+                choiceContext,
+                base.CombatState.HittableEnemies,   // ← 全体敌人
+                vulnAmount,
+                base.Owner.Creature,
+                this
+            );
         }
         else
         {
             if (cardPlay.Target != null)
             {
-                await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target, vulnAmount, base.Owner.Creature, this);
+                await PowerCmd.Apply<VulnerablePower>(
+                    choiceContext,
+                    cardPlay.Target,
+                    vulnAmount,
+                    base.Owner.Creature,
+                    this
+                );
             }
         }
     }

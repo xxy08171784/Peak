@@ -63,7 +63,7 @@ public sealed class GraduallyFreezingPower : PowerModel
 			}
 
 			await CreatureCmd.Damage(
-				new ThrowingPlayerChoiceContext(),
+				choiceContext,
 				enemy,
 				DamagePerFrostbiteStack * frostbiteStacks,
 				ValueProp.Unpowered,

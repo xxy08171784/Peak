@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -18,6 +19,12 @@ public sealed class Lollipop : CardModel, IFoodCard
 {
 	// 保留关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Retain };
+
+	// 悬停提示：显示疲劳的机制说明
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<TiredPower>()
+	};
 
 	// 动态变量：基础疲劳 1 层（升级前后都给予 1 层疲劳）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
