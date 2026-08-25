@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -35,8 +36,8 @@ public sealed class BlowgunRescue : CardModel
 		new PowerVar<RegenPower>(5m)
 	};
 
-	// 卡面尚未绘制，暂用 beta 占位图
-	public override string PortraitPath => CardModel.MissingPortraitPath;
+	// 卡面图片（文件名与卡牌 ID 一致：BLOWGUN_RESCUE.png）
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/BLOWGUN_RESCUE.png");
 
 	public BlowgunRescue()
 		: base(2, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)

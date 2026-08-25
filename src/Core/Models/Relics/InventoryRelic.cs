@@ -31,15 +31,14 @@ public sealed class InventoryRelic : RelicModel
 			return;
 		}
 
-		// 从卡组中选择一张可添加固有的牌
-		var prefs = new CardSelectorPrefs(base.SelectionScreenPrompt, 1);
+		// 从卡组中选择两张可添加固有的牌
+		var prefs = new CardSelectorPrefs(base.SelectionScreenPrompt, 2);
 		IEnumerable<CardModel> selected = await CardSelectCmd.FromDeckGeneric(
 			base.Owner,
 			prefs,
 			filter: c => !c.Keywords.Contains(CardKeyword.Innate));
 
-		CardModel? target = selected.FirstOrDefault();
-		if (target != null)
+		foreach (CardModel target in selected)
 		{
 			Flash();
 			target.AddKeyword(CardKeyword.Innate);

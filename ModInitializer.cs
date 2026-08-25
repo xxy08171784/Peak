@@ -9,10 +9,12 @@ using MegaCrit.Sts2.Core.Models.PotionPools;
 using MegaCrit.Sts2.Core.Models.RelicPools;
 using MegaCrit.Sts2.Core.Saves.Runs;
 using peak.Core.Models.Cards;
-
 using peak.Core.Models.Characters;
 using peak.Core.Models.Potions;
 using peak.Core.Models.Relics;
+using peak.Core.Models.Acts;
+using peak.Core.Models.Encounters;
+using peak.Core.Models.Monsters;
 using peak.Patches;
 
 namespace peak
@@ -69,7 +71,10 @@ namespace peak
 			ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(CursedSkull));
 			ModHelper.AddModelToPool(typeof(ColorlessCardPool), typeof(FriendshipHorn));
 
-			Log.Info("Peak v1.0.5 initialized; upstream=f15bf98; harmony=xxy_peak.");
+			// 注册第4幕相关模型（注：宝石遗物通过Patch特定途径获取，不入通用掉落池）
+			// 遗物已通过设定的途径获取，不需要注册到任何池子
+
+			Log.Info("Peak v1.0.6-alpha initialized; act4 system loaded.");
 		}
 	}
 }

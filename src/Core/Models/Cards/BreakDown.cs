@@ -17,7 +17,7 @@ namespace peak.Core.Models.Cards;
 /// <summary>
 /// 瓦解：失去所有覆甲，每失去一层覆甲就对所有敌人造成 3（5）点伤害一次。
 /// 覆甲会一层一层消失，每消失一层造成一次伤害（连击效果）。
-/// 1 费，技能牌，罕见稀有度，目标自身。
+/// 1 费，攻击牌，罕见稀有度，目标自身。
 /// </summary>
 public sealed class BreakDown : CardModel
 {
@@ -34,7 +34,7 @@ public sealed class BreakDown : CardModel
 	};
 
 	public BreakDown()
-		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+		: base(1, CardType.Attack, CardRarity.Uncommon, TargetType.Self)
 	{
 	}
 

@@ -12,16 +12,19 @@
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="BaseLib">
-      <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\mods\BaseLib\BaseLib.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    <Reference Include="GodotSharp">
-      <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\GodotSharp.dll</HintPath>
+    <Reference Include="BaseLib">
+      <HintPath>D:\Steam\steamapps\workshop\content\2868840\3737335127\BaseLib\BaseLib.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="sts2">
       <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\sts2.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Sentry.Godot">
+      <HintPath>Sentry.Godot.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

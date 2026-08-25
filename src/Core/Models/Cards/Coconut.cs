@@ -12,7 +12,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 
 namespace peak.Core.Models.Cards;
 
-public sealed class Coconut : CardModel, IItemCard
+public sealed class Coconut : CardModel
 {
     // 侧边栏悬停预览：显示【半块椰子】（若主卡已升级，预览也动态展示升级版）
     protected override IEnumerable<IHoverTip> ExtraHoverTips => 

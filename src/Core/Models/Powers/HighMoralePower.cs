@@ -35,12 +35,17 @@ public sealed class HighMoralePower : PowerModel, IEnvironmentAware
 	public int CardsPerTrigger => Amount;
 
 	/// <summary>
-	/// 由 MyClimbing 在环境切换时调用（替代旧的 async void 事件处理器）。
+	/// 由 MyClimbing 在环境切换时调用。
+	/// 场景对各玩家独立，因此 choiceContext 始终属于 Power 持有者自己。
 	/// </summary>
 	public async Task OnEnvironmentChanged(PlayerChoiceContext choiceContext, Player player, int previousValue, int currentValue)
 	{
 		// 只响应自己所属的玩家
-		if (player != Owner.Player || Owner.IsDead || MegaCrit.Sts2.Core.Combat.CombatManager.Instance?.IsInProgress != true)
+		if (player != Owner.Player || Owner.IsDead)
+		{
+			return;
+		}
+		if (MegaCrit.Sts2.Core.Combat.CombatManager.Instance?.IsInProgress != true)
 		{
 			return;
 		}

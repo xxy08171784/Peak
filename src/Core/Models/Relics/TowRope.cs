@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Relics;
@@ -17,9 +18,13 @@ public sealed class TowRope : RelicModel
 
 	public override RelicRarity Rarity => RelicRarity.Rare;
 
+	public override bool ShowCounter => CombatManager.Instance?.IsInProgress ?? false;
+	public override int DisplayAmount => _skillCount % 3;
+
 	public override Task BeforeCombatStart()
 	{
 		_skillCount = 0;
+		InvokeDisplayAmountChanged();
 		return Task.CompletedTask;
 	}
 
@@ -31,6 +36,7 @@ public sealed class TowRope : RelicModel
 		}
 
 		_skillCount++;
+		InvokeDisplayAmountChanged();
 
 		if (_skillCount % 3 == 0)
 		{

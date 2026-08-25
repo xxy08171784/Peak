@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -24,8 +25,8 @@ public sealed class HuddleTogether : CardModel
 
 	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
-	// 卡面尚未绘制，暂用 beta 占位图
-	public override string PortraitPath => CardModel.MissingPortraitPath;
+	// 卡面图片（文件名与卡牌 ID 一致：HUDDLE_TOGETHER.png）
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/HUDDLE_TOGETHER.png");
 
 	// 动态变量：获得炎热 16（升级后 24）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]

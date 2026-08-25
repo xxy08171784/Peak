@@ -16,7 +16,7 @@ namespace peak.Core.Models.Cards;
 /// 飞盘：造成 8（13）点伤害，给予 1 层易伤和 1 层虚弱。
 /// 1 费，攻击牌，普通稀有度，单体敌人目标。
 /// </summary>
-public sealed class Frisbee : CardModel, IItemCard
+public sealed class Frisbee : CardModel
 {
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{

@@ -50,18 +50,17 @@ public sealed class EggSmash : CardModel
 			.WithHitFx("vfx/vfx_attack_slash")
 			.Execute(choiceContext);
 
-		// 2. 90% 获得一张煎蛋，10% 获得一张火鸡（烤鸡）
+		// 2. 90% 获得一张煎蛋，10% 获得一张火鸡（烤鸡），始终生成未升级版
 		Godot.GD.Print($"[EggSmash] damage done, rolling for reward");
-		bool isUpgraded = base.IsUpgraded;
 		double roll = base.Owner.RunState.Rng.CombatCardGeneration.NextDouble();
 		Godot.GD.Print($"[EggSmash] roll={roll}, generating card");
 		if (roll < 0.9)
 		{
-			await RoastEgg.CreateInHand(base.Owner, 1, isUpgraded, base.CombatState);
+			await RoastEgg.CreateInHand(base.Owner, 1, false, base.CombatState);
 		}
 		else
 		{
-			await RoastChicken.CreateInHand(base.Owner, 1, isUpgraded, base.CombatState);
+			await RoastChicken.CreateInHand(base.Owner, 1, false, base.CombatState);
 		}
 		Godot.GD.Print($"[EggSmash] done");
 	}

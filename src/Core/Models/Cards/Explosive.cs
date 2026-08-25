@@ -19,7 +19,7 @@ namespace peak.Core.Models.Cards;
 /// 炸药：对所有敌人造成 10（13）点伤害，对拥有[gold]渐冻[/gold]的敌人造成双倍伤害。
 /// 2 费，攻击牌，普通稀有度，目标所有敌人。
 /// </summary>
-public sealed class Explosive : CardModel, IItemCard
+public sealed class Explosive : CardModel
 {
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{

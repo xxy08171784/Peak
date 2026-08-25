@@ -18,7 +18,7 @@ public sealed class PotionTasting : RelicModel
 		if (base.Owner?.Creature != null)
 		{
 			Flash();
-			await CreatureCmd.GainMaxHp(base.Owner.Creature, 1m);
+			await CreatureCmd.GainMaxHp(base.Owner.Creature, 2m);
 		}
 	}
 }

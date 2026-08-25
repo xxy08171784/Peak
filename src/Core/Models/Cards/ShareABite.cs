@@ -4,8 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;using MegaCrit.Sts2.Core.Helpers;using MegaCrit.Sts2.Core.Models;
 
 namespace peak.Core.Models.Cards;
 
@@ -18,8 +17,8 @@ public sealed class ShareABite : CardModel
 {
 	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
-	// 卡面尚未绘制，暂用 beta 占位图
-	public override string PortraitPath => CardModel.MissingPortraitPath;
+	// 卡面图片（文件名与卡牌 ID 一致：SHARE_A_BITE.png）
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/SHARE_A_BITE.png");
 
 	public ShareABite()
 		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)

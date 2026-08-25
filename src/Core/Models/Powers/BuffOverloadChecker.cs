@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Godot;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Entities.CardRewardAlternatives;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
@@ -174,16 +173,12 @@ public static class BuffOverloadChecker
 
     /// <summary>
     /// 接管：复刻低语耳环的自动打牌循环。
-    /// 只在本地玩家机器上执行（LocalContext.IsMe 守卫），消除联机锁步分叉风险。
+    /// 所有客户端执行同一序列（choiceContext + CardCmd.AutoPlay 自带多人同步）。
     /// 循环安全网：战斗结束 / 玩家已结束回合 / 手牌打空 / 无牌可打 都会停止。
     /// </summary>
     private static async Task AutoPlayTurn(Player player, PlayerChoiceContext choiceContext)
     {
-        // 只在本地玩家机器上执行自动打牌，联机时远端客户端通过同步系统获知结果
-        if (!LocalContext.IsMe(player.Creature))
-        {
-            return;
-        }
+        // 所有客户端都执行自动打牌，不走 LocalContext.IsMe 守卫（否则多人不同步）
         Creature owner = player.Creature;
         ICombatState? combatState = owner.CombatState;
         int cardsPlayed = 0;

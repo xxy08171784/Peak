@@ -1071,5 +1071,20 @@
   "THICK_SKIN.flavor": "皮糙肉厚，刀枪不入。",
   "GOLDEN_BINBANG.title": "黄金宾邦",
   "GOLDEN_BINBANG.description": "当你死亡时，回复3点生命，获得2层[gold]无实体[/gold]，然后消耗。",
-  "GOLDEN_BINBANG.flavor": "黄金般的守护，关键时刻救你一命。"
+  "GOLDEN_BINBANG.flavor": "黄金般的守护，关键时刻救你一命。",
+  "SCOUT_HOSPITALITY.title": "童军的盛情",
+  "SCOUT_HOSPITALITY.description": "选择一个已拥有的遗物，生成一个其复制品（不能复制初始遗物和远古遗物）。",
+  "SCOUT_HOSPITALITY.flavor": "热情的分享，让队伍的装备更加丰富。",
+  "SCOUT_PERSEVERANCE.title": "童军的毅力",
+  "SCOUT_PERSEVERANCE.description": "每回合开始时获得1点[gold]格挡[/gold]。",
+  "SCOUT_PERSEVERANCE.flavor": "坚持不懈，滴水穿石。",
+  "SCOUT_AMBITION.title": "童军的野心",
+  "SCOUT_AMBITION.description": "精英战开始时获得2点[gold]力量[/gold]。",
+  "SCOUT_AMBITION.flavor": "山巅之上的目标，驱动着你前进。",
+  "SCOUT_ENTERPRISE.title": "童军的进取",
+  "SCOUT_ENTERPRISE.description": "战斗开始时获得2点[gold]敏捷[/gold]。",
+  "SCOUT_ENTERPRISE.flavor": "不断进取，永不满足。",
+  "SCOUT_GLORY.title": "童军的荣耀",
+  "SCOUT_GLORY.description": "在希望中诞生的奇迹。隐藏Boss的入场券。",
+  "SCOUT_GLORY.flavor": "当所有人都被抛弃时，唯有希望仍在闪耀。"
 }

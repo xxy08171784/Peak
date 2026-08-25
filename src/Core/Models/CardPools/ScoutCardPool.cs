@@ -130,6 +130,17 @@ public sealed class ScoutCardPool : CardPoolModel
 			ModelDb.Card<BlowgunRescue>(),
 			ModelDb.Card<KindFeeding>(),
 			ModelDb.Card<HuddleTogether>(),
+			ModelDb.Card<WanderingDragonForm>(),
+			// Act4 卡牌（Token 稀有度，不会作为卡牌奖励出现，但必须注册到卡池才能正确显示）
+			ModelDb.Card<FirmBelief>(),
+			ModelDb.Card<NeverGiveUp>(),
+			ModelDb.Card<SolidBacking>(),
+			ModelDb.Card<LendingHand>(),
+			ModelDb.Card<MutualEncouragement>(),
+			ModelDb.Card<Lament>(),
+			ModelDb.Card<Pray>(),
+			ModelDb.Card<Annoyance>(),
+			ModelDb.Card<Forgiveness>(),
 		};
 	}
 
