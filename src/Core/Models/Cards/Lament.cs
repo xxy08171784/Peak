@@ -10,14 +10,16 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using peak.Core.Models.Powers;
 
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 悲鸣：1费攻击。造成35点伤害。使这名敌人在本回合失去3点力量。消耗。
+/// 悲鸣：1费攻击。造成35点伤害。使这名敌人在本回合失去3点力量（临时）。消耗。
 /// </summary>
 public sealed class Lament : CardModel
 {
+    public override bool CanBeGeneratedInCombat => false;
     public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/lament.png");
     public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
@@ -34,7 +36,7 @@ public sealed class Lament : CardModel
         if (target == null) return;
 
         await CreatureCmd.Damage(ctx, target, base.DynamicVars["Damage"].BaseValue, ValueProp.Move, base.Owner.Creature, this, cardPlay);
-        // 目标本回合失去3点力量
-        await PowerCmd.Apply<StrengthPower>(ctx, target, -3m, base.Owner.Creature, this);
+        // 目标本回合失去3点力量（临时——TemporaryStrengthPower 在回合结束时自动恢复）
+        await PowerCmd.Apply<LamentStrengthLossPower>(ctx, target, 3m, base.Owner.Creature, this);
     }
 }

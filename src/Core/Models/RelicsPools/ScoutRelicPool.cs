@@ -37,6 +37,8 @@ public sealed class ScoutRelicPool : RelicPoolModel
 			ModelDb.Relic<ScoutPerseverance>(),
 			ModelDb.Relic<ScoutAmbition>(),
 			ModelDb.Relic<ScoutEnterprise>(),
+			// 好结局奖励遗物
+			ModelDb.Relic<ScoutGlory>(),
 		};
 	}
 

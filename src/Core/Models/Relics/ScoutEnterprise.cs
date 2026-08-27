@@ -14,7 +14,7 @@ namespace peak.Core.Models.Relics;
 /// </summary>
 public sealed class ScoutEnterprise : RelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.Uncommon;
+    public override RelicRarity Rarity => RelicRarity.None;
     public override bool IsAllowedInShops => false;
     protected override string IconBaseName => "scout_enterprise";
 

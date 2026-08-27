@@ -35,12 +35,12 @@ public static class Act4GemManagerPatch
 
     public static bool HasAllFourGems(IRunState runState)
     {
-        return runState.Players.Any(p =>
-            p.Relics.Any(r => r is ScoutHospitality) &&
-            p.Relics.Any(r => r is ScoutPerseverance) &&
-            p.Relics.Any(r => r is ScoutAmbition) &&
-            p.Relics.Any(r => r is ScoutEnterprise)
-        );
+        // 检测所有玩家携带的遗物集合是否集齐4种宝石（不要求同一个人持有）
+        var allRelics = runState.Players.SelectMany(p => p.Relics).ToList();
+        return allRelics.Any(r => r is ScoutHospitality)
+            && allRelics.Any(r => r is ScoutPerseverance)
+            && allRelics.Any(r => r is ScoutAmbition)
+            && allRelics.Any(r => r is ScoutEnterprise);
     }
 
     public static void Reset() { _firstEliteGemGranted = false; }

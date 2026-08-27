@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://dubli8bte0g8f"]
+
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_acsw2"]
+[ext_resource type="SpriteFrames" uid="uid://c6d0hqdyr227s" path="res://scenes/creature_visuals/scout_frames.tres" id="2_afe8j"]
+[ext_resource type="Script" uid="uid://c02fysmed0ygx" path="res://scenes/creature_visuals/bofang.cs" id="3_4b3i3"]
+
+[node name="leader_miles" type="Node2D"]
+script = ExtResource("1_acsw2")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals"]
+position = Vector2(0, -164)
+scale = Vector2(0.204, 0.204)
+sprite_frames = ExtResource("2_afe8j")
+frame_progress = 0.0
+script = ExtResource("3_4b3i3")
+IdleAnimation = "default"
+AttackAnimation = "attack"
+DeathAnimation = "death"
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -85.0
+offset_top = -328.0
+offset_right = 85.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -340)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -164)

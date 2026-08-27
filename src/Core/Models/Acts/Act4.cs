@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Godot;
 using MegaCrit.Sts2.Core;
+using MegaCrit.Sts2.Core;
 using MegaCrit.Sts2.Core.Map;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Random;
@@ -16,9 +17,8 @@ public sealed class Act4 : ActModel
 {
     public override int Index => 3;
     public override bool IsDefault => false;
-    // StandardActMap 最小可行行数：_mapLength = BaseNumberOfRooms + 1，要求 _mapLength-7 >= 0
-    protected override int BaseNumberOfRooms => 6;
-    protected override int NumberOfWeakEncounters => 2;
+    protected override int BaseNumberOfRooms => 8;
+    protected override int NumberOfWeakEncounters => 0;
 
     public override string ChestOpenSfx => "event:/sfx/ui/treasure/treasure_act3";
     public override string[] BgMusicOptions => new[] { "event:/music/act2_a1_v2" };
@@ -47,15 +47,23 @@ public sealed class Act4 : ActModel
     public override IEnumerable<EventModel> AllEvents =>
         System.Array.Empty<EventModel>();
 
-    public override IEnumerable<EncounterModel> GenerateAllEncounters() =>
-        new EncounterModel[]
+    public override IEnumerable<EncounterModel> GenerateAllEncounters()
+    {
+        // 填充遭遇战（安全网）：Act4MapPatch Postfix 会把所有 Monster→Shop，
+        // 这些 encounter 永远不会实际进入，但 RoomSet 需要非空列表避免除零崩溃。
+        return new EncounterModel[]
         {
             ModelDb.Encounter<Encounters.Act4Boss>(),
-            // StandardActMap 会生成大量 Monster/Elite 行，必须有填充遭遇战（官方怪复用）
+#pragma warning disable CS0618 // ModelDb.Encounter<T> 可能标记了 Obsolete
             ModelDb.Encounter<MegaCrit.Sts2.Core.Models.Encounters.SlimesNormal>(),
             ModelDb.Encounter<MegaCrit.Sts2.Core.Models.Encounters.ChompersNormal>(),
-            ModelDb.Encounter<MegaCrit.Sts2.Core.Models.Encounters.BygoneEffigyElite>(),
+            ModelDb.Encounter<MegaCrit.Sts2.Core.Models.Encounters.MytesNormal>(),
+            ModelDb.Encounter<MegaCrit.Sts2.Core.Models.Encounters.FlyconidNormal>(),
+            ModelDb.Encounter<MegaCrit.Sts2.Core.Models.Encounters.CultistsNormal>(),
+            ModelDb.Encounter<MegaCrit.Sts2.Core.Models.Encounters.SlimesWeak>(),
+#pragma warning restore CS0618
         };
+    }
 
     public override IEnumerable<AncientEventModel> GetUnlockedAncients(UnlockState state) =>
         System.Array.Empty<AncientEventModel>();
@@ -66,9 +74,11 @@ public sealed class Act4 : ActModel
 
     public override MapPointTypeCounts GetMapPointTypes(Rng mapRng)
     {
-        // StandardActMap 硬编码：Row0=Ancient(Postfix 改 Shop), Row1=Monster,
-        // Row(mapLength-7)=Treasure(此配置下为空行), Row(mapLength-1)=RestSite
-        // 中间行按此处计数分配，剩余未分配行 → Monster
-        return new MapPointTypeCounts(unknownCount: 1, restCount: 1);
+        // 地图结构：Start(Shop) -> Shop -> Treasure -> 随机 -> RestSite -> Boss
+        // BaseNumberOfRooms=8 → _mapLength=9 (行0~8)
+        // 硬编码：Row1=Monster(→Shop), Row2=Treasure, Row8=RestSite
+        // 其余行由默认 MapPointTypeCounts 分配
+        // Act4MapPatch Postfix 会把 Monster→Shop, Elite→Treasure
+        return new MapPointTypeCounts(unknownCount: 1, restCount: 2);
     }
 }
