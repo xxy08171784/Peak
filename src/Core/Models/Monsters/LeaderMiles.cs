@@ -30,13 +30,16 @@ namespace peak.Core.Models.Monsters
 
         private bool _phase2Triggered;
 
-        // State references so we can swap FollowUpState at runtime
-        private MoveState _p1_T1;
-        private MoveState _p1_T2;
-        private MoveState _p1_T3;
-        private MoveState _p2_T0; // 阶段转换后的首个意图：全员3层易伤 + 塞悲鸣/祈愿到抽牌堆顶
-        private MoveState _p2_T4;
-        private MoveState _p2_T5;
+    // 二阶段阈值：MaxHp 的 1/3，随多人缩放动态变化
+    private decimal Phase2Threshold => Creature.MaxHp / 3m;
+
+    // State references so we can swap FollowUpState at runtime
+    private MoveState _p1_T1;
+    private MoveState _p1_T2;
+    private MoveState _p1_T3;
+    private MoveState _p2_T0;
+    private MoveState _p2_T4;
+    private MoveState _p2_T5;
 
         protected override MonsterMoveStateMachine GenerateMoveStateMachine()
         {
@@ -256,13 +259,13 @@ namespace peak.Core.Models.Monsters
         }
 
         // =========================================================================
-        // Phase Transition — Boss HP ≤ 200 (1/3) 时触发
-        // 触发时机：玩家回合内 Boss 受到伤害导致 HP ≤ 200 的瞬间（AfterDamageReceived），
+        // Phase Transition — Boss HP ≤ MaxHp/3 (1/3) 时触发
+        // 触发时机：玩家回合内 Boss 受到伤害导致 HP ≤ MaxHp/3 的瞬间（AfterDamageReceived），
         //           以及 Boss 行动前的兜底检查（TryTriggerPhaseTransition）。
         // =========================================================================
         private async Task<bool> TryTriggerPhaseTransition(IReadOnlyList<Creature> targets)
         {
-            if (_phase2Triggered || Creature.CurrentHp > 200)
+            if (_phase2Triggered || Creature.CurrentHp > Phase2Threshold)
                 return false;
 
             await DoPhaseTransition(targets);
@@ -270,7 +273,7 @@ namespace peak.Core.Models.Monsters
         }
 
         /// <summary>
-        /// Boss 血量降到 1/3（≤200）后，立即在玩家回合内执行阶段转换（仅第一次触发）：
+        /// Boss 血量降到 1/3（≤MaxHp/3）后，立即在玩家回合内执行阶段转换（仅第一次触发）：
         ///   1) Boss 获得「领队意志」标记 buff + 临时 1 层「硬化外壳」(HardenedShellPower) ——
         ///      本回合最多承受 1 点伤害，表现上接近无敌；Boss 回合开始时会被移除（下回合失去）；
         ///   2) 清除所有玩家的「被抛弃者」全部层数；
@@ -319,12 +322,12 @@ namespace peak.Core.Models.Monsters
         }
 
         /// <summary>
-        /// Boss 受到伤害后立即检查：HP ≤ 200 则立刻进入阶段 2（在玩家回合内生效，
+        /// Boss 受到伤害后立即检查：HP ≤ MaxHp/3 则立刻进入阶段 2（在玩家回合内生效，
         /// 而不是等到 Boss 回合才开始）。
         /// </summary>
         public override Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target, DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
         {
-            if (target == Creature && !_phase2Triggered && Creature.CurrentHp <= 200)
+            if (target == Creature && !_phase2Triggered && Creature.CurrentHp <= Phase2Threshold)
             {
                 var targets = Creature.CombatState?.PlayerCreatures ?? new List<Creature>();
                 return DoPhaseTransition(targets);

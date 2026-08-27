@@ -118,11 +118,12 @@ public static class EliteBossGemRewardPatch
             }
         }
 
-        // Boss（Act2）— 注入 ScoutEnterprise
+        // Boss（Act2）— 仅给当前玩家注入 ScoutEnterprise（类似精英宝石机制）
         if (room is CombatRoom bossRoom && bossRoom.RoomType == RoomType.Boss
             && runState.CurrentActIndex == 1)
         {
-            if (!runState.Players.Any(p => p.Relics.Any(r => r is ScoutEnterprise)))
+            // 只检查当前玩家是否已有，而不是检查所有玩家
+            if (!player.Relics.Any(r => r is ScoutEnterprise))
             {
                 var relic = ModelDb.Relic<ScoutEnterprise>().ToMutable();
                 __result.Rewards.Add(new RelicReward(relic, player));
