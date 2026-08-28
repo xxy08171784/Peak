@@ -20,7 +20,7 @@ public sealed class RedHot : CardModel
 
     // 2 费，能力卡，稀有，目标为自己
     public RedHot()
-        : base(2, CardType.Power, CardRarity.Rare, TargetType.Self)
+        : base(2, CardType.Power, CardRarity.Uncommon, TargetType.Self)
     {
     }
 

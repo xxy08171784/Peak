@@ -1,0 +1,15 @@
+c:\Users\shiqian\Peak\bulid\loc_tool\bin\Debug\net9.0\loc_tool.exe
+c:\Users\shiqian\Peak\bulid\loc_tool\bin\Debug\net9.0\loc_tool.deps.json
+c:\Users\shiqian\Peak\bulid\loc_tool\bin\Debug\net9.0\loc_tool.runtimeconfig.json
+c:\Users\shiqian\Peak\bulid\loc_tool\bin\Debug\net9.0\loc_tool.dll
+c:\Users\shiqian\Peak\bulid\loc_tool\bin\Debug\net9.0\loc_tool.pdb
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\loc_tool.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\loc_tool.AssemblyInfoInputs.cache
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\loc_tool.AssemblyInfo.cs
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\loc_tool.csproj.CoreCompileInputs.cache
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\loc_tool.sourcelink.json
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\loc_tool.dll
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\refint\loc_tool.dll
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\loc_tool.pdb
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\loc_tool.genruntimeconfig.cache
+c:\Users\shiqian\Peak\bulid\loc_tool\obj\Debug\net9.0\ref\loc_tool.dll

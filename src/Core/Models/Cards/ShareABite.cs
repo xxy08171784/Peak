@@ -43,7 +43,8 @@ public sealed class ShareABite : CardModel
 		}
 
 		// 2. 复制该卡给目标玩家（CreateCloneForPlayer 会转移所属玩家）
-		CardModel clone = food.CreateCloneForPlayer(cardPlay.Target.Player!);
+		CardModel clone = food.CreateClone();
+			clone.Owner = cardPlay.Target.Player!;
 		await CardPileCmd.AddGeneratedCardsToCombat(
 			new[] { clone },
 			PileType.Hand,

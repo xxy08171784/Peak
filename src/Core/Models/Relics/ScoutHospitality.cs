@@ -25,20 +25,16 @@ public sealed class ScoutHospitality : RelicModel
     {
         if (base.Owner == null) return;
         var all = base.Owner.Relics;
-        var available = all
-            .Where(r => r != this
-                && r.Rarity != RelicRarity.Starter
-                && r.Rarity != RelicRarity.Ancient
-                && !(r is ScoutHospitality)
-                && !(r is ScoutPerseverance)
-                && !(r is ScoutAmbition)
-                && !(r is ScoutEnterprise))
-            .ToList();
-        if (available.Count == 0) { GD.Print("[SH] None"); return; }
-        var rng = new Rng(base.Owner.RunState.Rng.Seed);
-        var sel = available[rng.NextInt(available.Count)];
+        // 上一个获得的遗物 = 列表倒数第二个（最后一个就是本遗物自身）
+        if (all.Count < 2) { GD.Print("[SH] No previous relic"); return; }
+        var prev = all[all.Count - 2];
+        if (prev.Rarity == RelicRarity.Starter || prev.Rarity == RelicRarity.Ancient || prev.Rarity == RelicRarity.None)
+        {
+            GD.Print("[SH] Previous relic is starter/ancient/gem, skip");
+            return;
+        }
         Flash();
-        var canonical = (RelicModel)ModelDb.All.FirstOrDefault(m => m.GetType() == sel.GetType());
+        var canonical = ModelDb.AllRelics.FirstOrDefault(m => m.GetType() == prev.GetType());
         if (canonical == null) { GD.Print("[SH] No canonical"); return; }
         await RelicCmd.Obtain(canonical.ToMutable(), base.Owner);
     }

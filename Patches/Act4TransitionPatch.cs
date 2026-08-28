@@ -52,8 +52,8 @@ public static class Act4TransitionPatch
         // 仅在第3幕结束时注入 (CurrentActIndex == 2)
         if (state.CurrentActIndex != 2) return true;
 
-        // [无条件注入] — 暂时跳过宝石检测，先打通第4幕流程
-        // if (!Act4GemManagerPatch.HasAllFourGems(state)) return true;
+        // 检测4颗宝石：如果没有集齐，不注入 Act4，让游戏正常走建筑师结算
+        if (!Act4GemManagerPatch.HasAllFourGems(state)) return true;
 
         GD.Print("[Act4] EnterNextAct intercepted! Injecting Act4...");
 

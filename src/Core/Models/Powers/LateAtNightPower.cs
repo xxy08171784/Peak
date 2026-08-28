@@ -14,61 +14,32 @@ namespace peak.Core.Models.Powers;
 
 public sealed class LateAtNightPower : PowerModel
 {
-    public const string OnlyEnemiesKey = "OnlyEnemies";
-
     public override PowerType Type => PowerType.Buff;
 
     // 可堆叠层数
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
-        new DynamicVar(OnlyEnemiesKey, 0m) // 0 = 所有人, 1 = 仅敌人
-    };
-
     /// <summary>
-    /// 严格匹配 STS2 官方 ShadowStepPower 的回合开始钩子写法
+    /// 在玩家的回合结束时，给予所有敌人 1 层寒冷。
     /// </summary>
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
     {
-        // 1. 检查当前回合的参与者中是否包含本能力的持有者
+        // 检查是否是本能力持有者的回合结束
         if (!participants.Contains(base.Owner))
         {
             return;
         }
 
-        Flash(); // 状态图标闪烁
+        Flash();
 
-        bool onlyEnemies = base.DynamicVars[OnlyEnemiesKey].BaseValue > 0m;
-        decimal coldAmount = base.Amount; // 施加的寒冷层数 = 本能力当前的层数
+        decimal coldAmount = base.Amount;
+        var combatState = base.Owner.CombatState;
+        if (combatState == null) return;
 
-        // 在回合开始的后台逻辑中，使用官方规范的 ThrowingPlayerChoiceContext
-        var choiceContext = new ThrowingPlayerChoiceContext();
-
-        if (!onlyEnemies)
+        // 给予所有敌人寒冷
+        foreach (var enemy in combatState.HittableEnemies)
         {
-            // 2. 未升级状态：给所有友方（自己 + 队友 + 召唤物）施加寒冷
-            foreach (var ally in combatState.PlayerCreatures)
-            {
-                if (ally.IsAlive)
-                {
-                    await PowerCmd.Apply<ColdPower>(choiceContext, ally, coldAmount, base.Owner, null);
-                }
-            }
-
-            // 给所有敌人施加寒冷
-            foreach (var enemy in combatState.HittableEnemies)
-            {
-                await PowerCmd.Apply<ColdPower>(choiceContext, enemy, coldAmount, base.Owner, null);
-            }
-        }
-        else
-        {
-            // 3. 升级后状态：只给所有敌人施加寒冷
-            foreach (var enemy in combatState.HittableEnemies)
-            {
-                await PowerCmd.Apply<ColdPower>(choiceContext, enemy, coldAmount, base.Owner, null);
-            }
+            await PowerCmd.Apply<ColdPower>(choiceContext, enemy, coldAmount, base.Owner, null);
         }
     }
 }

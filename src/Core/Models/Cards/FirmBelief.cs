@@ -14,6 +14,7 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class FirmBelief : CardModel
 {
+    public override bool CanBeGeneratedInCombat => false;
     public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/firm_belief.png");
     public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Retain };
 

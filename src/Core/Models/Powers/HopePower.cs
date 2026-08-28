@@ -23,6 +23,19 @@ public sealed class HopePower : PowerModel
     private bool _hasTriggered;
 
     /// <summary>
+    /// 当前配置下的希望阈值（根据存活玩家数自动计算）。
+    /// </summary>
+    public int Threshold
+    {
+        get
+        {
+            var players = Owner?.CombatState?.Players;
+            if (players == null) return 99;
+            return GetThreshold(players.Count(p => p.Creature?.IsAlive == true));
+        }
+    }
+
+    /// <summary>
     /// 根据玩家人数获取希望门槛。
     /// </summary>
     public static int GetThreshold(int playerCount)
@@ -31,8 +44,8 @@ public sealed class HopePower : PowerModel
         {
             1 => 5,
             2 => 9,
-            3 => 13,
-            4 => 18,
+            3 => 14,
+            4 => 19,
             _ => 99
         };
     }

@@ -16,6 +16,7 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class MutualEncouragement : CardModel
 {
+    public override bool CanBeGeneratedInCombat => false;
     public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mutual_encouragement.png");
 
     public MutualEncouragement() : base(2, CardType.Skill, CardRarity.Token, TargetType.Self) { }

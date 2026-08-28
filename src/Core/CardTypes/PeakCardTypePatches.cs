@@ -100,11 +100,11 @@ internal static class PeakCardFrameMaterialPatch
 	}
 }
 
-[HarmonyPatch(typeof(CardModel), "GetResultLocationForCardPlay")]
+[HarmonyPatch(typeof(CardModel), "GetResultPileTypeForCardPlay")]
 internal static class PeakCardPowerLifecyclePatch
 {
 	[HarmonyPrefix]
-	private static bool PreserveDeclaredPowerLifecycle(CardModel __instance, ref CardLocation __result)
+	private static bool PreserveDeclaredPowerLifecycle(CardModel __instance, ref PileType __result)
 	{
 		if (!PeakCardTypes.IsPeakType(__instance.Type)
 			|| PeakCardTypes.GetDeclaredBehaviorType(__instance) != CardType.Power)
@@ -115,7 +115,7 @@ internal static class PeakCardPowerLifecyclePatch
 		// These cards still apply their original PowerModel effect exactly once.
 		// Returning None preserves the vanilla Power-card removal path even though
 		// their public gameplay category is now Item/Food.
-		__result = new CardLocation(__instance.Owner, PileType.None, CardPilePosition.Bottom);
+		__result = PileType.None;
 		return false;
 	}
 }

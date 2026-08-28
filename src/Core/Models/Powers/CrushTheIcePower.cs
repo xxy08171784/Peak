@@ -4,12 +4,16 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace peak.Core.Models.Powers;
 
 /// <summary>
 /// 碎冰：对拥有渐冻的敌人造成的伤害提高（每层提高 50%/75%）。
 /// Amount 即增伤百分比，多张碎冰可叠加。
+/// 
+/// 使用 override ModifyDamageMultiplicative 实现增伤，
+/// 类似 VulnerablePower（易伤）的增伤机制。
 /// </summary>
 public sealed class CrushTheIcePower : PowerModel
 {
@@ -28,24 +32,19 @@ public sealed class CrushTheIcePower : PowerModel
 	public decimal DamageMultiplier => 1m + (decimal)Amount / 100m;
 
 	/// <summary>
-	/// 伤害修改钩子：对拥有渐冻的敌人造成额外伤害。
-	/// 与 RedHotPower 使用相同的 ModifyDamageGiven 钩子。
+	/// 乘算增伤钩子：对拥有渐冻的敌人造成额外伤害。
+	/// 参考 VulnerablePower（易伤）的实现方式。
 	/// </summary>
-	public new decimal ModifyDamageGiven(
-		ICombatState combatState,
-		Creature target,
-		decimal damage,
-		CardModel? cardSource,
-		Creature attacker)
+	public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
 	{
 		// 只对拥有渐冻的目标生效
 		if (target == null || target.GetPower<FrostbitePower>() == null)
 		{
-			return damage;
+			return 1m;
 		}
 
 		Flash(); // 碎冰图标闪烁，提示玩家触发了增伤
 
-		return damage * DamageMultiplier;
+		return DamageMultiplier;
 	}
 }

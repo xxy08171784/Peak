@@ -13,16 +13,17 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 恼怒：2费攻击。造成30点伤害。获得其造成的伤害值一半的格挡。消耗。
+/// 恼怒：2费攻击。造成45点伤害。获得其造成的伤害值一半的格挡。消耗。
 /// </summary>
 public sealed class Annoyance : CardModel
 {
+    public override bool CanBeGeneratedInCombat => false;
     public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/annoyance.png");
     public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
     protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
     {
-        new DamageVar(30, ValueProp.Move)
+        new DamageVar(45, ValueProp.Move)
     };
 
     public Annoyance() : base(2, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy) { }

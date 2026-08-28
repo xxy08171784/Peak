@@ -17,7 +17,7 @@ internal static class PeakCardTypeAuditPatch
 	{
 		PeakCardTypes.EnsureInitialized();
 
-		CardModel[] markedCards = ModelDb.All
+		CardModel[] markedCards = ModelDb.AllCards
 			.OfType<CardModel>()
 			.Where(card => card is IFoodCard || card is IItemCard)
 			.ToArray();

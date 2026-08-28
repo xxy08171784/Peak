@@ -19,6 +19,7 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class Pray : CardModel
 {
+    public override bool CanBeGeneratedInCombat => false;
     public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/pray.png");
     public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 

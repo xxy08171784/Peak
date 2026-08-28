@@ -44,4 +44,9 @@ public sealed class WanderingDragonForm : CardModel
 			this
 		);
 	}
+
+	protected override void OnUpgrade()
+	{
+		AddKeyword(CardKeyword.Retain);
+	}
 }

@@ -56,8 +56,9 @@ public sealed class ScoutAutoPlaySelector : ICardSelector
 public static class BuffOverloadChecker
 {
     private const int Cap = 100;
-    private const int HeatCostPerTick = 7;   // 炎热分支每轮失去的炎热
+private const int HeatCostPerTick = 10;   // 炎热分支每轮失去的炎热
     private const int HeatTicks = 3;         // 炎热分支轮数
+    private const int HeatAoeDamage = 25;    // 炎热过载后对所有敌人造成的伤害
     private const int SporeCost = 30;        // 孢子分支失去的孢子
     private const int PoisonCost = 20;       // 中毒分支失去的中毒
     private const int MaxAutoPlayedCards = 13; // 接管时最多自动打出的牌数（同低语耳环）
@@ -129,20 +130,35 @@ public static class BuffOverloadChecker
     /// <summary>🔥 炎热最多：循环 3 次 { 失去 7 炎热（触发被动打敌人 7 伤），自伤 1 }</summary>
     private static async Task HeatBranch(Creature owner, PlayerChoiceContext choiceContext)
     {
-        GD.Print("[BuffOverload] 炎热过载：失去 7 炎热 ×3，自伤 1 ×3");
+        GD.Print("[BuffOverload] 炎热过载：失去 10 炎热 ×3，自伤 1 ×3，然后对所有敌人 25 伤害");
         for (int i = 0; i < HeatTicks; i++)
         {
             if (!owner.IsAlive || CombatManager.Instance.IsOverOrEnding)
             {
                 break;
             }
-            // 失去 7 炎热 → 触发 HeatPower 被动（对随机敌人造成 7 伤，纵火高手则 AOE 翻倍）= 加强
+            // 失去 10 炎热 → 触发 HeatPower 被动
             await PowerCmd.Apply<HeatPower>(choiceContext, owner, -HeatCostPerTick, owner, null);
-            // 对自己造成 1 点可格挡伤害（ValueProp.Move = 可被格挡）
+            // 自伤 1 点
             await CreatureCmd.Damage(choiceContext, owner, 1m, ValueProp.Move, null, null);
             if (i < HeatTicks - 1)
             {
                 await Cmd.CustomScaledWait(0.1f, 0.25f);
+            }
+        }
+        // 对所有敌人造成 25 点伤害
+        if (owner.IsAlive && !CombatManager.Instance.IsOverOrEnding)
+        {
+            ICombatState? combatState = owner.CombatState;
+            if (combatState != null)
+            {
+                foreach (var enemy in combatState.Enemies)
+                {
+                    if (enemy.IsAlive)
+                    {
+                        await CreatureCmd.Damage(choiceContext, enemy, HeatAoeDamage, ValueProp.Move, null, null);
+                    }
+                }
             }
         }
     }

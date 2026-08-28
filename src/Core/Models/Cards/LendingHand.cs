@@ -17,6 +17,7 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class LendingHand : CardModel
 {
+    public override bool CanBeGeneratedInCombat => false;
     public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/lending_hand.png");
 
     public LendingHand() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self) { }

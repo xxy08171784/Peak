@@ -34,7 +34,7 @@ public sealed class WanderingDragonFormPower : PowerModel
 	public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
 		// 只在宿主玩家打出的牌触发（避免无限触发自身）
-		if (cardPlay.Player.Creature != Owner)
+		if (cardPlay.Card.Owner.Creature != Owner)
 		{
 			return;
 		}

@@ -1,43 +1,45 @@
-﻿using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.Combat;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.ValueProps;
 
 namespace peak.Core.Models.Powers;
 
 public sealed class RedHotPower : PowerModel
 {
     public override PowerType Type => PowerType.Buff;
-
     public override PowerStackType StackType => PowerStackType.Single;
 
     /// <summary>
-    /// 伤害修改钩子：每次造成伤害时动态检查
+    /// 每打出一张牌，失去 1 点炎热，对所有敌人造成 3 点伤害。
+    /// 如果没有炎热，则不造成额外伤害。
+    /// 仅触发宿主玩家自己的出牌（多人模式下其他队友打牌不触发）。
     /// </summary>
-    public new decimal ModifyDamageGiven(
-        ICombatState combatState,
-        Creature target,
-        decimal damage,
-        CardModel? cardSource,
-        Creature attacker)
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        // 1. 只有攻击卡 (Attack) 能触发双倍伤害
-        if (cardSource != null && cardSource.Type == CardType.Attack)
-        {
-            // 2. 实时获取炎热值与当前 HP
-            decimal currentHeat = Owner.GetPower<HeatPower>()?.Amount ?? 0m;
-            decimal currentHp = Owner.MaxHp;
+        if (Owner == null || !Owner.IsAlive) return;
 
-            // 3. 条件满足：炎热值 >= 当前生命值，伤害翻倍
-            if (currentHeat >= currentHp)
+        // 只触发宿主玩家自己的出牌
+        if (cardPlay.Card.Owner.Creature != Owner) return;
+
+        decimal heat = Owner.GetPowerAmount<HeatPower>();
+        if (heat <= 0m) return;
+
+        Flash();
+        await PowerCmd.Apply<HeatPower>(choiceContext, Owner, -1m, Owner, null);
+
+        // 对所有敌人造成 3 点伤害
+        var enemies = Owner.CombatState?.Enemies;
+        if (enemies != null)
+        {
+            foreach (var enemy in enemies.Where(e => e.IsAlive))
             {
-                Flash(); // 图标闪烁反馈
-                return damage * 2m;
+                await CreatureCmd.Damage(choiceContext, enemy, 3m, ValueProp.Move, null, null);
             }
         }
-
-        return damage;
     }
 }

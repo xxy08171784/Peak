@@ -12,7 +12,8 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 夜深：1 费能力卡，罕见。
-/// 获得能力：每回合开始时，给所有人（升级后仅敌人）施加 1 层寒冷。
+/// 升级前：获得能力，在你的回合结束时，给予所有敌人 1 层寒冷。
+/// 升级后：立即给予所有敌人 1 层寒冷。获得能力，在你的回合结束时，给予所有敌人 1 层寒冷。
 /// </summary>
 public sealed class LateAtNight : CardModel
 {
@@ -39,8 +40,8 @@ public sealed class LateAtNight : CardModel
 
         decimal coldAmount = base.DynamicVars["ColdPower"].BaseValue;
 
-        // 赋予玩家 LateAtNightPower 能力
-        var power = await PowerCmd.Apply<LateAtNightPower>(
+        // 赋予玩家 LateAtNightPower 能力（回合结束时施加寒冷）
+        await PowerCmd.Apply<LateAtNightPower>(
             choiceContext,
             base.Owner.Creature,
             coldAmount,
@@ -48,15 +49,22 @@ public sealed class LateAtNight : CardModel
             this
         );
 
-        // 如果卡牌已升级，将 OnlyEnemies 标志设为 1
-        if (power != null && base.IsUpgraded)
+        // 升级后：立即给予所有敌人一层寒冷
+        if (base.IsUpgraded)
         {
-            power.DynamicVars[LateAtNightPower.OnlyEnemiesKey].BaseValue = 1m;
+            var combatState = base.Owner.Creature.CombatState;
+            if (combatState != null)
+            {
+                foreach (var enemy in combatState.HittableEnemies)
+                {
+                    await PowerCmd.Apply<ColdPower>(choiceContext, enemy, coldAmount, base.Owner.Creature, this);
+                }
+            }
         }
     }
 
     protected override void OnUpgrade()
     {
-        // 升级改变了所赋予能力的逻辑范围
+        // 升级后：打出时立即施放一次寒冷（在 OnPlay 中处理）
     }
 }

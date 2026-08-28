@@ -35,12 +35,12 @@ public static class Act4GemManagerPatch
 
     public static bool HasAllFourGems(IRunState runState)
     {
-        return runState.Players.Any(p =>
-            p.Relics.Any(r => r is ScoutHospitality) &&
-            p.Relics.Any(r => r is ScoutPerseverance) &&
-            p.Relics.Any(r => r is ScoutAmbition) &&
-            p.Relics.Any(r => r is ScoutEnterprise)
-        );
+        // 检测所有玩家携带的遗物集合是否集齐4种宝石（不要求同一个人持有）
+        var allRelics = runState.Players.SelectMany(p => p.Relics).ToList();
+        return allRelics.Any(r => r is ScoutHospitality)
+            && allRelics.Any(r => r is ScoutPerseverance)
+            && allRelics.Any(r => r is ScoutAmbition)
+            && allRelics.Any(r => r is ScoutEnterprise);
     }
 
     public static void Reset() { _firstEliteGemGranted = false; }
@@ -118,11 +118,12 @@ public static class EliteBossGemRewardPatch
             }
         }
 
-        // Boss（Act2）— 注入 ScoutEnterprise
+        // Boss（Act2）— 仅给当前玩家注入 ScoutEnterprise（类似精英宝石机制）
         if (room is CombatRoom bossRoom && bossRoom.RoomType == RoomType.Boss
             && runState.CurrentActIndex == 1)
         {
-            if (!runState.Players.Any(p => p.Relics.Any(r => r is ScoutEnterprise)))
+            // 只检查当前玩家是否已有，而不是检查所有玩家
+            if (!player.Relics.Any(r => r is ScoutEnterprise))
             {
                 var relic = ModelDb.Relic<ScoutEnterprise>().ToMutable();
                 __result.Rewards.Add(new RelicReward(relic, player));

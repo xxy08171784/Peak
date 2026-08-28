@@ -208,19 +208,28 @@ public static class ScoutEpochRegistrar
 
 	private static void InjectAllEpochs()
 	{
-		var field = typeof(EpochModel).GetField("_allEpochs",
-			BindingFlags.NonPublic | BindingFlags.Static);
-		if (field?.GetValue(null) is List<Type> list)
+		// 正式版 EpochModel 已移除 _allEpochs（类型列表）字段，
+		// 改为惰性缓存 _allEpochIds（List<string>）。先访问 AllEpochIds
+		// 强制其初始化，再向缓存追加童军纪元 ID，使 AllEpochIds 包含它们。
+		try
 		{
-			foreach (var t in _scoutEpochTypes)
-			{
-				if (!list.Contains(t))
-					list.Add(t);
-			}
+			_ = typeof(EpochModel).GetProperty("AllEpochIds",
+				BindingFlags.Public | BindingFlags.Static)?.GetValue(null);
+		}
+		catch
+		{
+			// 忽略：IsValid 已由 EpochModelIsValidPatch 兜底。
+		}
 
-			var cacheField = typeof(EpochModel).GetField("_allEpochIds",
-				BindingFlags.NonPublic | BindingFlags.Static);
-			cacheField?.SetValue(null, null);
+		var idsField = typeof(EpochModel).GetField("_allEpochIds",
+			BindingFlags.NonPublic | BindingFlags.Static);
+		if (idsField?.GetValue(null) is List<string> list)
+		{
+			foreach (var id in _scoutEpochIds)
+			{
+				if (!list.Contains(id))
+					list.Add(id);
+			}
 		}
 	}
 
