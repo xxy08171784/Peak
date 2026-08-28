@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using peak.Core.Models.Powers;
 
@@ -32,7 +33,14 @@ public sealed class MushroomBoxSet : CardModel
 		HoverTipFactory.FromCard<Mushroom2>(base.IsUpgraded),
 		HoverTipFactory.FromCard<Mushroom3>(base.IsUpgraded),
 		HoverTipFactory.FromCard<Mushroom4>(base.IsUpgraded),
-		HoverTipFactory.FromCard<Mushroom5>(base.IsUpgraded)
+		HoverTipFactory.FromCard<Mushroom5>(base.IsUpgraded),
+		HoverTipFactory.FromPower<SporePower>()
+	};
+
+	// 动态变量：新增效果——获得 2 层孢子
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new PowerVar<SporePower>(2m)
 	};
 
 	public MushroomBoxSet()
@@ -65,7 +73,16 @@ public sealed class MushroomBoxSet : CardModel
 				await Mushroom5.CreateInHand(base.Owner, 1, isUpgraded, base.CombatState);
 				break;
 		}
-	}
+
+			// 新增效果（不影响原随机蘑菇效果）：获得 2 层孢子
+			await PowerCmd.Apply<SporePower>(
+				choiceContext,
+				base.Owner.Creature,
+				base.DynamicVars["SporePower"].BaseValue,
+				base.Owner.Creature,
+				this
+			);
+		}
 
 	protected override void OnUpgrade()
 	{

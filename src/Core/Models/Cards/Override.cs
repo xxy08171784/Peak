@@ -31,6 +31,7 @@ public sealed class Override : CardModel
 	// 悬停提示：显示覆甲机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
+		base.EnergyHoverTip,
 		HoverTipFactory.FromPower<PlatingPower>()
 	};
 

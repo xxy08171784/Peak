@@ -8,11 +8,12 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
+using peak.Core.Models.Powers;
 
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 无尽攀登：获得 2（3）X 层覆甲。
+/// 无尽攀登：获得 2（3）X 层覆甲，7（10）X 层炎热。
 /// X 费（投入全部能量），技能牌，稀有稀有度，目标自身，消耗。
 /// </summary>
 public sealed class EndlessClimbing : CardModel
@@ -26,12 +27,14 @@ public sealed class EndlessClimbing : CardModel
 
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
-		new PowerVar<PlatingPower>(2m)
+		new PowerVar<PlatingPower>(2m),
+		new PowerVar<HeatPower>(7m)
 	};
 
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<PlatingPower>()
+		HoverTipFactory.FromPower<PlatingPower>(),
+		HoverTipFactory.FromPower<HeatPower>()
 	};
 
 	public EndlessClimbing()
@@ -51,11 +54,21 @@ public sealed class EndlessClimbing : CardModel
 			base.Owner.Creature,
 			this
 		);
+
+		int heatPerX = (int)base.DynamicVars["HeatPower"].BaseValue;
+		await PowerCmd.Apply<HeatPower>(
+			choiceContext,
+			base.Owner.Creature,
+			heatPerX * xValue,
+			base.Owner.Creature,
+			this
+		);
 	}
 
 	protected override void OnUpgrade()
 	{
-		// 升级后每 X 获得 2 -> 3 层覆甲
+		// 升级后覆甲 2 -> 3，炎热 7 -> 10
 		base.DynamicVars["PlatingPower"].UpgradeValueBy(1m);
+		base.DynamicVars["HeatPower"].UpgradeValueBy(3m);
 	}
 }

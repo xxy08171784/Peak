@@ -10,7 +10,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace peak.Core.Models.Potions;
 
 /// <summary>
-/// 瓶装云雾：这回合受到的伤害减少一半（复用原版 DiamondDiadem 遗物的 BlurPower 机制）。
+/// 瓶装云雾：获得 3 点敏捷。
 /// 罕见稀有度，药水池，仅限战斗中使用，目标自身。
 /// </summary>
 public sealed class BottledMist : PotionModel
@@ -21,6 +21,6 @@ public sealed class BottledMist : PotionModel
 
 	protected override async Task OnUse(PlayerChoiceContext choiceContext, Creature? target)
 	{
-		await PowerCmd.Apply<BlurPower>(choiceContext, base.Owner.Creature, 1m, base.Owner.Creature, null);
+		await PowerCmd.Apply<DexterityPower>(choiceContext, base.Owner.Creature, 3m, base.Owner.Creature, null);
 	}
 }

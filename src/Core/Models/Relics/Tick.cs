@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
-using peak.Core.Models.Powers;
 
 namespace peak.Core.Models.Relics;
 
@@ -44,7 +43,7 @@ public sealed class Tick : RelicModel
 		}
 
 		Flash();
-		await PowerCmd.Apply<ZhongduPower>(
+		await PowerCmd.Apply<PoisonPower>(
 			new ThrowingPlayerChoiceContext(),
 			target,
 			2m,

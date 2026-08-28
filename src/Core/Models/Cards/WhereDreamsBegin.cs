@@ -12,7 +12,7 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 梦开始的地方：切换到 0 海岛。
-/// 0 费，技能牌，普通稀有度，目标自身，消耗，升级后获得保留。
+/// 0 费，技能牌，普通稀有度，目标自身，消耗。
 /// </summary>
 public sealed class WhereDreamsBegin : CardModel
 {
@@ -39,7 +39,7 @@ public sealed class WhereDreamsBegin : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级后获得保留
+		// 升级后新增保留词条（升级前仅消耗，升级后消耗+保留）
 		AddKeyword(CardKeyword.Retain);
 	}
 }

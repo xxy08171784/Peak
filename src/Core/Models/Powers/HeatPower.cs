@@ -50,6 +50,9 @@ public sealed class HeatPower : PowerModel
 			{
 				await PowerCmd.Apply<RejectionOfHeatPower>(choiceContext, Owner, 1, applier, cardSource);
 			}
+
+			// 过载判定：三 buff 总和 ≥ 100 时触发（炎热最多优先）
+			await BuffOverloadChecker.TryTrigger(Owner, choiceContext);
 			return;
 		}
 

@@ -13,10 +13,10 @@ namespace peak.Core.Models.Cards;
 
 /// <summary>
 /// 弹力菇：能力牌，获得弹力菇 Power。
-/// 如果你在回合结束时没有任何格挡，获得 6（8）点格挡。
+/// 如果你在回合结束时没有任何格挡，获得 5（7）点格挡。
 /// 1 费，能力牌，普通稀有度，目标自身。
 /// </summary>
-public sealed class ElasticMushroom : CardModel, IItemCard
+public sealed class ElasticMushroom : CardModel
 {
 	// 卡面图片（文件名与卡牌 ID 一致：elastic_mushroom.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/elastic_mushroom.png");
@@ -26,7 +26,7 @@ public sealed class ElasticMushroom : CardModel, IItemCard
 	// 动态变量：基础每次获得 6 点格挡（升级后 8 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
-		new PowerVar<PleurotusEryngiiPower>(6m)
+		new PowerVar<PleurotusEryngiiPower>(5m)
 	};
 
 	// 悬停提示：显示弹力菇的机制说明

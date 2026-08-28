@@ -14,7 +14,7 @@ using peak.Core.Models.Powers;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 万灵药：失去至多 20 点炎热、20 层中毒、20 层孢子、1 层虚弱、1 层脆弱、1 层易伤，回复 8（12）点生命值。
+/// 万灵药：失去至多 20（30）点炎热、20 层中毒、20（30）层孢子、1（2）层虚弱/脆弱/易伤，回复 8 点生命值。
 /// 2 费，技能牌，稀有稀有度，目标自身，消耗，食物牌。
 /// </summary>
 public sealed class Panacea : CardModel, IFoodCard, IItemCard
@@ -26,16 +26,21 @@ public sealed class Panacea : CardModel, IFoodCard, IItemCard
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
-	// 动态变量：基础回复 8 点生命值（升级后 12 点）
+	// 动态变量：基础回复 8 点生命值
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
 		new HealVar(8m)
 	};
 
-	// 悬停提示：显示中毒的机制说明
+	// 悬停提示：按卡面顺序显示所有会被移除的状态。
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<ZhongduPower>()
+		HoverTipFactory.FromPower<HeatPower>(),
+		HoverTipFactory.FromPower<ZhongduPower>(),
+		HoverTipFactory.FromPower<SporePower>(),
+		HoverTipFactory.FromPower<WeakPower>(),
+		HoverTipFactory.FromPower<FrailPower>(),
+		HoverTipFactory.FromPower<VulnerablePower>()
 	};
 
 	public Panacea()
@@ -45,11 +50,15 @@ public sealed class Panacea : CardModel, IFoodCard, IItemCard
 
 	protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
 	{
-		// 1. 失去至多 20 点炎热
+		int heatCap = base.IsUpgraded ? 30 : 20;
+		int sporeCap = base.IsUpgraded ? 30 : 20;
+		int debuffCap = base.IsUpgraded ? 2 : 1;
+
+		// 1. 失去至多 heatCap 点炎热
 		HeatPower? heat = base.Owner.Creature.GetPower<HeatPower>();
 		if (heat != null && heat.Amount > 0)
 		{
-			int reduceHeat = (int)Math.Min(heat.Amount, 20m);
+			int reduceHeat = (int)Math.Min(heat.Amount, heatCap);
 			await PowerCmd.ModifyAmount(choiceContext, heat, -reduceHeat, base.Owner.Creature, this);
 		}
 
@@ -65,7 +74,7 @@ public sealed class Panacea : CardModel, IFoodCard, IItemCard
 		SporePower? spore = base.Owner.Creature.GetPower<SporePower>();
 		if (spore != null && spore.Amount > 0)
 		{
-			int reduceSpore = (int)Math.Min(spore.Amount, 20m);
+			int reduceSpore = (int)Math.Min(spore.Amount, sporeCap);
 			await PowerCmd.ModifyAmount(choiceContext, spore, -reduceSpore, base.Owner.Creature, this);
 		}
 
@@ -73,33 +82,32 @@ public sealed class Panacea : CardModel, IFoodCard, IItemCard
 		WeakPower? weak = base.Owner.Creature.GetPower<WeakPower>();
 		if (weak != null && weak.Amount > 0)
 		{
-			int reduceWeak = (int)Math.Min(weak.Amount, 1m);
+			int reduceWeak = (int)Math.Min(weak.Amount, debuffCap);
 			await PowerCmd.ModifyAmount(choiceContext, weak, -reduceWeak, base.Owner.Creature, this);
 		}
 
-		// 5. 失去至多 1 层脆弱
+		// 5. 失去至多 debuffCap 层脆弱
 		FrailPower? frail = base.Owner.Creature.GetPower<FrailPower>();
 		if (frail != null && frail.Amount > 0)
 		{
-			int reduceFrail = (int)Math.Min(frail.Amount, 1m);
+			int reduceFrail = (int)Math.Min(frail.Amount, debuffCap);
 			await PowerCmd.ModifyAmount(choiceContext, frail, -reduceFrail, base.Owner.Creature, this);
 		}
 
-		// 6. 失去至多 1 层易伤
+		// 6. 失去至多 debuffCap 层易伤
 		VulnerablePower? vulnerable = base.Owner.Creature.GetPower<VulnerablePower>();
 		if (vulnerable != null && vulnerable.Amount > 0)
 		{
-			int reduceVulnerable = (int)Math.Min(vulnerable.Amount, 1m);
+			int reduceVulnerable = (int)Math.Min(vulnerable.Amount, debuffCap);
 			await PowerCmd.ModifyAmount(choiceContext, vulnerable, -reduceVulnerable, base.Owner.Creature, this);
 		}
 
-		// 7. 回复 8（12）点生命值
+		// 7. 回复 8 点生命值
 		await CreatureCmd.Heal(base.Owner.Creature, base.DynamicVars.Heal.BaseValue);
 	}
 
 	protected override void OnUpgrade()
 	{
-		// 升级后回复 8 -> 12 (+4)
-		base.DynamicVars.Heal.UpgradeValueBy(4m);
+		// 升级后只改上限（OnPlay 中用 IsUpgraded 判断），不改回复值
 	}
 }

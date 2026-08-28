@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -20,6 +21,11 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class Explosive : CardModel
 {
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<FrostbitePower>()
+	};
+
 	// 卡面图片（文件名与卡牌 ID 一致：explosive.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/explosive.png");
 

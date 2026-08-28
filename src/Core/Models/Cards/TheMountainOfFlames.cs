@@ -21,10 +21,10 @@ public sealed class TheMountainOfFlames : CardModel
 {
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/the_mountain_of_flames.png");
 
-	// 基础变量：额外获得 10 点炎热（升级后 15 点）
+	// 基础变量：额外获得 14 点炎热（升级后 21 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
-		new PowerVar<HeatPower>(10m)
+		new PowerVar<HeatPower>(14m)
 	};
 
 	public TheMountainOfFlames()
@@ -64,7 +64,7 @@ public sealed class TheMountainOfFlames : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级后额外炎热 10 -> 15 (+5)
-		base.DynamicVars["HeatPower"].UpgradeValueBy(5m);
+		// 升级后额外炎热 14 -> 21 (+7)
+		base.DynamicVars["HeatPower"].UpgradeValueBy(7m);
 	}
 }

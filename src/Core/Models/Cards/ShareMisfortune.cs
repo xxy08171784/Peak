@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using peak.Core.Models.Powers;
@@ -23,6 +24,20 @@ public sealed class ShareMisfortune : CardModel
 
 	// 保留关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Retain };
+
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<VulnerablePower>(),
+		HoverTipFactory.FromPower<FrailPower>(),
+		HoverTipFactory.FromPower<WeakPower>(),
+		HoverTipFactory.FromPower<StrengthPower>(),
+		HoverTipFactory.FromPower<DexterityPower>(),
+		HoverTipFactory.FromPower<ZhongduPower>(),
+		HoverTipFactory.FromPower<SporePower>(),
+		HoverTipFactory.FromPower<HeatPower>(),
+		HoverTipFactory.FromPower<DoomPower>(),
+		HoverTipFactory.FromPower<LeadersPursuitPower>()
+	};
 
 	// 升级后目标变为所有敌人
 	public override TargetType TargetType =>
@@ -82,15 +97,20 @@ public sealed class ShareMisfortune : CardModel
 			if (zhongdu?.Amount > 0)
 				await PowerCmd.Apply<ZhongduPower>(choiceContext, target, zhongdu.Amount, player, this);
 
-			// 孢子 → 灾厄
+			// 孢子 → 灾厄（DoomPower，与原版 NO_ESCAPE 的灾厄一致）
 			SporePower? spore = player.GetPower<SporePower>();
 			if (spore?.Amount > 0)
 				await PowerCmd.Apply<DoomPower>(choiceContext, target, spore.Amount, player, this);
 
-			// 炎热 → 灾厄
+			// 炎热 → 灾厄（DoomPower，与原版 NO_ESCAPE 的灾厄一致）
 			HeatPower? heat = player.GetPower<HeatPower>();
 			if (heat?.Amount > 0)
 				await PowerCmd.Apply<DoomPower>(choiceContext, target, heat.Amount, player, this);
+
+			// 领队追杀：同步给目标（目标在自己的回合结束时受到等量自伤）
+			LeadersPursuitPower? pursuit = player.GetPower<LeadersPursuitPower>();
+			if (pursuit?.Amount > 0)
+				await PowerCmd.Apply<LeadersPursuitPower>(choiceContext, target, pursuit.Amount, player, this);
 		}
 	}
 

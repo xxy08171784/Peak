@@ -1,0 +1,155 @@
+﻿== cards.json: mod=1436 game=1254 值不同=15 mod独有=197 game独有=15
+  DIFF DARKNESS.description
+    mod : '[gold]生成[/gold]1[gold]黑暗[/gold]充能球。\n触发所有[gold]黑暗[/gold]充能球的被动{IfUpgraded:show:两次|}。'
+    game: '[gold]生成[/gold]1[gold]个黑暗[/gold]充能球。\n触发所有[gold]黑暗[/gold]充能球的被动{IfUpgraded:show:两次|}。'
+  DIFF EIDOLON.description
+    mod : '[gold]消耗[/gold]所有[gold]手牌[/gold]。\n如果有9张牌被[gold]消耗[/gold]，则获得1层[gold]无实体[/gold]。'
+    game: '打出你[gold]消耗牌堆[/gold]中的所有[gold]虚无[/gold]牌。'
+  DIFF EXPECT_A_FIGHT.description
+    mod : '你的[gold]手牌[/gold]中每有一张攻击牌，就获得{energyPrefix:energyIcons(1)}。\n你在本回合内\n不能再获得{energyPrefix:energyIcons(1)}。{InCombat:\n（获得{CalculatedEnergy:energyIcons()}）|}'
+    game: '获得{CalculatedBlock:diff()}点[gold]格挡[/gold]。\n你每拥有一点[gold]力量[/gold]，这张牌就额外获得{CalculationExtra:diff()}点[gold]格挡[/gold]。'
+  DIFF EXPERTISE.description
+    mod : '抽牌直至你的[gold]手牌[/gold]有{Cards:diff()}张牌。'
+    game: '抽{Cards:diff()}张牌。\n这些牌在本回合获得[gold]保留[/gold]。'
+  DIFF FORGOTTEN_RITUAL.description
+    mod : '如果你在本回合[gold]消耗过[/gold]卡牌，则获得{Energy:energyIcons()}。'
+    game: '获得{Energy:energyIcons()}。'
+  DIFF GUIDING_STAR.description
+    mod : '造成{Damage:diff()}点伤害。\n抽{Cards:diff()}张牌。'
+    game: '造成{Damage:diff()}点伤害。\n在下个回合抽{Cards:diff()}张牌。'
+  DIFF HAZE.description
+    mod : '给予所有敌人{PoisonPower:diff()}层[gold]中毒[/gold]。'
+    game: '给予所有敌人{PoisonPower:diff()}层[gold]中毒[/gold]和{WeakPower:diff()}层[gold]虚弱[/gold]。'
+  DIFF HYPERBEAM.description
+    mod : '对所有敌人造成{Damage:diff()}点伤害。\n失去{FocusPower:diff()}点[gold]集中[/gold]。'
+    game: '对所有敌人造成{Damage:diff()}点伤害。\n在本回合失去{FocusPower:diff()}点[gold]集中[/gold]。'
+  DIFF MIRAGE.description
+    mod : '获得等同于所有敌人[gold]中毒[/gold]层数的[gold]格挡[/gold]。{InCombat:\n（获得{CalculatedBlock:diff()}点[gold]格挡[/gold]）|}'
+    game: '获得等量于所有敌人[gold]中毒[/gold]层数总和的[gold]格挡[/gold]。{InCombat:\n（获得{CalculatedBlock:diff()}点[gold]格挡[/gold]）|}'
+  DIFF OUTBREAK.description
+    mod : '每当你给予[gold]中毒[/gold]时，对所有敌人造成{OutbreakPower:diff()}点伤害。'
+    game: '给予所有敌人{PoisonPower:diff()}层[gold]中毒[/gold]。\n立即触发[gold]中毒[/gold]。'
+  DIFF PILLAR_OF_CREATION.description
+    mod : '每当你生成一张卡牌, 就获得{Block:diff()}点[gold]格挡[/gold]。'
+    game: '你每次生成卡牌时，获得{Block:diff()}点[gold]格挡[/gold]。'
+  DIFF ROCKET_PUNCH.description
+    mod : '造成{Damage:diff()}点伤害。\n抽{Cards:diff()}张牌。\n每当你生成状态牌时，此牌的耗能将在下一次打出前降为0{energyPrefix:energyIcons(1)}。'
+    game: '造成{Damage:diff()}点伤害。\n抽{Cards:diff()}张牌。\n每当你生成状态牌时，此牌的耗能将在下一次打出前减少1{energyPrefix:energyIcons(1)}。'
+  DIFF SACRIFICE.description
+    mod : '如果[gold]奥斯提[/gold]存活，则他死去，然后你获得等量于其双倍最大生命值的[gold]格挡[/gold]。{InCombat:\n（获得{IsOstyAlive:{CalculatedBlock:diff()}|0}点[gold]格挡[/gold]）|}'
+    game: '如果[gold]奥斯提[/gold]存活，则他死去，然后你获得等量于其最大生命值三倍的[gold]格挡[/gold]。{InCombat:\n（获得{IsOstyAlive:{CalculatedBlock:diff()}|0}点[gold]格挡[/gold]）|}'
+  DIFF TESLA_COIL.description
+    mod : '造成{Damage:diff()}点伤害。\n对该敌人触发你的所有[gold]闪电[/gold]充能球的被动{IfUpgraded:show: 两次|}。'
+    game: '造成{Damage:diff()}点伤害。\n对该敌人触发你的所有[gold]闪电[/gold]充能球的被动{IfUpgraded:show:两次|}。'
+  DIFF WELL_LAID_PLANS.description
+    mod : '在你的回合结束时，[gold]保留[/gold]最多{RetainAmount:diff()}张牌。'
+    game: '在你的回合结束时，你不再丢弃你的[gold]手牌[/gold]。'
+  [mod 独有] ADD_INSULT_TO_INJURY.description, ADD_INSULT_TO_INJURY.title, AFTERTASTE.description, AFTERTASTE.selectionScreenPrompt, AFTERTASTE.title, ALL_INTO_BACKPACK.description, ALL_INTO_BACKPACK.selectionScreenPrompt, ALL_INTO_BACKPACK.title, ALL_OR_NOTHING.description, ALL_OR_NOTHING.title, ANCIENT_CHEST.description, ANCIENT_CHEST.title, ARSON_EXPERT.description, ARSON_EXPERT.title, BANANA.description, BANANA.title, BANANA_PEEL.description, BANANA_PEEL.title, BANANA_SKIN.description, BANANA_SKIN.title ...
+  [game 独有] ABUNDANCE.description, ABUNDANCE.title, CACOPHONY.description, CACOPHONY.title, CONSTELLATION.description, CONSTELLATION.title, DOWSING.description, DOWSING.title, SIDESTEP.description, SIDESTEP.title, SOULBOUND.description, SOULBOUND.title, TUTOR.description, TUTOR.selectionScreenPrompt, TUTOR.title
+== relics.json: mod=1065 game=991 值不同=21 mod独有=82 game独有=8
+  DIFF ALCHEMICAL_COFFER.description
+    mod : '拾起时，获得[blue]{PotionSlots}[/blue]个放有随机药水的药水栏位。'
+    game: '拾起时，获得[blue]{PotionSlots}[/blue]个放有随机[gold]药水[/gold]的药水栏位。'
+  DIFF ALCHEMICAL_COFFER.eventDescription
+    mod : '获得[blue]{PotionSlots}[/blue]个放有随机药水的药水栏位。'
+    game: '获得[blue]{PotionSlots}[/blue]个放有随机[gold]药水[/gold]的药水栏位。'
+  DIFF BEAUTIFUL_BRACELET.description
+    mod : '拾起时，从你的[gold]牌组[/gold]中选择[blue]{Cards}[/blue]张牌，[gold]附魔[/gold]：[purple]迅捷[/purple][blue]3[/blue]。'
+    game: '拾起时，为你[gold]牌组[/gold]中的随机[blue]{Cards}[/blue]张牌[gold]附魔[/gold]：[purple]迅捷[/purple][blue]2[/blue]。'
+  DIFF BEAUTIFUL_BRACELET.eventDescription
+    mod : '从你的[gold]牌组[/gold]中选择[blue]{Cards}[/blue]张牌，[gold]附魔[/gold]：[purple]迅捷{Swift}[/purple]。'
+    game: '为你[gold]牌组[/gold]中的随机[blue]{Cards}[/blue]张牌[gold]附魔[/gold]：[purple]迅捷{Swift}[/purple]。'
+  DIFF BELT_BUCKLE.description
+    mod : '当你没有药水时，你额外拥有[blue]{DexterityPower}[/blue]点[gold]敏捷[/gold]。'
+    game: '当你没有[gold]药水[/gold]时，你额外拥有[blue]{DexterityPower}[/blue]点[gold]敏捷[/gold]。'
+  DIFF CAULDRON.description
+    mod : '拾起时，制作[blue]{Potions}[/blue]瓶随机药水。'
+    game: '拾起时，制作[blue]{Potions}[/blue]瓶随机[gold]药水[/gold]。'
+  DIFF DELICATE_FROND.description
+    mod : '在每场战斗开始时，用随机药水将你的空药水栏位填满。'
+    game: '在每场战斗开始时，用随机[gold]药水[/gold]将你的空药水栏位填满。'
+  DIFF DIAMOND_DIADEM.description
+    mod : '如果你在本回合打出的牌少于等于[blue]{CardThreshold}[/blue]张，则受到敌人的伤害减半。'
+    game: '战斗开始时获得[blue]{Block}[/blue]点[gold]格挡[/gold]。你的[gold]格挡[/gold]不会在你的[blue]第2[/blue]回合开始前被移除。'
+  DIFF DISTINGUISHED_CAPE.description
+    mod : '拾起时，失去[red]9[/red]点最大生命值。将[blue]{Cards}[/blue]张[gold]灵体[/gold]加入你的[gold]牌组[/gold]。'
+    game: '拾起时，将[blue]{Curses}[/blue]张随机[red]诅咒[/red]牌和[blue]{Cards}[/blue]张[gold]灵体[/gold]加入你的[gold]牌组[/gold]。'
+  DIFF DISTINGUISHED_CAPE.eventDescription
+    mod : '失去[red]9[/red]点最大生命值。将[blue]{Cards}[/blue]张[gold]灵体[/gold]加入你的[gold]牌组[/gold]。'
+    game: '将[blue]{Curses}[/blue]张随机[red]诅咒[/red]牌和[blue]{Cards}[/blue]张[gold]灵体[/gold]加入你的[gold]牌组[/gold]。'
+  DIFF HISTORY_COURSE.description
+    mod : '在你的回合开始时，打出一张你上一回合最后打出的攻击牌或技能牌的复制品。'
+    game: '在你的回合开始时，打出一张你上一回合最后打出的攻击牌的复制品。'
+  DIFF PHIAL_HOLSTER.description
+    mod : '拾起时，获得[blue]{PotionSlots}[/blue]个药水{PotionSlots:plural:栏位|栏位}并获得[blue]{Potions}[/blue]瓶随机{Potions:plural:药水|药水}。'
+    game: '拾起时，获得[blue]{PotionSlots}[/blue]个药水栏位并获得[blue]{Potions}[/blue]瓶随机[gold]药水[/gold]。'
+  DIFF PHIAL_HOLSTER.eventDescription
+    mod : '获得[blue]{PotionSlots}[/blue]个药水{PotionSlots:plural:栏位|栏位}并获得[blue]{Potions}[/blue]瓶随机{Potions:plural:药水|药水}。'
+    game: '获得[blue]{PotionSlots}[/blue]个药水栏位并获得[blue]{Potions}[/blue]瓶随机[gold]药水[/gold]。'
+  DIFF REGALITE.description
+    mod : '每当你生成一张牌时，获得[blue]{Block}[/blue]点[gold]格挡[/gold]。'
+    game: '每回合你第一次生成一张牌时，获得[blue]{Block}[/blue]点[gold]格挡[/gold]。'
+  DIFF SERE_TALON.description
+    mod : '拾起时，将[blue]{Curses}[/blue]张随机[red]诅咒[/red]牌和[blue]{Wishes}[/blue]张[purple]许愿[/purple]加入你的[gold]牌组[/gold]。'
+    game: '拾起时，失去[blue]9[/blue]点最大生命值，将[blue]{Wishes}[/blue]张[purple]许愿[/purple]加入你的[gold]牌组[/gold]。'
+  DIFF SERE_TALON.eventDescription
+    mod : '将[blue]{Curses}[/blue]张随机[red]诅咒[/red]牌，和[blue]{Wishes}[/blue]张[purple]许愿[/purple]加入你的[gold]牌组[/gold]。'
+    game: '失去[blue]9[/blue]点最大生命值，将[blue]{Wishes}[/blue]张[purple]许愿[/purple]加入你的[gold]牌组[/gold]。'
+  DIFF SOZU.description
+    mod : '你无法再获得药水。在每回合开始时获得{Energy:energyIcons()}。'
+    game: '在每回合开始时获得{Energy:energyIcons()}。你无法再获得[gold]药水[/gold]。'
+  DIFF TINY_MAILBOX.additionalRestSiteHealText
+    mod : '从小邮箱获得[blue]2[/blue]瓶随机药水'
+    game: '从小邮箱获得[blue]2[/blue]瓶随机[gold]药水[/gold]'
+  DIFF TINY_MAILBOX.description
+    mod : '每当你[gold]休息[/gold]时，获得[blue]2[/blue]瓶随机药水。'
+    game: '每当你[gold]休息[/gold]时，获得[blue]2[/blue]瓶随机[gold]药水[/gold]。'
+  DIFF TOASTY_MITTENS.description
+    mod : '在你的回合开始时，[gold]消耗[/gold]你[gold]抽牌堆[/gold]顶部的牌并获得[blue]{StrengthPower}[/blue]点[gold]力量[/gold]。'
+    game: '在你的回合开始时，[gold]消耗[/gold]你[gold]手牌[/gold]中的[blue]1[/blue]张牌并获得[blue]{StrengthPower}[/blue]点[gold]力量[/gold]。'
+  DIFF WHITE_BEAST_STATUE.description
+    mod : '战斗结束后必定掉落药水。'
+    game: '战斗结束后必定掉落[gold]药水[/gold]。'
+  [mod 独有] ALPENSTOCK.description, ALPENSTOCK.flavor, ALPENSTOCK.title, BALLOON_BOUQUET.description, BALLOON_BOUQUET.flavor, BALLOON_BOUQUET.title, CACTUS.description, CACTUS.flavor, CACTUS.title, CLIMBING_SUIT.description, CLIMBING_SUIT.flavor, CLIMBING_SUIT.title, COLD_STORAGE.description, COLD_STORAGE.flavor, COLD_STORAGE.title, FLINTSTONE.description, FLINTSTONE.flavor, FLINTSTONE.title, GLOW_STICK.description, GLOW_STICK.flavor ...
+  [game 独有] DOWSING_ROD.description, DOWSING_ROD.eventDescription, DOWSING_ROD.flavor, DOWSING_ROD.title, NEOWS_SACRIFICE.description, NEOWS_SACRIFICE.eventDescription, NEOWS_SACRIFICE.flavor, NEOWS_SACRIFICE.title
+== powers.json: mod=938 game=843 值不同=7 mod独有=103 game独有=8
+  DIFF CHILD_OF_THE_STARS_POWER.description
+    mod : '每花费一点{singleStarIcon}，获得[blue]1[/blue]点[gold]格挡[/gold]。'
+    game: '每花费一点{singleStarIcon}，获得[blue]2[/blue]点[gold]格挡[/gold]。'
+  DIFF DEMON_FORM_POWER.description
+    mod : '在你的回合开始时，获得[blue]2[/blue]点[gold]力量[/gold]。'
+    game: '在你的回合开始时，获得[blue]3[/blue]点[gold]力量[/gold]。'
+  DIFF PILLAR_OF_CREATION_POWER.description
+    mod : '每当你创造一张牌时，获得[blue]5[/blue]点[gold]格挡[/gold]。'
+    game: '每当你生成卡牌时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。'
+  DIFF PILLAR_OF_CREATION_POWER.smartDescription
+    mod : '每当你创造一张牌时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。'
+    game: '每当你生成卡牌时，获得[blue]{Amount}[/blue]点[gold]格挡[/gold]。'
+  DIFF SLOW_POWER.smartDescription
+    mod : '你在本回合内每打出一张牌，{OnPlayer:你|该敌人}本回合从攻击牌中受到的伤害增加[blue]10%[/blue]。{Amount:plural:|}'
+    game: '你在本回合内每打出一张牌，{OnPlayer:你|该敌人}本回合从攻击牌中受到的伤害增加[blue]10%[/blue]。{SlowAmount:cond:>0?（受到伤害增加[blue]{DisplayAmount}%[/blue]）|}'
+  DIFF WELL_LAID_PLANS_POWER.description
+    mod : '在你的回合结束时，[gold]保留[/gold]最多[blue]1[/blue]张手牌。'
+    game: '在你的回合结束时，你不再丢弃你的[gold]手牌[/gold]。'
+  DIFF WELL_LAID_PLANS_POWER.smartDescription
+    mod : '在你的回合结束时，[gold]保留[/gold]最多[blue]{Amount}[/blue]张手牌。'
+    game: '在你的回合结束时，你不再丢弃你的[gold]手牌[/gold]。'
+  [mod 独有] ARSON_EXPERT_POWER.description, ARSON_EXPERT_POWER.smartDescription, ARSON_EXPERT_POWER.title, BUFFET_POWER.description, BUFFET_POWER.smartDescription, BUFFET_POWER.title, COLD_POWER.description, COLD_POWER.smartDescription, COLD_POWER.title, CRUSH_THE_ICE_POWER.description, CRUSH_THE_ICE_POWER.smartDescription, CRUSH_THE_ICE_POWER.title, DELICIOUS_AND_FOND_OF_EATING_POWER.description, DELICIOUS_AND_FOND_OF_EATING_POWER.smartDescription, DELICIOUS_AND_FOND_OF_EATING_POWER.title, DIAMOND_DIADEM_POWER.description, DIAMOND_DIADEM_POWER.smartDescription, DIAMOND_DIADEM_POWER.title, EXPERIENCE_AND_TOUGHENING_POWER.description, EXPERIENCE_AND_TOUGHENING_POWER.smartDescription ...
+  [game 独有] AMBERGRIS_POWER.description, AMBERGRIS_POWER.title, CACOPHONY_POWER.description, CACOPHONY_POWER.smartDescription, CACOPHONY_POWER.title, SOULBOUND_POWER.description, SOULBOUND_POWER.smartDescription, SOULBOUND_POWER.title
+== ancients.json: mod=510 game=434 值不同=1 mod独有=76 game独有=0
+  DIFF NEOW.talk.firstVisitEver.0-0.ancient
+    mod : '欢迎来到高塔……'
+    game: '[sine]我又... 重铸了你....\n...上... ..去吧.....[/sine]'
+  [mod 独有] DARV.talk.SCOUT.0-0.char, DARV.talk.SCOUT.0-0.next, DARV.talk.SCOUT.0-1.ancient, DARV.talk.SCOUT.1-0.ancient, DARV.talk.SCOUT.1-0.next, DARV.talk.SCOUT.1-1.char, DARV.talk.SCOUT.2-0.ancient, NEOW.talk.SCOUT.0-0.char, NEOW.talk.SCOUT.0-0.next, NEOW.talk.SCOUT.0-1.ancient, NEOW.talk.SCOUT.1-0.char, NEOW.talk.SCOUT.1-0.next, NEOW.talk.SCOUT.1-1.ancient, NEOW.talk.SCOUT.2-0.ancient, NEOW.talk.SCOUT.2-0.next, NEOW.talk.SCOUT.2-1.char, NEOW.talk.firstVisitEver.0-0.next, NONUPEIPE.talk.SCOUT.0-0.ancient, NONUPEIPE.talk.SCOUT.0-0.next, NONUPEIPE.talk.SCOUT.0-1.char ...
+== potions.json: mod=158 game=136 值不同=0 mod独有=24 game独有=2
+  [mod 独有] ALOE_JUICE.description, ALOE_JUICE.title, BOTTLED_MIST.description, BOTTLED_MIST.title, BOTTLED_TORNADO.description, BOTTLED_TORNADO.title, CACTUS_JUICE.description, CACTUS_JUICE.title, FREEZE_BOTTLE.description, FREEZE_BOTTLE.title, MAGIC_BEAN_JUICE.description, MAGIC_BEAN_JUICE.title, MILK_POTION.description, MILK_POTION.title, PANDORA_POTION.description, PANDORA_POTION.title, POISONED_BOTTLE.description, POISONED_BOTTLE.title, SLEEPING_PILL.description, SLEEPING_PILL.title ...
+  [game 独有] AMBERGRIS.description, AMBERGRIS.title
+== characters.json: mod=108 game=95 值不同=0 mod独有=15 game独有=2
+  [mod 独有] SCOUT.aromaPrinciple, SCOUT.banter.alive.endTurnPing, SCOUT.banter.dead.endTurnPing, SCOUT.cardsModifierDescription, SCOUT.cardsModifierTitle, SCOUT.description, SCOUT.eventDeathPrevention, SCOUT.goldMonologue, SCOUT.possessiveAdjective, SCOUT.pronounObject, SCOUT.pronounPossessive, SCOUT.pronounSubject, SCOUT.title, SCOUT.titleObject, SCOUT.unlockText
+  [game 独有] DEFECT.aromaPrinciple, DEFECT.banter.alive.endTurnPing
+== epochs.json: mod=292 game=261 值不同=0 mod独有=31 game独有=0
+  [mod 独有] SCOUT1_EPOCH.description, SCOUT1_EPOCH.title, SCOUT1_EPOCH.unlock, SCOUT1_EPOCH.unlockInfo, SCOUT1_EPOCH.unlockText, SCOUT2_EPOCH.description, SCOUT2_EPOCH.title, SCOUT2_EPOCH.unlock, SCOUT2_EPOCH.unlockInfo, SCOUT2_EPOCH.unlockText, SCOUT3_EPOCH.description, SCOUT3_EPOCH.title, SCOUT3_EPOCH.unlock, SCOUT3_EPOCH.unlockInfo, SCOUT3_EPOCH.unlockText, SCOUT4_EPOCH.description, SCOUT4_EPOCH.title, SCOUT4_EPOCH.unlock, SCOUT4_EPOCH.unlockInfo, SCOUT4_EPOCH.unlockText ...
+== card_library.json: mod=32 game=31 值不同=0 mod独有=1 game独有=0
+  [mod 独有] POOL_SCOUT_TIP
+
+总计值不同: 44

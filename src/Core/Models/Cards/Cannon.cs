@@ -16,12 +16,9 @@ namespace peak.Core.Models.Cards;
 /// 大炮：对所有敌人造成 12（15）点伤害。
 /// 如果被[gold]烤[/gold]，会[gold]自动打出[/gold]：对所有敌人造成 24 点伤害，然后[gold]消耗[/gold]。
 /// 2 费，攻击牌，罕见稀有度，目标所有敌人。
-///
-/// 大炮是食物牌（IFoodCard），因此【小烤】烤它会将其升级（而非消耗）。
-/// 【小烤】检测到目标是大炮时，会立即触发其自动打出（AutoPlay），
-/// 由本卡 OnPlay 内判断"被烤"状态，执行 24 点伤害并自消耗。
+/// 大炮不是食物牌。【小烤】/【烤炉】烤它时，会触发其自动打出（AutoPlay）。
 /// </summary>
-public sealed class Cannon : CardModel, IFoodCard
+public sealed class Cannon : CardModel, IItemCard
 {
 	// 卡面图片（文件名与卡牌 ID 一致：cannon.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/cannon.png");

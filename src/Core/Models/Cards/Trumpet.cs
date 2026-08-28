@@ -1,30 +1,40 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
+using peak.Core.Models.Relics;
 
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 喇叭：抽 1 张牌，获得 1 费，每打出一次这张牌增加 1 费。
+/// 喇叭：抽 1 张牌，获得 1 费，切换到下一个场景，获得 1 层覆甲。
+/// 每打出一次这张牌增加 1 费。
 /// 0 费，技能牌，罕见稀有度，目标自身。
 /// </summary>
 public sealed class Trumpet : CardModel, IItemCard
 {
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		base.EnergyHoverTip,
+		HoverTipFactory.FromPower<PlatingPower>()
+	};
+
 	// 卡面图片（文件名与卡牌 ID 一致：trumpet.png）
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/trumpet.png");
 
-	
-
-	// 动态变量：基础抽 1 张牌、获得 1 费
+	// 动态变量：基础抽 1 张牌、1 费、1 覆甲
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
 		new CardsVar(1),
-		new EnergyVar(1)
+		new EnergyVar(1),
+		new PowerVar<PlatingPower>(1m)
 	};
 
 	public Trumpet()
@@ -40,12 +50,24 @@ public sealed class Trumpet : CardModel, IItemCard
 		// 2. 获得 1 费
 		await PlayerCmd.GainEnergy(base.DynamicVars["Energy"].BaseValue, base.Owner);
 
-		// 3. 每打出一次这张牌，本场战斗费用 +1
+		// 3. 切换到下一个场景
+		MyClimbing? climbing = base.Owner.Relics.OfType<MyClimbing>().FirstOrDefault();
+		if (climbing != null)
+		{
+			await climbing.ModifyEnvironmentValue(choiceContext, 1);
+		}
+
+		// 4. 获得 1 层覆甲
+		await PowerCmd.Apply<PlatingPower>(
+			choiceContext, base.Owner.Creature, base.DynamicVars["PlatingPower"].BaseValue, base.Owner.Creature, this);
+
+		// 5. 每打出一次这张牌，本场战斗费用 +1
 		base.EnergyCost.AddThisCombat(1);
 	}
 
 	protected override void OnUpgrade()
 	{
-		// 无升级效果（费用递增机制不变）
+		// 升级后获得固有：战斗开始时自动进入手牌
+		AddKeyword(CardKeyword.Innate);
 	}
 }

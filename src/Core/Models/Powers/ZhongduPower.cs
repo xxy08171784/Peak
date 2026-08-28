@@ -36,6 +36,27 @@ public sealed class ZhongduPower : PowerModel
 		}
 	}
 
+	/// <summary>
+	/// 获得中毒时触发过载判定：三 buff 总和 ≥ 100 时判定（中毒最多则获得 虚弱/易伤/脆弱 各1并失去20中毒）。
+	/// 失去中毒（amount &lt; 0）不触发，避免死循环。
+	/// </summary>
+	public override async Task AfterPowerAmountChanged(
+		PlayerChoiceContext choiceContext,
+		PowerModel power,
+		decimal amount,
+		Creature? applier,
+		CardModel? cardSource)
+	{
+		if (power != this)
+		{
+			return;
+		}
+		if (amount > 0)
+		{
+			await BuffOverloadChecker.TryTrigger(Owner, choiceContext);
+		}
+	}
+
 	/// <summary>回合开始时不做任何事（跳过原版中毒的回合开始触发）</summary>
 	public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
 	{
@@ -89,7 +110,7 @@ public sealed class ZhongduPower : PowerModel
 		for (int i = 0; i < damageCount; i++)
 		{
 			await CreatureCmd.Damage(
-				new ThrowingPlayerChoiceContext(), 
+				choiceContext, 
 				Owner, Amount, 
 				ValueProp.Unpowered, 
 				null, 

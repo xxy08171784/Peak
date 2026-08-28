@@ -31,7 +31,12 @@ public sealed class ScoutRelicPool : RelicPoolModel
 			ModelDb.Relic<NutritionPyramid>(),
 			ModelDb.Relic<ColdStorage>(),
 			// 商店角色遗物
-			ModelDb.Relic<Alpenstock>()
+			ModelDb.Relic<Alpenstock>(),
+			// 第4幕宝石遗物（不参与正常奖励，但需注册到池中才能在图鉴/详细介绍中显示）
+			ModelDb.Relic<ScoutHospitality>(),
+			ModelDb.Relic<ScoutPerseverance>(),
+			ModelDb.Relic<ScoutAmbition>(),
+			ModelDb.Relic<ScoutEnterprise>(),
 		};
 	}
 

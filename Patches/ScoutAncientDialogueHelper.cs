@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Godot;
 using HarmonyLib;
 using MegaCrit.Sts2.Core.Entities.Ancients;
 using MegaCrit.Sts2.Core.Logging;
@@ -34,16 +35,21 @@ public static class ScoutAncientDialogueHelper
 		}
 
 		var dict = (Dictionary<string, IReadOnlyList<AncientDialogue>>)field.GetValue(dialogueSet);
-		if (dict.ContainsKey("SCOUT"))
+		string scoutKey = ModelDb.Character<Scout>().Id.Entry;
+		GD.Print($"[ScoutAncientDialogueHelper] Injecting Scout dialogues with key='{scoutKey}', dict already has {dict.Count} entries, contains SCOUT={dict.ContainsKey("SCOUT")}");
+
+		if (dict.ContainsKey(scoutKey))
 		{
+			GD.Print($"[ScoutAncientDialogueHelper] Scout key '{scoutKey}' already exists, skipping.");
 			return;
 		}
 
 		var newDict = new Dictionary<string, IReadOnlyList<AncientDialogue>>(dict)
 		{
 			// 与 AncientEventModel.CharKey<Scout>() 一致（返回角色 Id.Entry）
-			[ModelDb.Character<Scout>().Id.Entry] = scoutDialogues
+			[scoutKey] = scoutDialogues
 		};
 		field.SetValue(dialogueSet, newDict);
+		GD.Print($"[ScoutAncientDialogueHelper] Successfully injected {scoutDialogues.Count} Scout dialogues with key='{scoutKey}'");
 	}
 }

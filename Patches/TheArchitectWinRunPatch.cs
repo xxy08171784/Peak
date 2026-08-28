@@ -35,9 +35,12 @@ public static class TheArchitectWinRunPatch
 		AncientDialogue? dialogue = dialogueField.GetValue(__instance) as AncientDialogue;
 		if (dialogue == null)
 		{
-			// 单行、无 SFX、无文本的占位对话；EndAttackers 默认 None（安全）
-			dialogueField.SetValue(__instance, new AncientDialogue(""));
-			GD.Print("[TheArchitectWinRunPatch] Injected default dialogue for custom character.");
+			// 注入一个带攻击动画的占位对话，让建筑师左右手攻击特效正常播放
+			dialogueField.SetValue(__instance, new AncientDialogue("")
+			{
+				EndAttackers = ArchitectAttackers.Both
+			});
+			GD.Print("[TheArchitectWinRunPatch] Injected default dialogue for custom character (with Both attackers).");
 		}
 	}
 }

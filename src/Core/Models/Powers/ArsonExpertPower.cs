@@ -29,7 +29,7 @@ public sealed class ArsonExpertPower : PowerModel
 	public override bool AllowNegative => false;
 
 	/// <summary>
-	/// 获取伤害倍率：层数 + 1（1层=2倍，2层=3倍...）
+	/// 获取伤害倍率：2 的层数次方（1层=2倍，2层=4倍，3层=8倍...）
 	/// </summary>
-	public int DamageMultiplier => Amount + 1;
+	public int DamageMultiplier => (int)Math.Min(Math.Pow(2, Amount), int.MaxValue);
 }

@@ -1,15 +1,11 @@
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Characters;
-using MegaCrit.Sts2.Core.Nodes.Screens.Timeline;
-using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Timeline;
-using peak.Core.Models.Characters;
 
 namespace peak.Core.Timeline.Epochs;
 
 /// <summary>
 /// 第一章-童军队员：主角加入童子军，领队传授 0 号守则。
-/// 对应 Silent1Epoch —— 由 NeowEpoch.QueueUnlocks() 在首次打开时间线时获得。
+/// 不再自动解锁角色 Scout（角色默认可用），而是在完成一场 Scout 游戏后通过
+/// PostRunScout1UnlockPatch 补丁获得此 epoch。
 /// 获得后展开 Scout2-6 的槽位。
 /// </summary>
 public class Scout1Epoch : EpochModel
@@ -33,8 +29,6 @@ public class Scout1Epoch : EpochModel
 
 	public override void QueueUnlocks()
 	{
-		NTimelineScreen.Instance.QueueCharacterUnlock<Scout>(this);
-		SaveManager.Instance.Progress.PendingCharacterUnlock = ModelDb.Character<Scout>().Id;
 		EpochModel.QueueTimelineExpansion(GetTimelineExpansion());
 	}
 }

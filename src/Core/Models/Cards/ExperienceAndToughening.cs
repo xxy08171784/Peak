@@ -7,6 +7,7 @@ using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
 using peak.Core.Models.Powers;
 
 namespace peak.Core.Models.Cards;
@@ -22,7 +23,8 @@ public sealed class ExperienceAndToughening : CardModel
 	// 悬停预览：显示历练的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
-		HoverTipFactory.FromPower<ExperienceAndTougheningPower>()
+		HoverTipFactory.FromPower<ExperienceAndTougheningPower>(),
+		HoverTipFactory.FromPower<StrengthPower>()
 	};
 
 	// 基础变量：每次失去 debuff 获得 1 点力量

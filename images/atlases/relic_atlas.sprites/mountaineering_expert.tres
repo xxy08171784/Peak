@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://damgexp1qj2k4"]
+
+[ext_resource type="Texture2D" uid="uid://w3ye5o88y6t6" path="res://images/relics/mountaineering_expert.png" id="1_me8yq"]
+
+[resource]
+atlas = ExtResource("1_me8yq")
+region = Rect2(0, 0, 256, 256)

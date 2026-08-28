@@ -9,8 +9,8 @@ using MegaCrit.Sts2.Core.Models.Powers;
 namespace peak.Core.Models.Powers;
 
 /// <summary>
-/// 历练：每当你失去一次负面状态时，获得力量（每层 1 点）。
-/// 按次数触发：一次失去多层也只算一次。
+/// 历练：每当你失去一次负面状态时，获得力量。
+/// 按次数触发：一次失去多层也只算一次（例如散热一次失去 7 层炎热，只算 1 次）。
 /// Amount 即每次触发获得的力量值，多张历练可叠加。
 /// </summary>
 public sealed class ExperienceAndTougheningPower : PowerModel
@@ -30,7 +30,8 @@ public sealed class ExperienceAndTougheningPower : PowerModel
 	public int StrengthPerTrigger => Amount;
 
 	/// <summary>
-	/// 监听全局 power 变化：当自己身上的 debuff 减少时，获得力量。
+	/// 监听全局 power 变化：当自己身上的 debuff 层数减少（失去 debuff）时，获得力量。
+	/// 按事件次数触发：无论一次失去多少层，都只算 1 次。
 	/// </summary>
 	public override async Task AfterPowerAmountChanged(
 		PlayerChoiceContext choiceContext,
@@ -39,9 +40,9 @@ public sealed class ExperienceAndTougheningPower : PowerModel
 		Creature? applier,
 		CardModel? cardSource)
 	{
-		// 只触发：层数减少 + 是 debuff + 在自己身上 + 非临时性
+		// 只触发：层数减少 + 该 power 是 debuff + 在自己身上 + 非临时性
 		if (amount < 0
-			&& power.GetTypeForAmount(amount) == PowerType.Debuff
+			&& power.Type == PowerType.Debuff
 			&& power.Owner == base.Owner
 			)
 		{

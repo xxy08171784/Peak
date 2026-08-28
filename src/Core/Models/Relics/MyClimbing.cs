@@ -25,16 +25,24 @@ public class MyClimbing : RelicModel
 	private bool _hasInitializedThisCombat = false;
 
 	/// <summary>
+	/// 本场战斗累计的环境切换次数（每次环境值发生实际变化时 +1）。
+	/// 供【过关斩将】等卡牌按"场景切换次数"结算伤害。
+	/// </summary>
+	private int _totalEnvironmentSwitches = 0;
+
+	/// <summary>
+	/// 本场战斗累计的环境切换次数（供【过关斩将】结算）。
+	/// </summary>
+	public int TotalEnvironmentSwitches => _totalEnvironmentSwitches;
+
+	/// <summary>
 	/// 本回合内的环境切换序列（记录每次切换后的环境值，首元素为回合开始时的环境值）。
 	/// 供【PEAK】等卡牌判定本回合是否出现过 01230 切换。
 	/// </summary>
 	private readonly List<int> _turnEnvironmentSequence = new();
 
-	/// <summary>
-	/// 环境切换事件：玩家、环境变化前的值、环境变化后的值。
-	/// 供【士气高涨】【初始物资】等能力卡监听"切换环境"时机。
-	/// </summary>
-	public static event Action<Player, int, int>? EnvironmentChanged;
+	// —— 以下字段/事件已废弃，改为 IEnvironmentAware 接口遍历 ——
+	//	public static event Action<Player, int, int>? EnvironmentChanged;
 
 	// 这是 Scout 的初始遗物，稀有度必须为 Starter，
 	// 否则会进入遗物袋被宝箱/精英/事件再次开出（官方初始遗物均为 Starter，会被遗物袋自动过滤）
@@ -93,6 +101,9 @@ public class MyClimbing : RelicModel
 		await TriggerEnvironmentEffect(choiceContext, previousValue, EnvironmentValue);
 	}
 
+	/// <summary>
+	/// 触发环境切换并广播给所有 IEnvironmentAware 监听者（替代旧的静态事件+async void 模式）。
+	/// </summary>
 	private async Task TriggerEnvironmentEffect(PlayerChoiceContext choiceContext, int previousValue, int currentValue)
 	{
 		if (base.Owner?.Creature == null)
@@ -102,17 +113,57 @@ public class MyClimbing : RelicModel
 
 		Flash();
 
-		// 环境切换事件：通知监听者（士气高涨、初始物资等）
+		// 环境切换事件：通知所有 IEnvironmentAware 监听者（士气高涨、初始物资等）
 		if (previousValue != currentValue)
 		{
 			// 记录到本回合切换序列（供 PEAK 判定）
 			_turnEnvironmentSequence.Add(currentValue);
 
-			EnvironmentChanged?.Invoke(base.Owner, previousValue, currentValue);
+			// 累计本场战斗切换次数（供过关斩将结算）
+			_totalEnvironmentSwitches++;
+
+			await NotifyEnvironmentChanged(choiceContext, previousValue, currentValue);
+		}
+		else
+		{
+			// 环境值未实际变化（如已在 0 海岛时再次"回到" 0）：
+			// 仍通知"回到该场景"的监听者（初始物资等），
+			// 并计入本场战斗切换次数（供过关斩将结算），
+			// 但不记录到本回合切换序列（保持 PEAK 的 01230 判定不受影响）
+			_totalEnvironmentSwitches++;
+
+			await NotifyEnvironmentChanged(choiceContext, previousValue, currentValue);
 		}
 
 		// 执行当前状态的效果
 		await ExecuteStateEffect(choiceContext, currentValue);
+	}
+
+	/// <summary>
+	/// 遍历玩家的 Power 列表和遗物列表，通知所有实现 IEnvironmentAware 的监听者。
+	/// 替代旧的静态事件+async void 模式，消除联机锁步同步的分叉风险。
+	/// </summary>
+	private async Task NotifyEnvironmentChanged(PlayerChoiceContext choiceContext, int previousValue, int currentValue)
+	{
+		if (base.Owner?.Creature == null)
+		{
+			return;
+		}
+		Creature owner = base.Owner.Creature;
+		foreach (var power in owner.Powers)
+		{
+			if (power is IEnvironmentAware envPower)
+			{
+				await envPower.OnEnvironmentChanged(choiceContext, base.Owner, previousValue, currentValue);
+			}
+		}
+		foreach (var relic in base.Owner.Relics)
+		{
+			if (relic is IEnvironmentAware envRelic)
+			{
+				await envRelic.OnEnvironmentChanged(choiceContext, base.Owner, previousValue, currentValue);
+			}
+		}
 	}
 
 	/// <summary>
@@ -138,8 +189,8 @@ public class MyClimbing : RelicModel
 				break;
 
 			case 2:
-				// 方山：获得 15 层炎热
-				await GainHeat(choiceContext, 15m);
+				// 方山：获得 14 层炎热
+				await GainHeat(choiceContext, 14m);
 				break;
 
 			case 3:
@@ -224,7 +275,8 @@ public class MyClimbing : RelicModel
 
 		// 记录本次切换并通知监听者（士气高涨、初始物资等）
 		_turnEnvironmentSequence.Add(newValue);
-		EnvironmentChanged?.Invoke(base.Owner, previousValue, newValue);
+		_totalEnvironmentSwitches++;
+		await NotifyEnvironmentChanged(choiceContext, previousValue, newValue);
 
 		await ExecuteStateEffect(choiceContext, newValue);
 	}
@@ -312,6 +364,7 @@ public class MyClimbing : RelicModel
 		base.Status = RelicStatus.Normal;
 		_environmentValue = 0;
 		_hasInitializedThisCombat = false;
+		_totalEnvironmentSwitches = 0;
 		_turnEnvironmentSequence.Clear();
 		return Task.CompletedTask;
 	}

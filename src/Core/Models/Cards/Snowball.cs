@@ -18,13 +18,13 @@ namespace peak.Core.Models.Cards;
 /// 可被【滚雪球】多次升级：
 /// - 升级 n 次：给予 (n+1) 层寒冷、n 层易伤、n 层虚弱（n ≥ 1）。
 /// </summary>
-public sealed class Snowball : CardModel
+public sealed class Snowball : CardModel, IItemCard
 {
 	// 消耗关键词
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
 	// 可多次升级（由滚雪球逐级强化）
-	public override int MaxUpgradeLevel => 99;
+	public override int MaxUpgradeLevel => 999;
 
 	// 悬停预览
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
@@ -91,6 +91,12 @@ public sealed class Snowball : CardModel
 				base.Owner.Creature,
 				this
 			);
+		}
+
+		// 效果结算完成后，雪球降级回未升级状态（下次滚雪球从基础等级重新升级）
+		if (CurrentUpgradeLevel > 0)
+		{
+			DowngradeInternal();
 		}
 	}
 

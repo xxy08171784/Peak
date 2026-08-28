@@ -41,6 +41,12 @@ public sealed class Cactus : RelicModel
 			return;
 		}
 
+		// 自己打自己的伤害（放血、烙印等）不触发仙人掌反击
+		if (dealer == target)
+		{
+			return;
+		}
+
 		_triggeredThisCombat = true;
 		base.Status = RelicStatus.Normal;
 		Flash();

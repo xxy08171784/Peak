@@ -1,11 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using HarmonyLib;
+using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Characters;
 using MegaCrit.Sts2.Core.Multiplayer.Serialization;
 using MegaCrit.Sts2.Core.Saves;
+using MegaCrit.Sts2.Core.Saves.Runs;
 using MegaCrit.Sts2.Core.Timeline;
 using MegaCrit.Sts2.Core.Timeline.Epochs;
+using peak.Core.Models.Characters;
 using peak.Core.Timeline.Epochs;
 using peak.Core.Timeline.Stories;
 
@@ -87,25 +92,52 @@ public static class StoryModelGetPatch
 }
 
 /// <summary>
-/// 补丁 NeowEpoch.QueueUnlocks()，仿 Silent1Epoch 模式：
-/// 在首次打开时间线时获得 Scout1Epoch（第一章）。
-/// 必须用 Prefix（在 QueueTimelineExpansion 之前获得），
-/// 这样 UnlockSlot 才能把 Scout1 从 ObtainedNoSlot 提升为 Obtained。
+/// 补丁 NeowEpoch.QueueUnlocks() — 已禁用自动获得 Scout1Epoch。
+/// 改为由 PostRunScout1UnlockPatch 在完成一场 Scout 游戏后解锁。
 /// </summary>
-[HarmonyPatch(typeof(NeowEpoch), nameof(NeowEpoch.QueueUnlocks))]
-public static class NeowEpochQueueUnlocksPatch
+// [HarmonyPatch(typeof(NeowEpoch), nameof(NeowEpoch.QueueUnlocks))]
+// public static class NeowEpochQueueUnlocksPatch
+// {
+// 	static void Postfix()
+// 	{
+// 		SaveManager.Instance.ObtainEpochOverride(
+// 			EpochModel.GetId<Scout1Epoch>(), EpochState.ObtainedNoSlot);
+// 	}
+// }
+
+
+/// <summary>
+/// 补丁 SaveManager.UpdateProgressWithRunData(SerializableRun, bool)，
+/// 在每局游戏结束后检查是否使用的是 Scout 角色。
+/// 是则获得 Scout1Epoch（如果尚未获得）。
+/// </summary>
+[HarmonyPatch(typeof(SaveManager), nameof(SaveManager.UpdateProgressWithRunData))]
+public static class PostRunScout1UnlockPatch
 {
-	static void Prefix()
+	static void Postfix(SerializableRun serializableRun)
 	{
-		SaveManager.Instance.ObtainEpochOverride(
-			EpochModel.GetId<Scout1Epoch>(), EpochState.ObtainedNoSlot);
+		if (serializableRun.Players.Count == 0)
+			return;
+
+		var player = serializableRun.Players.First();
+		if (player.CharacterId == null || player.CharacterId == ModelId.none)
+			return;
+
+		var character = ModelDb.GetById<CharacterModel>(player.CharacterId);
+		if (character is not Scout)
+			return;
+
+		string scout1Id = EpochModel.GetId<Scout1Epoch>();
+		if (!SaveManager.Instance.Progress.IsEpochObtained(scout1Id))
+		{
+			SaveManager.Instance.ObtainEpochOverride(scout1Id, EpochState.Obtained);
+		}
 	}
 }
 
 /// <summary>
 /// 补丁 NeowEpoch.GetTimelineExpansion()，将 Scout1-6 槽位注入初始时间线。
-/// Scout1 的槽位和获得分开处理（QueueUnlocks 只获得 Scout1），
-/// 槽位由这里注入到 Neow 的展开列表中。
+/// Scout1 的槽位由这里注入到 Neow 的展开列表中。
 /// </summary>
 [HarmonyPatch(typeof(NeowEpoch), nameof(NeowEpoch.GetTimelineExpansion))]
 public static class NeowEpochExpansionPatch

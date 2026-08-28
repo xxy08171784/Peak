@@ -26,8 +26,17 @@ public sealed class HeavyBackpack : RelicModel
 			return;
 		}
 
-		// 检查原始费用 >= 2
-		if (cardPlay.Card.EnergyCost.Canonical < 2)
+		// 判断实际费用 >= 2：普通牌用 Canonical，X 费用牌用实际消耗
+		int cost;
+		if (cardPlay.Card.EnergyCost.CostsX)
+		{
+			cost = cardPlay.Card.ResolveEnergyXValue();
+		}
+		else
+		{
+			cost = cardPlay.Card.EnergyCost.Canonical;
+		}
+		if (cost < 2)
 		{
 			return;
 		}

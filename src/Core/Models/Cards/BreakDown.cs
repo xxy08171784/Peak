@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
@@ -16,11 +17,16 @@ namespace peak.Core.Models.Cards;
 /// <summary>
 /// 瓦解：失去所有覆甲，每失去一层覆甲就对所有敌人造成 3（5）点伤害一次。
 /// 覆甲会一层一层消失，每消失一层造成一次伤害（连击效果）。
-/// 1 费，技能牌，罕见稀有度，目标自身。
+/// 1 费，攻击牌，罕见稀有度，目标自身。
 /// </summary>
 public sealed class BreakDown : CardModel
 {
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/break_down.png");
+
+	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
+	{
+		HoverTipFactory.FromPower<PlatingPower>()
+	};
 
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
@@ -28,7 +34,7 @@ public sealed class BreakDown : CardModel
 	};
 
 	public BreakDown()
-		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+		: base(1, CardType.Attack, CardRarity.Uncommon, TargetType.Self)
 	{
 	}
 
