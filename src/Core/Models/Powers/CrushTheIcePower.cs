@@ -35,7 +35,7 @@ public sealed class CrushTheIcePower : PowerModel
 	/// 乘算增伤钩子：对拥有渐冻的敌人造成额外伤害。
 	/// 参考 VulnerablePower（易伤）的实现方式。
 	/// </summary>
-	public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+	public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
 	{
 		// 只对拥有渐冻的目标生效
 		if (target == null || target.GetPower<FrostbitePower>() == null)

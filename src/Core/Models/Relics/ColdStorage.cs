@@ -23,7 +23,7 @@ public sealed class ColdStorage : RelicModel
 	/// 减伤乘算钩子：攻击者拥有渐冻时伤害 ×0.75。
 	/// 类似 WeakPower 的 ModifyDamageMultiplicative，但条件为攻击者有 FrostbitePower。
 	/// </summary>
-	public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource)
+	public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props, Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
 	{
 		// 只对宿主受到的伤害生效
 		if (target != base.Owner?.Creature)
