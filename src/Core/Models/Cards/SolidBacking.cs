@@ -18,14 +18,14 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class SolidBacking : CardModel
 {
-    public override bool CanBeGeneratedInCombat => false;
-    public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/solid_backing.png");
+	public override bool CanBeGeneratedInCombat => false;
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/solid_backing.png");
 
-    public SolidBacking() : base(1, CardType.Power, CardRarity.Token, TargetType.Self) { }
+	public SolidBacking() : base(1, CardType.Power, CardRarity.Token, TargetType.Self) { }
 
-    protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
-    {
-        // 应用坚实后盾能力：每当你在回合中获得格挡时，被抛弃者玩家获得其一半格挡
-        await PowerCmd.Apply<SolidBackingPower>(ctx, base.Owner.Creature, 1m, base.Owner.Creature, this);
-    }
+	protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
+	{
+		// 应用坚实后盾能力：每当你在回合中获得格挡时，被抛弃者玩家获得其一半格挡
+		await PowerCmd.Apply<SolidBackingPower>(ctx, base.Owner.Creature, 1m, base.Owner.Creature, this);
+	}
 }

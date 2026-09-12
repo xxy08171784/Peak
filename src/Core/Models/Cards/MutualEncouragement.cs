@@ -16,27 +16,27 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class MutualEncouragement : CardModel
 {
-    public override bool CanBeGeneratedInCombat => false;
-    public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mutual_encouragement.png");
+	public override bool CanBeGeneratedInCombat => false;
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/mutual_encouragement.png");
 
-    public MutualEncouragement() : base(2, CardType.Skill, CardRarity.Token, TargetType.Self) { }
+	public MutualEncouragement() : base(2, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
-    protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
-    {
-        // 找到有被抛弃者的玩家并消1层
-        var combatState = base.Owner.Creature.CombatState;
-        if (combatState == null) return;
+	protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
+	{
+		// 找到有被抛弃者的玩家并消1层
+		var combatState = base.Owner.Creature.CombatState;
+		if (combatState == null) return;
 
-        foreach (var player in combatState.Players)
-        {
-            var creature = player.Creature;
-            if (creature == null) continue;
-            var mark = creature.GetPower<AbandonedMarkPower>();
-            if (mark != null && mark.Amount > 0)
-            {
-                await PowerCmd.ModifyAmount(ctx, mark, -1m, base.Owner.Creature, this);
-                break;
-            }
-        }
-    }
+		foreach (var player in combatState.Players)
+		{
+			var creature = player.Creature;
+			if (creature == null) continue;
+			var mark = creature.GetPower<AbandonedMarkPower>();
+			if (mark != null && mark.Amount > 0)
+			{
+				await PowerCmd.ModifyAmount(ctx, mark, -1m, base.Owner.Creature, this);
+				break;
+			}
+		}
+	}
 }

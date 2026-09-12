@@ -19,24 +19,24 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class Lament : CardModel
 {
-    public override bool CanBeGeneratedInCombat => false;
-    public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/lament.png");
-    public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+	public override bool CanBeGeneratedInCombat => false;
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/lament.png");
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
-        new DamageVar(35, ValueProp.Move)
-    };
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new DamageVar(35, ValueProp.Move)
+	};
 
-    public Lament() : base(1, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy) { }
+	public Lament() : base(1, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy) { }
 
-    protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
-    {
-        var target = cardPlay.Target;
-        if (target == null) return;
+	protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
+	{
+		var target = cardPlay.Target;
+		if (target == null) return;
 
-        await CreatureCmd.Damage(ctx, target, base.DynamicVars["Damage"].BaseValue, ValueProp.Move, base.Owner.Creature, this, cardPlay);
-        // 目标本回合失去3点力量（临时——TemporaryStrengthPower 在回合结束时自动恢复）
-        await PowerCmd.Apply<LamentStrengthLossPower>(ctx, target, 3m, base.Owner.Creature, this);
-    }
+		await CreatureCmd.Damage(ctx, target, base.DynamicVars["Damage"].BaseValue, ValueProp.Move, base.Owner.Creature, this, cardPlay);
+		// 目标本回合失去3点力量（临时——TemporaryStrengthPower 在回合结束时自动恢复）
+		await PowerCmd.Apply<LamentStrengthLossPower>(ctx, target, 3m, base.Owner.Creature, this);
+	}
 }

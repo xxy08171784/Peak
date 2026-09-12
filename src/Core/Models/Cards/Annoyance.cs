@@ -17,25 +17,25 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class Annoyance : CardModel
 {
-    public override bool CanBeGeneratedInCombat => false;
-    public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/annoyance.png");
-    public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+	public override bool CanBeGeneratedInCombat => false;
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/annoyance.png");
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
-        new DamageVar(45, ValueProp.Move)
-    };
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new DamageVar(45, ValueProp.Move)
+	};
 
-    public Annoyance() : base(2, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy) { }
+	public Annoyance() : base(2, CardType.Attack, CardRarity.Token, TargetType.AnyEnemy) { }
 
-    protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
-    {
-        var target = cardPlay.Target;
-        if (target == null) return;
+	protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
+	{
+		var target = cardPlay.Target;
+		if (target == null) return;
 
-        var damage = base.DynamicVars["Damage"].BaseValue;
-        await CreatureCmd.Damage(ctx, target, damage, ValueProp.Move, base.Owner.Creature, this, cardPlay);
-        // 获得一半伤害的格挡
-        await CreatureCmd.GainBlock(base.Owner.Creature, damage / 2m, ValueProp.Move, cardPlay);
-    }
+		var damage = base.DynamicVars["Damage"].BaseValue;
+		await CreatureCmd.Damage(ctx, target, damage, ValueProp.Move, base.Owner.Creature, this, cardPlay);
+		// 获得一半伤害的格挡
+		await CreatureCmd.GainBlock(base.Owner.Creature, damage / 2m, ValueProp.Move, cardPlay);
+	}
 }
