@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx1vyvpd44m21"
-path="res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"
+uid="uid://dbnuek6rl6tbs"
+path="res://.godot/imported/solid_backing.png-8d7776f1b16461b335c51a834ea411a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/share_a_bite.png"
-dest_files=["res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"]
+source_file="res://images/packed/card_portraits/scout/solid_backing.png"
+dest_files=["res://.godot/imported/solid_backing.png-8d7776f1b16461b335c51a834ea411a9.ctex"]
 
 [params]
 

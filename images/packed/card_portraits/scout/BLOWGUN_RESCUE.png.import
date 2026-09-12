@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7hvoxmfvt852"
-path="res://.godot/imported/BLOWGUN_RESCUE.png-30a7b4c523ebbba3de4a9de50fea1d76.ctex"
+uid="uid://cwuiwj880yg74"
+path="res://.godot/imported/blowgun_rescue.png-ad48213850799fbcc0675525510c2ca7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/BLOWGUN_RESCUE.png"
-dest_files=["res://.godot/imported/BLOWGUN_RESCUE.png-30a7b4c523ebbba3de4a9de50fea1d76.ctex"]
+source_file="res://images/packed/card_portraits/scout/blowgun_rescue.png"
+dest_files=["res://.godot/imported/blowgun_rescue.png-ad48213850799fbcc0675525510c2ca7.ctex"]
 
 [params]
 

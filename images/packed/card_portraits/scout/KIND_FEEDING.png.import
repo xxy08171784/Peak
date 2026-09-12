@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://doskpdpqu8q05"
-path="res://.godot/imported/KIND_FEEDING.png-ea1977a3ba19b7ad2e6e56f289219d22.ctex"
+uid="uid://csndoficyjprl"
+path="res://.godot/imported/kind_feeding.png-2d826694a420da43a620390781129e5b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/KIND_FEEDING.png"
-dest_files=["res://.godot/imported/KIND_FEEDING.png-ea1977a3ba19b7ad2e6e56f289219d22.ctex"]
+source_file="res://images/packed/card_portraits/scout/kind_feeding.png"
+dest_files=["res://.godot/imported/kind_feeding.png-2d826694a420da43a620390781129e5b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx1vyvpd44m21"
-path="res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"
+uid="uid://tqmtbpci3sn6"
+path="res://.godot/imported/mutual_encouragement.png-de2c222104aea9201a061e4eb97490aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/share_a_bite.png"
-dest_files=["res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"]
+source_file="res://images/packed/card_portraits/scout/mutual_encouragement.png"
+dest_files=["res://.godot/imported/mutual_encouragement.png-de2c222104aea9201a061e4eb97490aa.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx1vyvpd44m21"
-path="res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"
+uid="uid://croguc308kf1t"
+path="res://.godot/imported/lament.png-829bb07a3d254a0c9ee3c7f0a137bbda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/share_a_bite.png"
-dest_files=["res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"]
+source_file="res://images/packed/card_portraits/scout/lament.png"
+dest_files=["res://.godot/imported/lament.png-829bb07a3d254a0c9ee3c7f0a137bbda.ctex"]
 
 [params]
 

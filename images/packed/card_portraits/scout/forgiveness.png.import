@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx1vyvpd44m21"
-path="res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"
+uid="uid://glhdokgw2tyh"
+path="res://.godot/imported/forgiveness.png-c9629f2584b07893881e4699b9348d8f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/share_a_bite.png"
-dest_files=["res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"]
+source_file="res://images/packed/card_portraits/scout/forgiveness.png"
+dest_files=["res://.godot/imported/forgiveness.png-c9629f2584b07893881e4699b9348d8f.ctex"]
 
 [params]
 
