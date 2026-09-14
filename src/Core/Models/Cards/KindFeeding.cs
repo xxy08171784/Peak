@@ -25,8 +25,8 @@ public sealed class KindFeeding : CardModel
 {
 	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
-	// 卡面图片（文件名与卡牌 ID 一致：KIND_FEEDING.png）
-	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/KIND_FEEDING.png");
+	// 卡面图片（小写文件名，对应卡牌 ID：KIND_FEEDING）
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/kind_feeding.png");
 
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]
 	{
