@@ -19,28 +19,28 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class NeverGiveUp : CardModel
 {
-    public override bool CanBeGeneratedInCombat => false;
-    public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/never_give_up.png");
-    public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Ethereal };
+	public override bool CanBeGeneratedInCombat => false;
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/never_give_up.png");
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Ethereal };
 
-    public NeverGiveUp() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self) { }
+	public NeverGiveUp() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
-    protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
-    {
-        // 三选一加入手牌
-        // 注意：不能直接 new 卡牌（会触发 DuplicateModelException），
-        // 必须从 ModelDb 获取 canonical 实例，再通过 CombatState.CreateCard 创建战斗副本。
-        var options = new List<CardModel>
-        {
-            base.CombatState.CreateCard(ModelDb.Card<SolidBacking>(), base.Owner),
-            base.CombatState.CreateCard(ModelDb.Card<LendingHand>(), base.Owner),
-            base.CombatState.CreateCard(ModelDb.Card<MutualEncouragement>(), base.Owner),
-        };
+	protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
+	{
+		// 三选一加入手牌
+		// 注意：不能直接 new 卡牌（会触发 DuplicateModelException），
+		// 必须从 ModelDb 获取 canonical 实例，再通过 CombatState.CreateCard 创建战斗副本。
+		var options = new List<CardModel>
+		{
+			base.CombatState.CreateCard(ModelDb.Card<SolidBacking>(), base.Owner),
+			base.CombatState.CreateCard(ModelDb.Card<LendingHand>(), base.Owner),
+			base.CombatState.CreateCard(ModelDb.Card<MutualEncouragement>(), base.Owner),
+		};
 
-        var chosen = await CardSelectCmd.FromChooseACardScreen(ctx, options, base.Owner, canSkip: false);
-        if (chosen != null)
-        {
-            await CardPileCmd.AddGeneratedCardsToCombat(new[] { chosen }, PileType.Hand, base.Owner);
-        }
-    }
+		var chosen = await CardSelectCmd.FromChooseACardScreen(ctx, options, base.Owner, canSkip: false);
+		if (chosen != null)
+		{
+			await CardPileCmd.AddGeneratedCardsToCombat(new[] { chosen }, PileType.Hand, base.Owner);
+		}
+	}
 }

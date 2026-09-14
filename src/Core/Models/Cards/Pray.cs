@@ -19,25 +19,25 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class Pray : CardModel
 {
-    public override bool CanBeGeneratedInCombat => false;
-    public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/pray.png");
-    public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
+	public override bool CanBeGeneratedInCombat => false;
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/pray.png");
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
-    {
-        new BlockVar(8, ValueProp.Move)
-    };
+	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
+	{
+		new BlockVar(8, ValueProp.Move)
+	};
 
-    public Pray() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self) { }
+	public Pray() : base(1, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 
-    protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
-    {
-        await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars["Block"].BaseValue, ValueProp.Move, cardPlay);
-        // 给敌人（Boss）加1层希望
-        var boss = base.Owner.Creature.CombatState?.GetOpponentsOf(base.Owner.Creature).FirstOrDefault();
-        if (boss != null)
-        {
-            await PowerCmd.Apply<HopePower>(ctx, boss, 1m, base.Owner.Creature, this);
-        }
-    }
+	protected override async Task OnPlay(PlayerChoiceContext ctx, CardPlay cardPlay)
+	{
+		await CreatureCmd.GainBlock(base.Owner.Creature, base.DynamicVars["Block"].BaseValue, ValueProp.Move, cardPlay);
+		// 给敌人（Boss）加1层希望
+		var boss = base.Owner.Creature.CombatState?.GetOpponentsOf(base.Owner.Creature).FirstOrDefault();
+		if (boss != null)
+		{
+			await PowerCmd.Apply<HopePower>(ctx, boss, 1m, base.Owner.Creature, this);
+		}
+	}
 }
