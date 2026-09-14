@@ -1,2 +1,10 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+
+# Godot-generated metadata. These only ever conflict over regenerated
+# paths/uids, never over real content, so keep the current branch's copy
+# and let Godot re-import instead of stopping the merge.
+# Needs `git config merge.ours.driver true` per clone; without it Git
+# simply falls back to a normal conflict.
+*.import merge=ours
+*.uid merge=ours
