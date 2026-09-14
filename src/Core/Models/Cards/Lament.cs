@@ -35,7 +35,7 @@ public sealed class Lament : CardModel
         var target = cardPlay.Target;
         if (target == null) return;
 
-        await CreatureCmd.Damage(ctx, target, base.DynamicVars["Damage"].BaseValue, ValueProp.Move, base.Owner.Creature, this);
+        await CreatureCmd.Damage(ctx, target, base.DynamicVars["Damage"].BaseValue, ValueProp.Move, base.Owner.Creature, this,cardPlay);
         // 目标本回合失去3点力量（临时——TemporaryStrengthPower 在回合结束时自动恢复）
         await PowerCmd.Apply<LamentStrengthLossPower>(ctx, target, 3m, base.Owner.Creature, this);
     }

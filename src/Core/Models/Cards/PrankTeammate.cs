@@ -54,7 +54,8 @@ public sealed class PrankTeammate : CardModel
 			base.DynamicVars.Damage.BaseValue,
 			ValueProp.Move,
 			base.Owner.Creature,
-			this);
+			this,
+			cardPlay);
 	}
 
 	protected override void OnUpgrade()

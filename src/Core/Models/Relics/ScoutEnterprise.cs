@@ -24,7 +24,7 @@ public sealed class ScoutEnterprise : RelicModel
         Flash();
         await PowerCmd.Apply<DexterityPower>(
             new ThrowingPlayerChoiceContext(),
-            base.Owner.Creature, 2m,
+            base.Owner.Creature, 1m,
             base.Owner.Creature, null);
     }
 }

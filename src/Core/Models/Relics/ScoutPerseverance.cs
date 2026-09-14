@@ -15,7 +15,7 @@ namespace peak.Core.Models.Relics;
 /// <summary>
 /// 童军的毅力 - 第2颗宝石遗物。
 /// 火堆「坚定」选项获得。
-/// 每回合开始时获得1点格挡。
+/// 每回合结束时获得1点格挡。
 /// </summary>
 public sealed class ScoutPerseverance : RelicModel
 {
@@ -23,10 +23,14 @@ public sealed class ScoutPerseverance : RelicModel
     public override bool IsAllowedInShops => false;
     protected override string IconBaseName => "scout_perseverance";
 
-    public override async Task AfterSideTurnStart(
+    /// <summary>
+    /// 回合结束时获得格挡（参考原版 FakeOrichalcum 的写法）。
+    /// 此时获得的格挡会保留到敌方回合，用于抵挡敌人的攻击。
+    /// </summary>
+    public override async Task BeforeSideTurnEnd(
+        PlayerChoiceContext choiceContext,
         CombatSide side,
-        IReadOnlyList<Creature> participants,
-        ICombatState combatState)
+        IEnumerable<Creature> participants)
     {
         if (base.Owner?.Creature == null) return;
         if (!participants.Any(c => c == base.Owner.Creature)) return;

@@ -86,157 +86,106 @@
 [ext_resource type="Texture2D" uid="uid://l87mppk7kde3" path="res://images/animation/death/skeleton-death_22.png" id="id_83"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1fk6e"]
-load_path = "res://.godot/imported/skeleton-hit_00.png-51fbd442514739873f16711a5aeab1ae.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lat44"]
-load_path = "res://.godot/imported/skeleton-hit_01.png-edccbdf465b096ec97146a00b48063e4.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8ynra"]
-load_path = "res://.godot/imported/skeleton-hit_02.png-e51ea466f45fa95b30fa6fd112b04463.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5qhow"]
-load_path = "res://.godot/imported/skeleton-hit_03.png-01b8047004d9191a9564fe2317b4c3f1.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8ph0h"]
-load_path = "res://.godot/imported/skeleton-hit_04.png-40f73ad721f5b2efc69575315e55dfa2.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_knw5n"]
-load_path = "res://.godot/imported/skeleton-hit_05.png-bbc0cad952960a0c7e778f5edf1ee72d.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1mc3p"]
-load_path = "res://.godot/imported/skeleton-hit_06.png-e513c1318458ed49e1b1b15f9fbf17ea.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_u7u8o"]
-load_path = "res://.godot/imported/skeleton-hit_07.png-f6f7864ebbd1eb6b93e80df1be401651.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ttl0w"]
-load_path = "res://.godot/imported/skeleton-hit_08.png-f25a78278cb92d1f2f4aafc6bee4ee56.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_gwtvt"]
-load_path = "res://.godot/imported/skeleton-hit_09.png-c26ef004cde31ce85e9f36a7ba727d0d.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_x67wf"]
-load_path = "res://.godot/imported/skeleton-hit_10.png-fad232a4b6466e129185a32966b7e1ea.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sp66p"]
-load_path = "res://.godot/imported/skeleton-hit_11.png-982c1447df943d626e0a434537ab0d88.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6jw30"]
-load_path = "res://.godot/imported/skeleton-hit_12.png-80f95af6cf034be8a9799c42c0e04b32.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0xs6q"]
-load_path = "res://.godot/imported/skeleton-hit_13.png-e73f0d1ff6ad1ae90d65c67a0f714a16.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qwgis"]
-load_path = "res://.godot/imported/skeleton-hit_14.png-c975b6a5e059f11a1bf26d32985b6412.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jj2g5"]
-load_path = "res://.godot/imported/skeleton-hit_15.png-dff6ec22769881fe034b9b0f80d73550.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sk7c2"]
-load_path = "res://.godot/imported/skeleton-hit_16.png-f645f42c7f61430509d802c8710e5992.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ttfx8"]
-load_path = "res://.godot/imported/hit_00.png-38c6357ec08cbcb48ea286874579f46f.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7irta"]
-load_path = "res://.godot/imported/hit_01.png-c7f5194b2d754c4be49276ada3154a07.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tlqnn"]
-load_path = "res://.godot/imported/hit_02.png-797fa4e706042bc14bcc24d802b125a5.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_38sxl"]
-load_path = "res://.godot/imported/hit_03.png-5b0bc3a4fa3c9c49a79adb32ae974648.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qixgh"]
-load_path = "res://.godot/imported/hit_04.png-b07a2ae71a23f5c93e1f7bca47d35bd7.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_65ggl"]
-load_path = "res://.godot/imported/hit_05.png-b61b7af98ce5e87fd586c9d78eab0aa3.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s5d4t"]
-load_path = "res://.godot/imported/hit_06.png-345d1331bdd3cce18fec8c4bd7799485.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vfsor"]
-load_path = "res://.godot/imported/hit_07.png-b2fe116e11eab37bcbd583c9aafc251c.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_cla0b"]
-load_path = "res://.godot/imported/hit_08.png-2abcf992adbb5cc8b3190286c46d711e.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n4nfi"]
-load_path = "res://.godot/imported/hit_09.png-51a63099a3c3a5a355388e9ef66c51ff.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6w3hl"]
-load_path = "res://.godot/imported/hit_10.png-760a568d8ee9465575e6f066d11e21df.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xaahu"]
-load_path = "res://.godot/imported/hit_11.png-43d291de4cea8fef713b261d4b0517fa.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_24xsp"]
-load_path = "res://.godot/imported/hit_12.png-d841f0e704290a115547c02216b58adb.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mckwx"]
-load_path = "res://.godot/imported/hit_13.png-f80f621a73c8fbce29dba44454c3fa76.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xotip"]
-load_path = "res://.godot/imported/hit_14.png-80614febe04c4b31992a7b6494717271.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_630w7"]
-load_path = "res://.godot/imported/skeleton-skill_00.png-f3133f41820cc31cffab337ed5ffbddb.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ahepp"]
-load_path = "res://.godot/imported/skeleton-skill_01.png-a1a6692e0c214b0b4ed2c2686e6ff58d.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e3tty"]
-load_path = "res://.godot/imported/skeleton-skill_02.png-994cd6c808e34b37e6a2ff1dbae6be36.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_q6a83"]
-load_path = "res://.godot/imported/skeleton-skill_03.png-01a9d87fa85e8fe7fdd7eddbde56559e.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6wepr"]
-load_path = "res://.godot/imported/skeleton-skill_04.png-c4f3250a485725da9dc06766caac473b.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_s30kc"]
-load_path = "res://.godot/imported/skeleton-skill_05.png-2bca7ef79e1136ed04021dcc74a640fc.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_2ckpr"]
-load_path = "res://.godot/imported/skeleton-skill_06.png-41173a55f2177d0f05553790a81f8da8.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4fnrw"]
-load_path = "res://.godot/imported/skeleton-skill_07.png-a93d1a528a0ab041d6838756faad3b81.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0ahxa"]
-load_path = "res://.godot/imported/skeleton-skill_08.png-c9f72b98b39061ddaeae59c211a4ca39.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ybwxr"]
-load_path = "res://.godot/imported/skeleton-skill_09.png-ea4198a277093968f794f28a6c2a473a.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_va6j6"]
-load_path = "res://.godot/imported/skeleton-skill_10.png-fa54a8c5bfe459dc3f05bdcac1e875e1.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ecvgg"]
-load_path = "res://.godot/imported/skeleton-skill_11.png-1b577cc0e99e3244c0b651e456f04cf8.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_n18d4"]
-load_path = "res://.godot/imported/skeleton-skill_12.png-f42e63d892b93cac8d5703240e292f32.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_44fo1"]
-load_path = "res://.godot/imported/skeleton-skill_13.png-fa7952e7903a6c4abdd4cd8cdbf0c66c.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wst0g"]
-load_path = "res://.godot/imported/skeleton-skill_14.png-bab8d07cf213b0992873d4d8127f45a0.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_5l28a"]
-load_path = "res://.godot/imported/skeleton-skill_15.png-5596bfed428278cda52b19a19b0d0ec6.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rb7l3"]
-load_path = "res://.godot/imported/skeleton-skill_16.png-3a4128d80ac0c5e0a421a70b6baeef34.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tawl1"]
-load_path = "res://.godot/imported/skeleton-skill_17.png-a2d5544bea61c0c1cf4ed5f3d8bf1758.ctex"
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_351m7"]
-load_path = "res://.godot/imported/skeleton-skill_18.png-91bf4727732910a1b9985c2df191b493.ctex"
 
 [resource]
 animations = [{

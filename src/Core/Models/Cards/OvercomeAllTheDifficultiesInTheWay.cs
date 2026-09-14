@@ -36,7 +36,7 @@ public sealed class OvercomeAllTheDifficultiesInTheWay : CardModel
 	};
 
 	public OvercomeAllTheDifficultiesInTheWay()
-		: base(1, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
+		: base(2,CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
 	{
 	}
 
@@ -44,7 +44,7 @@ public sealed class OvercomeAllTheDifficultiesInTheWay : CardModel
 	{
 		// 对所有敌人造成 5（7）× 场景切换次数 点伤害
 		await DamageCmd.Attack(base.DynamicVars.CalculatedDamage)
-			.FromCard(this)
+			.FromCard(this,cardPlay)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 			.Execute(choiceContext);

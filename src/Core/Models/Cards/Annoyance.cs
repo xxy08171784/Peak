@@ -34,7 +34,7 @@ public sealed class Annoyance : CardModel
         if (target == null) return;
 
         var damage = base.DynamicVars["Damage"].BaseValue;
-        await CreatureCmd.Damage(ctx, target, damage, ValueProp.Move, base.Owner.Creature, this);
+        await CreatureCmd.Damage(ctx, target, damage, ValueProp.Move, base.Owner.Creature, this,cardPlay);
         // 获得一半伤害的格挡
         await CreatureCmd.GainBlock(base.Owner.Creature, damage / 2m, ValueProp.Move, cardPlay);
     }

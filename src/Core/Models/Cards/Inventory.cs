@@ -22,7 +22,7 @@ public sealed class Inventory : CardModel
 	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Exhaust };
 
 	public Inventory()
-		: base(0, CardType.Skill, CardRarity.Common, TargetType.Self)
+		: base(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 	{
 	}
 

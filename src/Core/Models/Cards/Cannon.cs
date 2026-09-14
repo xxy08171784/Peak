@@ -40,7 +40,7 @@ public sealed class Cannon : CardModel, IItemCard
 		if (RoastTracker.WasRoasted(this))
 		{
 			await DamageCmd.Attack(24m)
-				.FromCard(this)
+				.FromCard(this,cardPlay)
 				.TargetingAllOpponents(base.CombatState)
 				.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 				.Execute(choiceContext);
@@ -50,7 +50,7 @@ public sealed class Cannon : CardModel, IItemCard
 
 		// 未被烤：造成 12（15）点伤害
 		await DamageCmd.Attack(base.DynamicVars.Damage.BaseValue)
-			.FromCard(this)
+			.FromCard(this,cardPlay)
 			.TargetingAllOpponents(base.CombatState)
 			.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 			.Execute(choiceContext);

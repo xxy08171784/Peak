@@ -85,7 +85,7 @@
   "SCOUT_HOSPITALITY.description": "拾取时，复制上一个获得的遗物（不能复制角色遗物和先古遗物）。",
   "SCOUT_HOSPITALITY.flavor": "热情的分享，让队伍的装备更加丰富。",
   "SCOUT_PERSEVERANCE.title": "童军的毅力",
-  "SCOUT_PERSEVERANCE.description": "每回合开始时获得1点[gold]格挡[/gold]。",
+  "SCOUT_PERSEVERANCE.description": "每回合结束时获得1点[gold]格挡[/gold]。",
   "SCOUT_PERSEVERANCE.flavor": "坚持不懈，滴水穿石。",
   "SCOUT_AMBITION.title": "童军的野心",
   "SCOUT_AMBITION.description": "精英战开始时获得2点[gold]力量[/gold]。",

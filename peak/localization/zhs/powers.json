@@ -119,5 +119,20 @@
   "LONELINESS_POWER.smartDescription": "每当领队迈尔斯受到伤害时，本回合失去2点力量。\n\"被抛弃的孤独回忆让迈尔斯有些动摇。\"",
   "SOLID_BACKING_POWER.title": "坚实后盾",
   "SOLID_BACKING_POWER.description": "每当你在回合中获得格挡时，拥有被抛弃者的玩家获得其一半格挡。",
-  "SOLID_BACKING_POWER.smartDescription": "每当你在回合中获得格挡时，拥有被抛弃者的玩家获得其一半格挡。"
+  "SOLID_BACKING_POWER.smartDescription": "每当你在回合中获得格挡时，拥有被抛弃者的玩家获得其一半格挡。",
+  "CHAOS_POWER.title": "混沌",
+  "CHAOS_POWER.description": "每打出三张牌，触发一次随机效果：丢弃一张手牌 / 失去3点生命上限 / 获得20孢子 / 失去20炎热 / 获得4中毒 / 失去1费 / 受到5点伤害 / 宾邦获得1点荆棘 / 一张手牌附加消耗。",
+  "CHAOS_POWER.smartDescription": "每打出三张牌，触发一次随机效果：丢弃一张手牌 / 失去3点生命上限 / 获得20孢子 / 失去20炎热 / 获得4中毒 / 失去1费 / 受到5点伤害 / 宾邦获得1点荆棘 / 一张手牌附加消耗。",
+  "BINBANG_FLIGHT_POWER.title": "飞行",
+  "BINBANG_FLIGHT_POWER.description": "受到的伤害减半。每被攻击命中一次减少1层，层数归零后失去飞行并进入俯冲。",
+  "BINBANG_FLIGHT_POWER.smartDescription": "受到的伤害减半。再被攻击命中[blue]{Amount}[/blue]次后失去飞行并进入俯冲。",
+  "CURSE_POWER.title": "诅咒",
+  "CURSE_POWER.description": "你打出友谊喇叭、万灵药、诅咒头骨、仙子提灯、潘多拉餐盒、骸骨之书或领队喇叭时，受到10点伤害。",
+  "CURSE_POWER.smartDescription": "你打出友谊喇叭、万灵药、诅咒头骨、仙子提灯、潘多拉餐盒、骸骨之书或领队喇叭时，受到10点伤害。",
+  "WORSEN_POWER.title": "恶化",
+  "WORSEN_POWER.description": "你失去生命时，获得3层灾厄。宾邦被攻击时，会将一张眩晕洗入你的抽牌堆。",
+  "WORSEN_POWER.smartDescription": "你失去生命时，获得3层灾厄。宾邦被攻击时，会将一张眩晕洗入你的抽牌堆。",
+  "INSANE_POWER.title": "疯狂",
+  "INSANE_POWER.description": "这个角色在死亡时，将做出未知行为。",
+  "INSANE_POWER.smartDescription": "这个角色在死亡时，将做出未知行为。"
 }

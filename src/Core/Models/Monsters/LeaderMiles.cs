@@ -92,8 +92,8 @@ namespace peak.Core.Models.Monsters
                 // 攻击 12×2
                 foreach (var t in targets)
                 {
-                    await CreatureCmd.Damage(ctx, t, 12m, ValueProp.Move, Creature, null);
-                    await CreatureCmd.Damage(ctx, t, 12m, ValueProp.Move, Creature, null);
+                    await CreatureCmd.Damage(ctx, t, 12m, ValueProp.Move, Creature);
+                    await CreatureCmd.Damage(ctx, t, 12m, ValueProp.Move, Creature);
                 }
 
                 // 30 × 玩家人数 格挡
@@ -202,7 +202,7 @@ namespace peak.Core.Models.Monsters
                 {
                     for (int i = 0; i < 5; i++)
                     {
-                        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 6m, ValueProp.Move, Creature, null);
+                        await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 6m, ValueProp.Move, Creature);
                     }
                 }
 
@@ -228,7 +228,7 @@ namespace peak.Core.Models.Monsters
                 // 35 攻击（孤独生效中：玩家反击时每次-2临时力量）
                 foreach (var t in targets)
                 {
-                    await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 35m, ValueProp.Move, Creature, null);
+                    await CreatureCmd.Damage(new ThrowingPlayerChoiceContext(), t, 35m, ValueProp.Move, Creature);
                 }
 
                 // 移除孤独 Power（持续了T4末尾→T5整回合，用完消失）

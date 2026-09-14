@@ -51,7 +51,7 @@ public sealed class FragmentationStrike : CardModel
 
 		// 造成 10（15）× 渐冻层数 点伤害
 		await DamageCmd.Attack(base.DynamicVars.CalculatedDamage)
-			.FromCard(this)
+			.FromCard(this,cardPlay)
 			.Targeting(cardPlay.Target)
 			.WithHitFx("vfx/vfx_attack_blunt", null, "heavy_attack.mp3")
 			.Execute(choiceContext);

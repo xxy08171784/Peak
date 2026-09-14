@@ -25,25 +25,18 @@ namespace peak.Patches;
 /// </summary>
 public static class Act4GemManagerPatch
 {
-    private static bool _firstEliteGemGranted;
-
-    internal static bool Internal_FirstEliteGemGranted
-    {
-        get => _firstEliteGemGranted;
-        set => _firstEliteGemGranted = value;
-    }
+    /// <summary>
+    /// 队伍（所有玩家遗物并集）是否已持有某种宝石。
+    /// 宝石是"队伍共享收集品"，所有发放/判定都按并集来，避免多人下判定不一致。
+    /// </summary>
+    internal static bool TeamHas<T>(IRunState runState) where T : RelicModel
+        => runState.Players.Any(p => p.Relics.Any(r => r is T));
 
     public static bool HasAllFourGems(IRunState runState)
-    {
-        // 检测所有玩家携带的遗物集合是否集齐4种宝石（不要求同一个人持有）
-        var allRelics = runState.Players.SelectMany(p => p.Relics).ToList();
-        return allRelics.Any(r => r is ScoutHospitality)
-            && allRelics.Any(r => r is ScoutPerseverance)
-            && allRelics.Any(r => r is ScoutAmbition)
-            && allRelics.Any(r => r is ScoutEnterprise);
-    }
-
-    public static void Reset() { _firstEliteGemGranted = false; }
+        => TeamHas<ScoutHospitality>(runState)
+        && TeamHas<ScoutPerseverance>(runState)
+        && TeamHas<ScoutAmbition>(runState)
+        && TeamHas<ScoutEnterprise>(runState);
 }
 
 /// <summary>
@@ -105,30 +98,25 @@ public static class EliteBossGemRewardPatch
         var player = __result.Player;
         var runState = player.RunState;
 
-        // 精英 — 首次精英战注入 ScoutAmbition
+        // 精英宝石（野心）：任何精英战都会补发，直到队伍持有为止。
+        // 旧实现是"仅首次精英 + 一次性静态标记"，玩家只要放弃那次奖励，
+        // 宝石就永久拿不到（进不了第四层）；改为按持有情况补发。
         if (room is CombatRoom combatRoom && combatRoom.RoomType == RoomType.Elite
-            && !Act4GemManagerPatch.Internal_FirstEliteGemGranted)
+            && !Act4GemManagerPatch.TeamHas<ScoutAmbition>(runState))
         {
-            if (!runState.Players.Any(p => p.Relics.Any(r => r is ScoutAmbition)))
-            {
-                var relic = ModelDb.Relic<ScoutAmbition>().ToMutable();
-                __result.Rewards.Add(new RelicReward(relic, player));
-                Act4GemManagerPatch.Internal_FirstEliteGemGranted = true;
-                GD.Print("[Act4Gem] Elite: ScoutAmbition added as manual relic reward");
-            }
+            var relic = ModelDb.Relic<ScoutAmbition>().ToMutable();
+            __result.Rewards.Add(new RelicReward(relic, player));
         }
 
-        // Boss（Act2）— 仅给当前玩家注入 ScoutEnterprise（类似精英宝石机制）
+        // Boss 宝石（进取）：第二幕起的每个 Boss 战都会补发，直到队伍持有为止
+        // （同样修掉"放弃即永久锁死"的问题；第四层 Boss 无需再发，因为那时宝石必然已齐）。
         if (room is CombatRoom bossRoom && bossRoom.RoomType == RoomType.Boss
-            && runState.CurrentActIndex == 1)
+            && runState.CurrentActIndex >= 1
+            && runState.CurrentActIndex <= 2
+            && !Act4GemManagerPatch.TeamHas<ScoutEnterprise>(runState))
         {
-            // 只检查当前玩家是否已有，而不是检查所有玩家
-            if (!player.Relics.Any(r => r is ScoutEnterprise))
-            {
-                var relic = ModelDb.Relic<ScoutEnterprise>().ToMutable();
-                __result.Rewards.Add(new RelicReward(relic, player));
-                GD.Print("[Act4Gem] Boss: ScoutEnterprise added as manual relic reward");
-            }
+            var relic = ModelDb.Relic<ScoutEnterprise>().ToMutable();
+            __result.Rewards.Add(new RelicReward(relic, player));
         }
     }
 }
