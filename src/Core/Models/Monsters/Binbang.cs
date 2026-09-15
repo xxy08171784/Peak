@@ -192,7 +192,7 @@ public sealed class Binbang : MonsterModel
         var attack21 = new MoveState("BB_ATTACK_21", async (targets) =>
         {
             await AttackAll(targets, 21m);
-        }, new MultiAttackIntent(21, 1));
+        }, new SingleAttackIntent(21));
 
         var defend32 = new MoveState("BB_DEFEND_32", async (targets) =>
         {
@@ -220,7 +220,7 @@ public sealed class Binbang : MonsterModel
         var attack27 = new MoveState("BB_ATTACK_27", async (targets) =>
         {
             await AttackAll(targets, 27m);
-        },new MultiAttackIntent(27, 1));
+        }, new SingleAttackIntent(27));
 
         ritual9.FollowUpState = attack27;
         attack27.FollowUpState = attack27;
