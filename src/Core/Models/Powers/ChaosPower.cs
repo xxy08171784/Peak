@@ -63,12 +63,16 @@ public sealed class ChaosPower : PowerModel
         }
 
         Flash();
-        await TriggerRandomEffect(player);
+        await TriggerRandomEffect(player, choiceContext);
     }
 
     /// <summary>Boss 的"强化"招式：连续触发 <paramref name="times"/> 次随机效果（每次随机一名存活玩家）。</summary>
     public async Task TriggerRandomEffects(int times)
     {
+        // 敌方回合内触发，可能弹出"强制弃牌"选择：用 BlockingPlayerChoiceContext
+        // （原版文档指定的敌方回合玩家选择上下文），不能用 ThrowingPlayerChoiceContext。
+        var ctx = new BlockingPlayerChoiceContext();
+
         for (int i = 0; i < times; i++)
         {
             var players = PlayerList();
@@ -79,7 +83,7 @@ public sealed class ChaosPower : PowerModel
 
             var rng = players[0].RunState.Rng.CombatCardGeneration;
             Player target = players[rng.NextInt(0, players.Count)];
-            await TriggerRandomEffect(target);
+            await TriggerRandomEffect(target, ctx);
         }
     }
 
@@ -103,11 +107,10 @@ public sealed class ChaosPower : PowerModel
         return list;
     }
 
-    private async Task TriggerRandomEffect(Player player)
+    private async Task TriggerRandomEffect(Player player, PlayerChoiceContext ctx)
     {
         Creature playerCreature = player.Creature;
         var rng = player.RunState.Rng.CombatCardGeneration;
-        var ctx = new ThrowingPlayerChoiceContext();
 
         switch (rng.NextInt(0, EffectCount))
         {

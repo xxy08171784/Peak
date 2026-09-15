@@ -220,7 +220,7 @@ public sealed class Binbang : MonsterModel
         var attack27 = new MoveState("BB_ATTACK_27", async (targets) =>
         {
             await AttackAll(targets, 27m);
-        }, new MultiAttackIntent(27, 1));
+        },new MultiAttackIntent(27, 1));
 
         ritual9.FollowUpState = attack27;
         attack27.FollowUpState = attack27;
@@ -231,10 +231,23 @@ public sealed class Binbang : MonsterModel
             var ctx = Ctx();
             foreach (Creature target in targets)
             {
-                await CreatureCmd.Damage(ctx, target, 15m, ValueProp.Move, Creature);
-                await CreatureCmd.Damage(ctx, target, 15m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, 2m, ValueProp.Move, Creature);
             }
-        }, new MultiAttackIntent(15, 2));
+        }, new MultiAttackIntent(2, 15));
 
         var flyBuff = new MoveState("BB_FLY_BUFF_2", async (targets) =>
         {
@@ -259,7 +272,7 @@ public sealed class Binbang : MonsterModel
                 await CreatureCmd.Damage(ctx, target, 33m, ValueProp.Move, Creature);
                 await PowerCmd.Apply<WeakPower>(ctx, target, 3m, Creature, null);
             }
-        }, new MultiAttackIntent(33, 1), new DebuffIntent());
+        }, new DebuffIntent());
 
         // —— 落地后：T1 诅咒（一次）→ T2/T3 循环 ——
         var curse = new MoveState("BB_CURSE", async (targets) =>
@@ -317,7 +330,7 @@ public sealed class Binbang : MonsterModel
             },
             attack21);
     }
-
+  
     private async Task AttackAll(IReadOnlyList<Creature> targets, decimal damage)
     {
         var ctx = Ctx();

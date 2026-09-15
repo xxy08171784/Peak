@@ -6,7 +6,7 @@
   "SNOWBALL.title": "雪球",
   "SNOWBALL.description": "给予一名敌人{Cold:diff()}层[gold]寒冷[/gold]、{Vulnerable:diff()}层[gold]易伤[/gold]与{Weak:diff()}层[gold]虚弱[/gold]。",
   "GRADUALLY_FREEZING.title": "渐冻",
-  "GRADUALLY_FREEZING.description": "在回合开始时对所有拥有[gold]渐冻[/gold]的敌人造成{Damage:diff()}点伤害。",
+  "GRADUALLY_FREEZING.description": "在回合结束时对所有拥有[gold]渐冻[/gold]的敌人造成{Damage:diff()}点伤害。",
   "SNOW_ARMOR.title": "雪甲",
   "SNOW_ARMOR.description": "获得能力：每当你给予一层[gold]寒冷[/gold]时，获得{SnowArmorPower:diff()}点[gold]格挡[/gold]。",
   "SPORE_CLOUD.title": "孢子云",

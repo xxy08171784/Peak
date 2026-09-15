@@ -14,7 +14,7 @@ using peak.Core.Models.Powers;
 namespace peak.Core.Models.Cards;
 
 /// <summary>
-/// 渐动：获得能力"渐动"：在你的回合开始时，对所有拥有渐冻的敌人造成 10（13）点伤害。
+/// 渐冻：获得能力"渐冻"：在你的回合结束时，对所有拥有渐冻的敌人造成 12（16）点伤害。
 /// 1 费，能力牌，罕见稀有度，目标自身。
 /// </summary>
 public sealed class GraduallyFreezing : CardModel
@@ -28,10 +28,10 @@ public sealed class GraduallyFreezing : CardModel
 		HoverTipFactory.FromPower<GraduallyFreezingPower>()
 	};
 
-	// 基础变量：每回合 10 点伤害（升级后 13 点）
+	// 基础变量：每回合 12 点伤害（升级后 16 点）
 	protected override IEnumerable<DynamicVar> CanonicalVars => new DynamicVar[]
 	{
-		new DamageVar(10m, ValueProp.Unpowered)
+		new DamageVar(12m, ValueProp.Unpowered)
 	};
 
 	public GraduallyFreezing()
@@ -44,7 +44,7 @@ public sealed class GraduallyFreezing : CardModel
 		// 播放能力强化动画
 		await CreatureCmd.TriggerAnim(base.Owner.Creature, "PowerUp", base.Owner.Character.PowerUpAnimDelay);
 
-		// 赋予玩家渐动能力，每回合伤害值 = 10（13）
+		// 赋予玩家渐冻能力，每回合伤害值 = 12（16）
 		await PowerCmd.Apply<GraduallyFreezingPower>(
 			choiceContext,
 			base.Owner.Creature,
@@ -56,7 +56,7 @@ public sealed class GraduallyFreezing : CardModel
 
 	protected override void OnUpgrade()
 	{
-		// 升级后每回合伤害 10 -> 13 (+3)
-		base.DynamicVars.Damage.UpgradeValueBy(3m);
+		// 升级后每回合伤害 12 -> 16 (+4)
+		base.DynamicVars.Damage.UpgradeValueBy(4m);
 	}
 }
