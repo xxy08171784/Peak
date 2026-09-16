@@ -14,6 +14,7 @@ using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.Entities.RestSite;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Rooms;
 using MegaCrit.Sts2.Core.Entities.Merchant;
@@ -73,54 +74,66 @@ public static class Act4GemManagerPatch
 }
 
 /// <summary>
-/// 记录 Boss 战里"亲手击杀 Boss"的玩家，供 Boss 宝石（#4 ScoutEnterprise）发放判定。
+/// 记录 Boss / 精英战里"补刀"的玩家，供宝石发放判定（#3 野心 / #4 进取）。
 ///
 /// 原版 <see cref="CreatureCmd.Kill(Creature, bool)"/> 明确把击杀归属给"整个敌对阵营"
 /// （见其注释），不区分谁打出致命一击，所以这里自己在收到致命伤的那一刻记录 dealer。
-/// 注意 <see cref="CombatHistory"/> 会在战斗结束时清空（CombatManager.EndCombatInternal），
-/// 因此必须在此之前记录，不能等结算奖励时再回查历史。
+///
+/// ⚠ 为什么挂 <see cref="Hook.AfterDamageGiven"/> 而不是 <see cref="CombatHistory.DamageReceived"/>：
+/// 后者在 CreatureCmd.Damage 里被 `!CombatManager.IsEnding` 挡着（CreatureCmd.cs:317），而
+/// IsEnding 是计算属性（CombatManager.cs:180）——死亡发生的瞬间（LoseHpInternal 之后）场上
+/// 已无存活主敌人，IsEnding 立即为 true，于是**致死那一击根本不会写进战斗历史**，
+/// 追踪器永远看不到它（非致死伤害倒都会记录，所以表面上像是好的）。
+/// <see cref="Hook.AfterDamageGiven"/>（CreatureCmd.cs:409）没有这道闸门，且在 Kill 之前
+/// 调用，`WasTargetKilled` / `dealer` / `target` 参数也齐全。
 /// </summary>
-[HarmonyPatch(typeof(CombatHistory), nameof(CombatHistory.DamageReceived))]
-public static class BossKillerTrackerPatch
+[HarmonyPatch(typeof(Hook), nameof(Hook.AfterDamageGiven))]
+public static class KillerTrackerPatch
 {
     private static AbstractRoom? _room;
     private static Player? _killer;
 
     /// <summary>
-    /// 该房间 Boss 的击杀者。不是本房间记录的则返回 null。
+    /// 该房间 Boss / 精英的击杀者。不是本房间记录的则返回 null。
     /// </summary>
     internal static Player? GetKiller(AbstractRoom room)
         => ReferenceEquals(room, _room) ? _killer : null;
 
     [HarmonyPostfix]
-    static void RecordKiller(ICombatState combatState, Creature receiver, Creature? dealer, DamageResult result)
+    static void RecordKiller(ICombatState combatState, Creature? dealer, DamageResult results, Creature target)
     {
-        // 只在"击杀主敌人（Boss）"时记录：副敌人（小怪/召唤物）会先死或后死，不算
-        if (!result.WasTargetKilled || !receiver.IsPrimaryEnemy)
+        // 只在"击杀主敌人"时记录：副敌人（小怪/召唤物）会被 Kill(teammates) 连带带走，不算补刀
+        if (!results.WasTargetKilled || !target.IsPrimaryEnemy)
         {
             return;
         }
 
-        // 必须是被玩家亲手打死（环境伤害 / 自伤等没有 dealer 的情况不记录）
-        if (dealer == null || !dealer.IsPlayer)
-        {
-            return;
-        }
-
-        // 与宝石发放同一套判定：Boss 房 + 第二层（Act2）
         IRunState? runState = combatState?.RunState;
-        if (runState?.CurrentRoom is not CombatRoom room || room.RoomType != RoomType.Boss)
+        if (runState?.CurrentRoom is not CombatRoom room
+            || (room.RoomType != RoomType.Boss && room.RoomType != RoomType.Elite))
         {
             return;
         }
 
-        if (runState.CurrentActIndex != 1)
+        // 归属：亲手击杀的玩家；宠物（Osty）的击杀算主人；
+        // 毒杀 / 环境伤害 / 自伤等拿不到玩家 dealer 的情况，随机抽一名玩家兜底。
+        Player? killer = dealer != null && dealer.IsPlayer ? dealer.Player : dealer?.PetOwner;
+
+        if (killer == null)
         {
-            return;
+            // 用共享的 Run RNG：各客户端跑同一套确定性模拟、此刻 RNG 状态一致，
+            // 抽出的玩家必然相同，不会出现"各端认为中奖者不同"的不同步。
+            List<Player> pool = runState.Players.Where(p => p.Creature.IsAlive).ToList();
+            if (pool.Count == 0)
+            {
+                pool = runState.Players.ToList();
+            }
+
+            killer = pool[runState.Rng.CombatTargets.NextInt(0, pool.Count)];
         }
 
         _room = room;
-        _killer = dealer.Player;
+        _killer = killer;
     }
 }
 
@@ -184,23 +197,25 @@ public static class EliteBossGemRewardPatch
         var runState = player.RunState;
 
         // 精英宝石（野心）：只在本局第一场精英战发放一次，不拿就没有（不再补发）。
-        // 按房间记录：同一场精英里每个玩家都能看到奖励，之后的精英房不再发。
+        // 只发给"补刀"那名玩家：多人下每人各自生成 RewardsSet，用记录的击杀者过滤。
+        // 未命中的玩家不会 MarkEliteGemOffered，所以轮到补刀者那次仍能正常拿到。
         if (room is CombatRoom combatRoom && combatRoom.RoomType == RoomType.Elite
             && !Act4GemManagerPatch.TeamHas<ScoutAmbition>(runState)
-            && Act4GemManagerPatch.ShouldOfferEliteGem(runState, room))
+            && Act4GemManagerPatch.ShouldOfferEliteGem(runState, room)
+            && KillerTrackerPatch.GetKiller(room) == player)
         {
             var relic = ModelDb.Relic<ScoutAmbition>().ToMutable();
             __result.Rewards.Add(new RelicReward(relic, player));
             Act4GemManagerPatch.MarkEliteGemOffered(runState, room);
         }
 
-        // Boss 宝石（进取）：只在第二层（Act2，index 1）Boss 战发放，且只发一次 —— 不拿就没有。
-        // 只发给"亲手击杀 Boss 的玩家"：多人下每个人都会生成自己的 RewardsSet，
-        // 这里用 BossKillerTrackerPatch 记录的击杀者做过滤。
+        // Boss 宝石（进取）：只在原版第二幕（Act2，index 1）Boss 战发放，且只发一次 —— 不拿就没有。
+        // 只发给"补刀"那名玩家：多人下每个人都会生成自己的 RewardsSet，
+        // 这里用 KillerTrackerPatch 记录的击杀者做过滤。
         if (room is CombatRoom bossRoom && bossRoom.RoomType == RoomType.Boss
             && runState.CurrentActIndex == 1
             && !Act4GemManagerPatch.TeamHas<ScoutEnterprise>(runState)
-            && BossKillerTrackerPatch.GetKiller(room) == player)
+            && KillerTrackerPatch.GetKiller(room) == player)
         {
             var relic = ModelDb.Relic<ScoutEnterprise>().ToMutable();
             __result.Rewards.Add(new RelicReward(relic, player));

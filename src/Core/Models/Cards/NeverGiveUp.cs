@@ -21,7 +21,7 @@ public sealed class NeverGiveUp : CardModel
 {
 	public override bool CanBeGeneratedInCombat => false;
 	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/never_give_up.png");
-	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Ethereal };
+	public override IEnumerable<CardKeyword> CanonicalKeywords => new[] { CardKeyword.Ethereal, CardKeyword.Exhaust };
 
 	public NeverGiveUp() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self) { }
 

@@ -65,19 +65,25 @@ public sealed class BuffetPower : PowerModel
 
 		Flash(); // 自助餐图标闪烁，提示玩家触发了效果
 
-		// 额外抽 Amount × 2 张牌（堆叠时每层多抽 2 张）
-		await CardPileCmd.Draw(choiceContext, (decimal)Amount * 2m, Owner.Player);
+		// 额外抽 Amount 张牌：施加时 amount = 2（一张自助餐 +2 张），堆叠时每层 +2 张。
+		// 注意这里**不能**再乘 2 —— 原来写成 Amount × 2 是重复乘了一次：
+		// 卡面文案写"额外抽 2 张"，实际却抽了 4 张（堆叠时翻倍得更离谱）。
+		await CardPileCmd.Draw(choiceContext, (decimal)Amount, Owner.Player);
 	}
 
 	/// <summary>
-	/// 自己的回合开始时重置标记（在回合开始抽牌之前触发，不会错过回合开始的抽牌）。
+	/// 自己的回合开始时重置标记。
+	/// 用 BeforeSideTurnStart 而不是 AfterSideTurnStart：回合开始抽 5 张发生在 SetupPlayerTurn
+	/// （CombatManager 里先于 AfterSideTurnStart 调用），用 AfterSideTurnStart 重置会漏掉
+	/// 起手抽到的食物牌（上一回合触发过的话，flag 到起手抽牌时还是 true）。
+	/// 这个钩子按基类文档在"能量重置 / 抽牌之前"触发，正好覆盖起手那次抽牌。
 	/// </summary>
-	public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
+	public override Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side, IReadOnlyList<Creature> participants, ICombatState combatState)
 	{
 		if (participants.Contains(Owner))
 		{
 			GetInternalData<Data>().triggeredThisTurn = false;
 		}
-		await Task.CompletedTask;
+		return Task.CompletedTask;
 	}
 }

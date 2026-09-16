@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
@@ -19,8 +20,7 @@ namespace peak.Core.Models.Cards;
 /// </summary>
 public sealed class WanderingDragonForm : CardModel
 {
-	// 卡面尚未绘制，暂用占位图
-	public override string PortraitPath => CardModel.MissingPortraitPath;
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/wandering_dragon_form.png");
 
 	// 悬停提示：显示游龙形态的机制说明
 	protected override IEnumerable<IHoverTip> ExtraHoverTips => new IHoverTip[]

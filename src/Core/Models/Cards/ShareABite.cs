@@ -17,8 +17,8 @@ public sealed class ShareABite : CardModel
 {
 	public override CardMultiplayerConstraint MultiplayerConstraint => CardMultiplayerConstraint.MultiplayerOnly;
 
-	// 卡面图片（文件名与卡牌 ID 一致：SHARE_A_BITE.png）
-	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/SHARE_A_BITE.png");
+	// 卡面图片（文件名与卡牌 ID 同名，统一小写：share_a_bite.png）
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/share_a_bite.png");
 
 	public ShareABite()
 		: base(1, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
@@ -42,9 +42,9 @@ public sealed class ShareABite : CardModel
 			return; // 没有食物卡可选（可选跳过）
 		}
 
-		// 2. 复制该卡给目标玩家（CreateCloneForPlayer 会转移所属玩家）
-		CardModel clone = food.CreateClone();
-			clone.Owner = cardPlay.Target.Player!;
+		// 2. 复制该卡给目标玩家。必须用 CreateCloneForPlayer 转移所属玩家：
+		//    CreateClone() 造出的克隆会保留原主，直接改 Owner 只是改字段，绕过了官方的所有权转移。
+		CardModel clone = food.CreateCloneForPlayer(cardPlay.Target.Player!);
 		await CardPileCmd.AddGeneratedCardsToCombat(
 			new[] { clone },
 			PileType.Hand,

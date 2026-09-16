@@ -70,13 +70,11 @@ public sealed class HopePower : PowerModel
         _hasTriggered = true;
         Flash();
 
-        // 好结局：给所有玩家「童军的荣耀」遗物，然后 Boss 直接死亡
+        // 好结局：给所有玩家「童军的荣耀」遗物，然后 Boss 直接死亡。
+        // 不筛存活：好结局奖励与隐藏 Boss 入场券应人人都有，死亡玩家也不例外。
         foreach (var player in Owner.CombatState.Players)
         {
-            if (player.Creature?.IsAlive == true)
-            {
-                await RelicCmd.Obtain<ScoutGlory>(player);
-            }
+            await RelicCmd.Obtain<ScoutGlory>(player);
         }
 
         // Boss 直接死亡（奇迹发生）

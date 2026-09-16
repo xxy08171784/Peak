@@ -10,7 +10,7 @@ script = ExtResource("1_gnjfn")
 unique_name_in_owner = true
 
 [node name="Charging" type="Sprite2D" parent="Visuals"]
-position = Vector2(20.000002, -250)
+position = Vector2(60.000008, -248)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_gnjfn")
 
@@ -18,13 +18,14 @@ texture = ExtResource("2_gnjfn")
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -85.0
-offset_top = -328.0
-offset_right = 85.0
+offset_left = -167.0
+offset_top = -502.0
+offset_right = 225.0
+offset_bottom = 5.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -340)
+position = Vector2(1, -508)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true

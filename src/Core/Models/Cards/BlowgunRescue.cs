@@ -36,8 +36,8 @@ public sealed class BlowgunRescue : CardModel
 		new PowerVar<RegenPower>(5m)
 	};
 
-	// 卡面图片（文件名与卡牌 ID 一致：BLOWGUN_RESCUE.png）
-	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/BLOWGUN_RESCUE.png");
+	// 卡面图片（文件名与卡牌 ID 同名，统一小写：blowgun_rescue.png）
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/blowgun_rescue.png");
 
 	public BlowgunRescue()
 		: base(2, CardType.Skill, CardRarity.Rare, TargetType.AnyAlly)

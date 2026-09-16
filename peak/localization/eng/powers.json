@@ -1,7 +1,7 @@
 {
   "CHAOS_POWER.title": "Chaos",
-  "CHAOS_POWER.description": "Every 3 cards you play, trigger a random effect: discard a card / lose 3 Max HP / gain 20 Spore / lose 20 Heat / gain 4 Zhongdu / lose 1 Energy / take 5 damage / Binbang gains 1 Thorns / add Exhaust to a random card in your hand.",
-  "CHAOS_POWER.smartDescription": "Every 3 cards you play, trigger a random effect: discard a card / lose 3 Max HP / gain 20 Spore / lose 20 Heat / gain 4 Zhongdu / lose 1 Energy / take 5 damage / Binbang gains 1 Thorns / add Exhaust to a random card in your hand.",
+  "CHAOS_POWER.description": "Every 3 cards you play, trigger a random effect: discard a card / lose 5 Max HP / gain 25 Spore / lose 25 Heat / gain 5 Zhongdu / lose 1 Energy / take 5 damage (blockable) / Binbang gains 2 Thorns / add Exhaust to a random card in your hand.",
+  "CHAOS_POWER.smartDescription": "Every 3 cards you play, trigger a random effect ([blue]{CardsLeft}[/blue] cards left): discard a card / lose 5 Max HP / gain 25 Spore / lose 25 Heat / gain 5 Zhongdu / lose 1 Energy / take 5 damage (blockable) / Binbang gains 2 Thorns / add Exhaust to a random card in your hand.",
   "BINBANG_FLIGHT_POWER.title": "Flight",
   "BINBANG_FLIGHT_POWER.description": "Damage taken is halved. Loses 1 stack each time it is hit by an attack; when it reaches 0, Binbang loses Flight and enters a Dive.",
   "BINBANG_FLIGHT_POWER.smartDescription": "Damage taken is halved. After [blue]{Amount}[/blue] more hits, Binbang loses Flight and enters a Dive.",
@@ -9,8 +9,8 @@
   "CURSE_POWER.description": "Whenever you play Friendship Horn, Panacea, Cursed Skull, The Hand Lantern of Faery, Pandora Box, The Book of Bones or Leader Trumpet, you take 10 damage.",
   "CURSE_POWER.smartDescription": "Whenever you play Friendship Horn, Panacea, Cursed Skull, The Hand Lantern of Faery, Pandora Box, The Book of Bones or Leader Trumpet, you take 10 damage.",
   "WORSEN_POWER.title": "Worsen",
-  "WORSEN_POWER.description": "Whenever you lose HP, gain 3 Doom. Whenever Binbang is attacked, a Dazed is shuffled into your draw pile.",
-  "WORSEN_POWER.smartDescription": "Whenever you lose HP, gain 3 Doom. Whenever Binbang is attacked, a Dazed is shuffled into your draw pile.",
+  "WORSEN_POWER.description": "Whenever you lose HP, gain 3 Doom. Whenever Binbang is attacked, shuffle a Dazed into your draw pile for each stack of Worsen.",
+  "WORSEN_POWER.smartDescription": "Whenever you lose HP, gain 3 Doom. Whenever Binbang is attacked, shuffle [blue]{Amount}[/blue] Dazed into your draw pile.",
   "INSANE_POWER.title": "Insane",
   "INSANE_POWER.description": "When this character dies, it will do something unknown.",
   "INSANE_POWER.smartDescription": "When this character dies, it will do something unknown."

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cefyhfbolrd6b"
-path="res://.godot/imported/pending_card_choice.png-1f00c49b217d57f5befc896f47a30597.ctex"
+uid="uid://da0ldi2mi6s14"
+path="res://.godot/imported/binbang_boss_icon.png-5a8733bbeb84511d223bd1eff1c53826.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/powers/pending_card_choice.png"
-dest_files=["res://.godot/imported/pending_card_choice.png-1f00c49b217d57f5befc896f47a30597.ctex"]
+source_file="res://images/map/placeholder/binbang_boss_icon.png"
+dest_files=["res://.godot/imported/binbang_boss_icon.png-5a8733bbeb84511d223bd1eff1c53826.ctex"]
 
 [params]
 

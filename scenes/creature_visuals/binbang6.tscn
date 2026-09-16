@@ -10,22 +10,23 @@ script = ExtResource("1_3v8km")
 unique_name_in_owner = true
 
 [node name="DarkLanded" type="Sprite2D" parent="Visuals"]
-position = Vector2(-44.999996, -249)
-scale = Vector2(0.2, 0.2)
+position = Vector2(6, -310)
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_3v8km")
 
 [node name="Bounds" type="Control" parent="."]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -85.0
-offset_top = -328.0
-offset_right = 85.0
+offset_left = -191.0
+offset_top = -616.0
+offset_right = 232.0
+offset_bottom = -4.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -340)
+position = Vector2(-4, -514)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -164)
+position = Vector2(64, -272)

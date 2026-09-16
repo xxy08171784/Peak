@@ -10,7 +10,7 @@ script = ExtResource("1_acsw2")
 unique_name_in_owner = true
 
 [node name="LeaderPeace" type="Sprite2D" parent="Visuals"]
-position = Vector2(-14, -292)
+position = Vector2(139, -283)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_hp263")
 
@@ -18,14 +18,15 @@ texture = ExtResource("2_hp263")
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -85.0
-offset_top = -328.0
-offset_right = 85.0
+offset_left = -20.0
+offset_top = -459.0
+offset_right = 285.0
+offset_bottom = -2.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -340)
+position = Vector2(0, -529)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -164)
+position = Vector2(134, -256)

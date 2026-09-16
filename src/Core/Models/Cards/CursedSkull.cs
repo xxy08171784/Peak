@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.ValueProps;
 
@@ -24,8 +25,7 @@ public sealed class CursedSkull : CardModel
 		CardKeyword.Exhaust
 	};
 
-	// 卡面尚未绘制，暂用 beta 占位图
-	public override string PortraitPath => CardModel.MissingPortraitPath;
+	public override string PortraitPath => ImageHelper.GetImagePath("packed/card_portraits/scout/cursed_skull.jpg");
 
 	public CursedSkull()
 		: base(1, CardType.Skill, CardRarity.Rare, TargetType.Self)

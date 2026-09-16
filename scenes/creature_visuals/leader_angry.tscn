@@ -10,7 +10,7 @@ script = ExtResource("1_vk8rg")
 unique_name_in_owner = true
 
 [node name="LeaderAngry" type="Sprite2D" parent="Visuals"]
-position = Vector2(-74, -300)
+position = Vector2(105, -305)
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_lhtyr")
 
@@ -19,13 +19,13 @@ unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_left = -85.0
-offset_top = -328.0
-offset_right = 85.0
+offset_top = -432.0
+offset_right = 432.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -340)
+position = Vector2(0, -436)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -164)
+position = Vector2(144, -242)

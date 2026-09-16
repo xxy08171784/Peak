@@ -18,15 +18,15 @@ texture = ExtResource("2_j8sun")
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = -85.0
-offset_top = -330.0
-offset_right = 85.0
+offset_left = -268.0
+offset_top = -450.0
+offset_right = 267.0
 offset_bottom = -2.0
 
 [node name="IntentPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -340)
+position = Vector2(-2, -493)
 
 [node name="CenterPos" type="Marker2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -164)
+position = Vector2(0, -235)

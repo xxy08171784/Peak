@@ -10,6 +10,7 @@ using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.ValueProps;
+using peak.Core.Endings;
 using peak.Core.Models.Powers;
 using peak.Core.Visuals;
 
@@ -182,6 +183,14 @@ public sealed class Binbang : MonsterModel
         SetMoveImmediate(_deadState, forceTransition: true);
     }
 
+    /// <summary>
+    /// 是否正在执行「销毁」自爆。
+    /// <see cref="DestroyMove"/> 的顺序是"先置 <c>_finalDeath</c>，再打 999"，而玩家被 999 打死的
+    /// 判定发生在 999 结算过程中——此时这个标记已经是 true、宾邦也还没被移出战斗，
+    /// 所以童军的荣耀可以用它精确卡住"只有宾邦自爆时才复活"的时机。
+    /// </summary>
+    public bool IsSelfDestructing => _finalDeath;
+
     /// <summary>由 <see cref="BinbangFlightPower"/> 调用：失去飞行 → 切到俯冲意图（只触发一次）。</summary>
     public void EnterDive()
     {
@@ -269,6 +278,11 @@ public sealed class Binbang : MonsterModel
     private async Task DestroyMove(IReadOnlyList<Creature> targets)
     {
         _finalDeath = true;
+
+        // 好结局达成：通知特殊结局流程。EnterNextAct 拦截到它就不会进建筑师，
+        // 改为播放结局 CG 然后 WinRun() 成功结算。
+        SpecialEndingState.MarkBinbangDefeated();
+
         await DamageCmd.Attack(DestroyDamage)
             .FromMonster(this)
             .WithAttackerAnim("Attack", 0.1f)
