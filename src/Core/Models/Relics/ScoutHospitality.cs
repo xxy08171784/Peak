@@ -16,26 +16,26 @@ namespace peak.Core.Models.Relics;
 /// </summary>
 public sealed class ScoutHospitality : RelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.Shop;
-    public override bool IsAllowedInShops => false;
-    protected override string IconBaseName => "scout_hospitality";
-    public override bool HasUponPickupEffect => true;
+	public override RelicRarity Rarity => RelicRarity.Shop;
+	public override bool IsAllowedInShops => false;
+	protected override string IconBaseName => "scout_hospitality";
+	public override bool HasUponPickupEffect => true;
 
-    public override async Task AfterObtained()
-    {
-        if (base.Owner == null) return;
-        var all = base.Owner.Relics;
-        // 上一个获得的遗物 = 列表倒数第二个（最后一个就是本遗物自身）
-        if (all.Count < 2) { GD.Print("[SH] No previous relic"); return; }
-        var prev = all[all.Count - 2];
-        if (prev.Rarity == RelicRarity.Starter || prev.Rarity == RelicRarity.Ancient || prev.Rarity == RelicRarity.None)
-        {
-            GD.Print("[SH] Previous relic is starter/ancient/gem, skip");
-            return;
-        }
-        Flash();
-        var canonical = ModelDb.AllRelics.FirstOrDefault(m => m.GetType() == prev.GetType());
-        if (canonical == null) { GD.Print("[SH] No canonical"); return; }
-        await RelicCmd.Obtain(canonical.ToMutable(), base.Owner);
-    }
+	public override async Task AfterObtained()
+	{
+		if (base.Owner == null) return;
+		var all = base.Owner.Relics;
+		// 上一个获得的遗物 = 列表倒数第二个（最后一个就是本遗物自身）
+		if (all.Count < 2) { GD.Print("[SH] No previous relic"); return; }
+		var prev = all[all.Count - 2];
+		if (prev.Rarity == RelicRarity.Starter || prev.Rarity == RelicRarity.Ancient || prev.Rarity == RelicRarity.None)
+		{
+			GD.Print("[SH] Previous relic is starter/ancient/gem, skip");
+			return;
+		}
+		Flash();
+		var canonical = ModelDb.AllRelics.FirstOrDefault(m => m.GetType() == prev.GetType());
+		if (canonical == null) { GD.Print("[SH] No canonical"); return; }
+		await RelicCmd.Obtain(canonical.ToMutable(), base.Owner);
+	}
 }

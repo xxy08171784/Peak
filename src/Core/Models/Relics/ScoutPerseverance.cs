@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaCrit.Sts2.Core.Combat;
@@ -19,22 +19,22 @@ namespace peak.Core.Models.Relics;
 /// </summary>
 public sealed class ScoutPerseverance : RelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.None;
-    public override bool IsAllowedInShops => false;
-    protected override string IconBaseName => "scout_perseverance";
+	public override RelicRarity Rarity => RelicRarity.None;
+	public override bool IsAllowedInShops => false;
+	protected override string IconBaseName => "scout_perseverance";
 
-    /// <summary>
-    /// 回合结束时获得格挡（参考原版 FakeOrichalcum 的写法）。
-    /// 此时获得的格挡会保留到敌方回合，用于抵挡敌人的攻击。
-    /// </summary>
-    public override async Task BeforeSideTurnEnd(
-        PlayerChoiceContext choiceContext,
-        CombatSide side,
-        IEnumerable<Creature> participants)
-    {
-        if (base.Owner?.Creature == null) return;
-        if (!participants.Any(c => c == base.Owner.Creature)) return;
-        Flash();
-        await CreatureCmd.GainBlock(base.Owner.Creature, new BlockVar(1m, ValueProp.Unpowered), null);
-    }
+	/// <summary>
+	/// 回合结束时获得格挡（参考原版 FakeOrichalcum 的写法）。
+	/// 此时获得的格挡会保留到敌方回合，用于抵挡敌人的攻击。
+	/// </summary>
+	public override async Task BeforeSideTurnEnd(
+		PlayerChoiceContext choiceContext,
+		CombatSide side,
+		IEnumerable<Creature> participants)
+	{
+		if (base.Owner?.Creature == null) return;
+		if (!participants.Any(c => c == base.Owner.Creature)) return;
+		Flash();
+		await CreatureCmd.GainBlock(base.Owner.Creature, new BlockVar(1m, ValueProp.Unpowered), null);
+	}
 }

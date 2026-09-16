@@ -15,23 +15,23 @@ namespace peak.Core.Models.Relics;
 /// </summary>
 public sealed class ScoutGlory : RelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.Rare;
-    public override bool IsAllowedInShops => false;
-    protected override string IconBaseName => "scout_glory";
-    public override bool HasUponPickupEffect => true;
+	public override RelicRarity Rarity => RelicRarity.Rare;
+	public override bool IsAllowedInShops => false;
+	protected override string IconBaseName => "scout_glory";
+	public override bool HasUponPickupEffect => true;
 
-    public override async Task AfterObtained()
-    {
-        // 好结局：让第四层地图上出现隐藏 Boss（第二个 Boss）节点。
-        // NadirActMap.SecondBossMapPoint 在本遗物加入玩家遗物列表后才返回非 null
-        // （RelicCmd 先 AddRelicInternal 再调 AfterObtained，顺序安全）。
-        // NMapScreen.SetMap 是原版运行中重建地图的正规入口（MapCmd 亦如此）。
-        if (base.Owner?.RunState is RunState runState && runState.Map != null)
-        {
-            NMapScreen.Instance?.SetMap(runState.Map, runState.Rng.Seed, clearDrawings: false);
-            GD.Print("[ScoutGlory] 好结局达成，隐藏 Boss 节点已加入第四层地图。");
-        }
+	public override async Task AfterObtained()
+	{
+		// 好结局：让第四层地图上出现隐藏 Boss（第二个 Boss）节点。
+		// NadirActMap.SecondBossMapPoint 在本遗物加入玩家遗物列表后才返回非 null
+		// （RelicCmd 先 AddRelicInternal 再调 AfterObtained，顺序安全）。
+		// NMapScreen.SetMap 是原版运行中重建地图的正规入口（MapCmd 亦如此）。
+		if (base.Owner?.RunState is RunState runState && runState.Map != null)
+		{
+			NMapScreen.Instance?.SetMap(runState.Map, runState.Rng.Seed, clearDrawings: false);
+			GD.Print("[ScoutGlory] 好结局达成，隐藏 Boss 节点已加入第四层地图。");
+		}
 
-        await Task.CompletedTask;
-    }
+		await Task.CompletedTask;
+	}
 }

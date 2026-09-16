@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://y06ajf2qmn80"]
+
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_vk8rg"]
+[ext_resource type="Texture2D" uid="uid://dhbe1dxubvy5r" path="res://scenes/creature_visuals/leader_angry.png" id="2_lhtyr"]
+
+[node name="leader_miles" type="Node2D"]
+script = ExtResource("1_vk8rg")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LeaderAngry" type="Sprite2D" parent="Visuals"]
+position = Vector2(-74, -300)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_lhtyr")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -85.0
+offset_top = -328.0
+offset_right = 85.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -340)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -164)

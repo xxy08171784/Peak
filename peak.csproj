@@ -33,6 +33,10 @@
     <Compile Remove="bulid\**" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="localization\eng\acts.json" />
+    <Content Include="localization\eng\gameplay_ui.json" />
+    <Content Include="localization\eng\monsters.json" />
+    <Content Include="localization\eng\powers.json" />
     <Content Include="localization\zhs\characters.json" />
     <Content Include="localization\zhs\cards.json" />
     <Content Include="localization\zhs\powers.json" />

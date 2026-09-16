@@ -14,17 +14,17 @@ namespace peak.Core.Models.Relics;
 /// </summary>
 public sealed class ScoutEnterprise : RelicModel
 {
-    public override RelicRarity Rarity => RelicRarity.None;
-    public override bool IsAllowedInShops => false;
-    protected override string IconBaseName => "scout_enterprise";
+	public override RelicRarity Rarity => RelicRarity.None;
+	public override bool IsAllowedInShops => false;
+	protected override string IconBaseName => "scout_enterprise";
 
-    public override async Task BeforeCombatStart()
-    {
-        if (base.Owner?.Creature == null) return;
-        Flash();
-        await PowerCmd.Apply<DexterityPower>(
-            new ThrowingPlayerChoiceContext(),
-            base.Owner.Creature, 1m,
-            base.Owner.Creature, null);
-    }
+	public override async Task BeforeCombatStart()
+	{
+		if (base.Owner?.Creature == null) return;
+		Flash();
+		await PowerCmd.Apply<DexterityPower>(
+			new ThrowingPlayerChoiceContext(),
+			base.Owner.Creature, 1m,
+			base.Owner.Creature, null);
+	}
 }
