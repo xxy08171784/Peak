@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8c2br5mf3apo"
-path="res://.godot/imported/scout_perseverance.png-80f71d855682bebcb77359585a7b2740.ctex"
+path="res://.godot/imported/Scout_Perseverance.png-c40c1ad1602645180f71df718ff11b47.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/relics/scout_perseverance.png"
-dest_files=["res://.godot/imported/scout_perseverance.png-80f71d855682bebcb77359585a7b2740.ctex"]
+source_file="res://images/relics/Scout_Perseverance.png"
+dest_files=["res://.godot/imported/Scout_Perseverance.png-c40c1ad1602645180f71df718ff11b47.ctex"]
 
 [params]
 

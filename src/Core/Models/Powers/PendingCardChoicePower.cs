@@ -19,43 +19,43 @@ namespace peak.Core.Models.Powers;
 /// </summary>
 public sealed class PendingCardChoicePower : PowerModel
 {
-    public override PowerType Type => PowerType.Buff;
-    public override PowerStackType StackType => PowerStackType.Counter;
-    public override bool AllowNegative => false;
+	public override PowerType Type => PowerType.Buff;
+	public override PowerStackType StackType => PowerStackType.Counter;
+	public override bool AllowNegative => false;
 
-    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
-    {
-        if (player != Owner?.Player) return;
-        if (Owner.CombatState == null) return;
+	public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
+	{
+		if (player != Owner?.Player) return;
+		if (Owner.CombatState == null) return;
 
-        Flash();
+		Flash();
 
-        var cs = Owner.CombatState;
+		var cs = Owner.CombatState;
 
-        List<CardModel> options;
-        if (Amount == 1)
-        {
-            options = new List<CardModel>
-            {
-                cs.CreateCard<Annoyance>(player),
-                cs.CreateCard<Forgiveness>(player),
-            };
-        }
-        else
-        {
-            options = new List<CardModel>
-            {
-                cs.CreateCard<Lament>(player),
-                cs.CreateCard<Pray>(player),
-            };
-        }
+		List<CardModel> options;
+		if (Amount == 1)
+		{
+			options = new List<CardModel>
+			{
+				cs.CreateCard<Annoyance>(player),
+				cs.CreateCard<Forgiveness>(player),
+			};
+		}
+		else
+		{
+			options = new List<CardModel>
+			{
+				cs.CreateCard<Lament>(player),
+				cs.CreateCard<Pray>(player),
+			};
+		}
 
-        var chosen = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, player, canSkip: false);
-        if (chosen != null)
-        {
-            await CardPileCmd.AddGeneratedCardsToCombat(new[] { chosen }, PileType.Hand, player);
-        }
+		var chosen = await CardSelectCmd.FromChooseACardScreen(choiceContext, options, player, canSkip: false);
+		if (chosen != null)
+		{
+			await CardPileCmd.AddGeneratedCardsToCombat(new[] { chosen }, PileType.Hand, player);
+		}
 
-        await PowerCmd.Remove(this);
-    }
+		await PowerCmd.Remove(this);
+	}
 }

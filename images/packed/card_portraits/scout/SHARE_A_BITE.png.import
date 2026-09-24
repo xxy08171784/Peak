@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1cijkmc2rqkc"
-path="res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"
+path="res://.godot/imported/SHARE_A_BITE.png-6d856c07e260827fcd1f8ca10880e8a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/share_a_bite.png"
-dest_files=["res://.godot/imported/share_a_bite.png-de60e32428204b29c70e0d5b1b532bf0.ctex"]
+source_file="res://images/packed/card_portraits/scout/SHARE_A_BITE.png"
+dest_files=["res://.godot/imported/SHARE_A_BITE.png-6d856c07e260827fcd1f8ca10880e8a1.ctex"]
 
 [params]
 
