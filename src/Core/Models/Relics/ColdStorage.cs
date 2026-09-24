@@ -37,7 +37,10 @@ public sealed class ColdStorage : RelicModel
 			return 1m;
 		}
 
-		Flash();
+		// 这里刻意不调用 Flash()：ModifyDamageMultiplicative 不只是真正结算时会走，
+		// 伤害预览也会走（手牌伤害数字 DamageVar / CalculatedDamageVar、怪物意图 AttackIntent
+		// 都调同一个 Hook.ModifyDamage），在里面闪光会让遗物图标在预览刷新时乱闪，
+		// 而不是只在真的吃到减伤那一下闪。
 		return 0.75m; // 伤害降低 25%
 	}
 }

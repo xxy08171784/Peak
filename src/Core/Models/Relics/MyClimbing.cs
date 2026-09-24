@@ -142,6 +142,13 @@ public class MyClimbing : RelicModel
 	/// <summary>
 	/// 遍历玩家的 Power 列表和遗物列表，通知所有实现 IEnvironmentAware 的监听者。
 	/// 替代旧的静态事件+async void 模式，消除联机锁步同步的分叉风险。
+	///
+	/// 注意：必须先 ToList() 取快照再遍历。监听者在 await 期间会改动这两个列表：
+	/// 士气高涨会 PowerCmd.Apply&lt;PlatingPower&gt;（玩家身上没有覆甲时是往 _powers 里"新增一条"，
+	/// 覆甲每回合递减、归零即被移除），希望达标会 RelicCmd.Obtain 给遗物。
+	/// 直接在实时 List 上 await，恢复时 List.Enumerator.MoveNext() 会抛
+	/// "Collection was modified; enumeration operation may not execute"，
+	/// 异常打断回合循环 Task 后整场战斗卡死（the combat is stuck until the room is restarted）。
 	/// </summary>
 	private async Task NotifyEnvironmentChanged(PlayerChoiceContext choiceContext, int previousValue, int currentValue)
 	{
@@ -150,14 +157,14 @@ public class MyClimbing : RelicModel
 			return;
 		}
 		Creature owner = base.Owner.Creature;
-		foreach (var power in owner.Powers)
+		foreach (var power in owner.Powers.ToList())
 		{
 			if (power is IEnvironmentAware envPower)
 			{
 				await envPower.OnEnvironmentChanged(choiceContext, base.Owner, previousValue, currentValue);
 			}
 		}
-		foreach (var relic in base.Owner.Relics)
+		foreach (var relic in base.Owner.Relics.ToList())
 		{
 			if (relic is IEnvironmentAware envRelic)
 			{
