@@ -1,7 +1,49 @@
 ﻿<Project Sdk="Godot.NET.Sdk/4.5.1">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BaseLib">
+      <HintPath>D:\Steam\steamapps\workshop\content\2868840\3737335127\BaseLib\BaseLib.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="GodotSharp">
+      <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\GodotSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="sts2">
+      <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\sts2.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>D:\Steam\steamapps\common\Slay the Spire 2\data_sts2_windows_x86_64\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Patches\ModelDbAllCharactersPatch.cs" />
+    <Compile Remove="_ref\**" />
+    <Compile Remove="bulid\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="localization\eng\acts.json" />
+    <Content Include="localization\eng\gameplay_ui.json" />
+    <Content Include="localization\eng\monsters.json" />
+    <Content Include="localization\eng\powers.json" />
+    <Content Include="localization\zhs\acts.json" />
+    <Content Include="localization\zhs\characters.json" />
+    <Content Include="localization\zhs\cards.json" />
+    <Content Include="localization\zhs\gameplay_ui.json" />
+    <Content Include="localization\zhs\monsters.json" />
+    <Content Include="localization\zhs\powers.json" />
+    <Content Include="localization\zhs\relics.json" />
+    <Content Include="localization\zhs\potions.json" />
+    <Content Include="localization\zhs\epochs.json" />
+    <Content Include="localization\zhs\ancients.json" />
+    <Content Include="localization\zhs\card_library.json" />
+    <Content Include="localization\zhs\rest_site_ui.json" />
+  </ItemGroup>
 </Project>

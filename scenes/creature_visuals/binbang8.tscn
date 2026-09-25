@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpv2twqfl3lnm"]
+
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_gnjfn"]
+[ext_resource type="Texture2D" uid="uid://b10hfobvbjqo1" path="res://scenes/creature_visuals/binbang/charging.png" id="2_gnjfn"]
+
+[node name="leader_miles" type="Node2D"]
+script = ExtResource("1_gnjfn")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Charging" type="Sprite2D" parent="Visuals"]
+position = Vector2(60.000008, -248)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_gnjfn")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -167.0
+offset_top = -502.0
+offset_right = 225.0
+offset_bottom = 5.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -508)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -164)

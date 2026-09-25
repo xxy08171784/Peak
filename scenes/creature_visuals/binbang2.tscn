@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://bt1ty4qwypu05"]
+
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_txrgy"]
+[ext_resource type="Texture2D" uid="uid://dt463wy1214im" path="res://scenes/creature_visuals/binbang/normal_dead.png" id="2_txrgy"]
+
+[node name="leader_miles" type="Node2D"]
+script = ExtResource("1_txrgy")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="NormalDead" type="Sprite2D" parent="Visuals"]
+position = Vector2(22, -241)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_txrgy")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -255.0
+offset_top = -356.0
+offset_right = 309.0
+offset_bottom = 20.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-3, -430)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -201)

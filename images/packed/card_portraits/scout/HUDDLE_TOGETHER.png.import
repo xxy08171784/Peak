@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dh450mnx7amhm"
-path="res://.godot/imported/HUDDLE_TOGETHER.png-ff60206d0fcf7415be2744ddefb7429e.ctex"
+path="res://.godot/imported/huddle_together.png-e6a2f595af0f9d4cb5ad4ed9be9d026f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/HUDDLE_TOGETHER.png"
-dest_files=["res://.godot/imported/HUDDLE_TOGETHER.png-ff60206d0fcf7415be2744ddefb7429e.ctex"]
+source_file="res://images/packed/card_portraits/scout/huddle_together.png"
+dest_files=["res://.godot/imported/huddle_together.png-e6a2f595af0f9d4cb5ad4ed9be9d026f.ctex"]
 
 [params]
 

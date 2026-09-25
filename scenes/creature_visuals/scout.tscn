@@ -14,6 +14,7 @@ unique_name_in_owner = true
 position = Vector2(0, -164)
 scale = Vector2(0.204, 0.204)
 sprite_frames = ExtResource("2_afe8j")
+animation = &"attack_small"
 script = ExtResource("3_4b3i3")
 
 [node name="Bounds" type="Control" parent="."]

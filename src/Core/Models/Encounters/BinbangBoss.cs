@@ -14,9 +14,10 @@ public sealed class BinbangBoss : EncounterModel
     public override RoomType RoomType => RoomType.Boss;
 
     /// <summary>
-    /// 复用原版占位 Boss 图标（与 Act4Boss 相同），避免 NBossMapPoint 加载不存在的资源。
+    /// 指向本 mod 自己的占位图标，避免 NBossMapPoint 加载不存在的资源。
+    /// 与 Act4Boss 同理：{BossNodePath}.png 与 {BossNodePath}_outline.png 必须成对存在。
     /// </summary>
-    public override string BossNodePath => "res://images/map/placeholder/test_subject_boss_icon";
+    public override string BossNodePath => "res://images/map/placeholder/binbang_boss_icon";
 
     public override IEnumerable<MonsterModel> AllPossibleMonsters
         => new[] { ModelDb.Monster<Monsters.Binbang>() };

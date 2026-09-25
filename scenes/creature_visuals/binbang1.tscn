@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://csxixbgjdqkw7"]
+
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_j8sun"]
+[ext_resource type="Texture2D" uid="uid://cihaxd0nli42d" path="res://scenes/creature_visuals/binbang/normal.png" id="2_j8sun"]
+
+[node name="leader_miles" type="Node2D"]
+script = ExtResource("1_j8sun")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Normal" type="Sprite2D" parent="Visuals"]
+position = Vector2(-13, -245)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_j8sun")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -268.0
+offset_top = -450.0
+offset_right = 267.0
+offset_bottom = -2.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-2, -493)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -235)

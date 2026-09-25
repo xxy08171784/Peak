@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://utv6l71bd2ms"]
+
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_ec5ix"]
+[ext_resource type="Texture2D" uid="uid://b31duqpl7euum" path="res://scenes/creature_visuals/binbang/corpse.png" id="2_ec5ix"]
+
+[node name="leader_miles" type="Node2D"]
+script = ExtResource("1_ec5ix")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Corpse" type="Sprite2D" parent="Visuals"]
+position = Vector2(72.00001, -257)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_ec5ix")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -151.0
+offset_top = -429.0
+offset_right = 284.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-1, -377)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -164)

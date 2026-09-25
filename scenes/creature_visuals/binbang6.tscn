@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvqqhi8tcqtxt"]
+
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_3v8km"]
+[ext_resource type="Texture2D" uid="uid://hr4pqtopxw3e" path="res://scenes/creature_visuals/binbang/dark_landed.png" id="2_3v8km"]
+
+[node name="leader_miles" type="Node2D"]
+script = ExtResource("1_3v8km")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="DarkLanded" type="Sprite2D" parent="Visuals"]
+position = Vector2(6, -310)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_3v8km")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -191.0
+offset_top = -616.0
+offset_right = 232.0
+offset_bottom = -4.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-4, -514)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(64, -272)

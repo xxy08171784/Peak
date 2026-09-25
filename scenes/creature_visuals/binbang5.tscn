@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://clt1qf10snr01"]
+
+[ext_resource type="Script" uid="uid://bxv1d2dre4ptv" path="res://CustomCreatureVisuals.cs" id="1_3bt6m"]
+[ext_resource type="Texture2D" uid="uid://bhs21fmqyg1ur" path="res://scenes/creature_visuals/binbang/dark_flying.png" id="2_3bt6m"]
+
+[node name="leader_miles" type="Node2D"]
+script = ExtResource("1_3bt6m")
+
+[node name="Visuals" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="DarkFlying" type="Sprite2D" parent="Visuals"]
+position = Vector2(-170, -358)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_3bt6m")
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -360.0
+offset_top = -677.0
+offset_right = 226.0
+offset_bottom = -51.0
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-3, -616)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(2, -212)

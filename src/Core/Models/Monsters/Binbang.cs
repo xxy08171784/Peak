@@ -8,8 +8,11 @@ using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.ValueProps;
+using peak.Core.Endings;
 using peak.Core.Models.Powers;
+using peak.Core.Visuals;
 
 namespace peak.Core.Models.Monsters;
 
@@ -26,6 +29,9 @@ namespace peak.Core.Models.Monsters;
 ///
 /// 多命实现（同实验体）：通过 Should* 钩子阻止移除/结束战斗/被攻击，Boss 以 0 血进入"死亡状态"，
 /// 轮到自己时执行复活招式（RespawnMove）切形态。
+///
+/// 立绘：八张静态场景 binbang1~8 与形态一一对应（常态 / 常态倒地 / 黄金 / 黄金倒地 /
+/// 黑化飞行 / 黑化落地 / 黑化倒地 / 疯狂蓄力），在死亡、复活、失去飞行三处整场景切换。
 /// </summary>
 public sealed class Binbang : MonsterModel
 {
@@ -39,6 +45,7 @@ public sealed class Binbang : MonsterModel
     public const int DarkHp = 444;
 
     private const decimal DestroyDamage = 999m;
+    private const decimal DiveDamage = 33m;
 
     private int _phase = PhaseNormal;
     private bool _awaitingRespawn;
@@ -53,8 +60,41 @@ public sealed class Binbang : MonsterModel
 
     public override int MaxInitialHp => NormalHp;
 
-    // —— 复用领队迈尔斯的视觉场景与音效（不新增美术资源）——
-    protected override string VisualsPath => SceneHelper.GetScenePath("creature_visuals/leader_miles");
+    // —— 八张形态立绘（SceneHelper 的内层路径），音效仍复用领队迈尔斯的 ——
+    private const string VisualNormal = "creature_visuals/binbang1";     // 常态宾邦
+    private const string VisualNormalDead = "creature_visuals/binbang2"; // 常态被打空、倒地等复活
+    private const string VisualGolden = "creature_visuals/binbang3";     // 黄金宾邦
+    private const string VisualGoldenDead = "creature_visuals/binbang4"; // 黄金被打空、倒地等复活
+    private const string VisualDarkFlying = "creature_visuals/binbang5"; // 黑化宾邦（飞行中）
+    private const string VisualDarkLanded = "creature_visuals/binbang6"; // 黑化宾邦（失去飞行、落地）
+    private const string VisualDarkCorpse = "creature_visuals/binbang7"; // 黑化被打空、倒地等复活
+    private const string VisualCharging = "creature_visuals/binbang8";   // 疯狂形态（蓄力准备「销毁」）
+
+    /// <summary>开场立绘：常态宾邦。之后的形态/倒地切换见 <see cref="SwapVisuals"/>。</summary>
+    protected override string VisualsPath => SceneHelper.GetScenePath(VisualNormal);
+
+    /// <summary>
+    /// 八张立绘全部报给预加载：EncounterModel.GetAssetPaths 会收集每个怪物的 AssetPaths，
+    /// 预先算进来就不会在每次变身那一刻现加载造成卡顿。
+    /// </summary>
+    public override IEnumerable<string> AssetPaths
+    {
+        get
+        {
+            foreach (string path in base.AssetPaths)
+            {
+                yield return path;
+            }
+
+            yield return SceneHelper.GetScenePath(VisualNormalDead);
+            yield return SceneHelper.GetScenePath(VisualGolden);
+            yield return SceneHelper.GetScenePath(VisualGoldenDead);
+            yield return SceneHelper.GetScenePath(VisualDarkFlying);
+            yield return SceneHelper.GetScenePath(VisualDarkLanded);
+            yield return SceneHelper.GetScenePath(VisualDarkCorpse);
+            yield return SceneHelper.GetScenePath(VisualCharging);
+        }
+    }
 
     protected override string AttackSfx => "event:/sfx/enemy/enemy_attacks/leader_miles/leader_miles_attack";
 
@@ -98,13 +138,25 @@ public sealed class Binbang : MonsterModel
             }
         }
 
-        // 开局获得「混沌」
-        await PowerCmd.Apply<ChaosPower>(Ctx(), Creature, 1m, Creature, null);
+        // 开局给每名玩家挂一个「混沌」实例（写法参考原版天青玻璃 Aeonglass 施加凋萎存在）：
+        // 混沌是 InstanceType.Instanced，每个实例用 Target 认领一名玩家、各自倒数 3 张牌。
+        // 实例都挂在宾邦身上，但 PowerModel.IsVisible 只让玩家看见 Target 是自己那一个，
+        // 所以每人屏幕上只有一个混沌图标、显示自己的倒计时。
+        foreach (Creature player in combatState.PlayerCreatures)
+        {
+            ChaosPower chaos = (ChaosPower)ModelDb.Power<ChaosPower>().ToMutable();
+            chaos.Target = player;
+            await PowerCmd.Apply(Ctx(), chaos, Creature, 1m, Creature, null);
+        }
     }
 
     public override async Task AfterDeath(PlayerChoiceContext choiceContext, Creature creature, bool wasRemovalPrevented, float deathAnimLength)
     {
-        if (creature != Creature || _finalDeath)
+        // wasRemovalPrevented 指的是"死亡被 ShouldDie 挡下"（不是"移除被阻止"）。
+        // 这种情况下宾邦根本没死，绝不能进倒地/复活流程——否则 _awaitingRespawn=true
+        // 会让它活着却打不到（ShouldAllowHitting 返回 false），还会白涨一格 _phase。
+        // 同原版实验体的 AdaptablePower.AfterDeath 判断。
+        if (creature != Creature || _finalDeath || wasRemovalPrevented)
         {
             return;
         }
@@ -118,9 +170,26 @@ public sealed class Binbang : MonsterModel
     private async Task TriggerDeadState()
     {
         _awaitingRespawn = true;
+
+        // 倒地立绘：_phase 此时还没自增，正好是"刚被打空的那个形态"
+        SwapVisuals(_phase switch
+        {
+            PhaseNormal => VisualNormalDead,
+            PhaseGolden => VisualGoldenDead,
+            _ => VisualDarkCorpse,
+        });
+
         await CreatureCmd.TriggerAnim(Creature, "Dead", 0f);
         SetMoveImmediate(_deadState, forceTransition: true);
     }
+
+    /// <summary>
+    /// 是否正在执行「销毁」自爆。
+    /// <see cref="DestroyMove"/> 的顺序是"先置 <c>_finalDeath</c>，再打 999"，而玩家被 999 打死的
+    /// 判定发生在 999 结算过程中——此时这个标记已经是 true、宾邦也还没被移出战斗，
+    /// 所以童军的荣耀可以用它精确卡住"只有宾邦自爆时才复活"的时机。
+    /// </summary>
+    public bool IsSelfDestructing => _finalDeath;
 
     /// <summary>由 <see cref="BinbangFlightPower"/> 调用：失去飞行 → 切到俯冲意图（只触发一次）。</summary>
     public void EnterDive()
@@ -131,6 +200,10 @@ public sealed class Binbang : MonsterModel
         }
 
         _diveTriggered = true;
+
+        // 失去飞行 → 落地立绘
+        SwapVisuals(VisualDarkLanded);
+
         SetMoveImmediate(_diveState, forceTransition: true);
     }
 
@@ -142,6 +215,14 @@ public sealed class Binbang : MonsterModel
     {
         _awaitingRespawn = false;
         _phase++;
+
+        // 复活同时换上新形态的立绘：黄金 / 黑化飞行 / 疯狂（蓄力）
+        SwapVisuals(_phase switch
+        {
+            PhaseGolden => VisualGolden,
+            PhaseDark => VisualDarkFlying,
+            _ => VisualCharging,
+        });
 
         switch (_phase)
         {
@@ -167,8 +248,28 @@ public sealed class Binbang : MonsterModel
         }
     }
 
-    private async Task Revive(int hp)
+    /// <summary>
+    /// 复活并回满血。
+    ///
+    /// 血量必须按多人缩放后再写：第 1 条命的 333 是引擎在建怪时缩放的
+    /// （CombatState.CreateCreature → Creature.ScaleMonsterHpForMultiplayer），
+    /// 复活这里如果直接写死 222 / 444，多人局里第 2、3 条命就会变成单人数值、越打越软。
+    /// 写法照抄原版实验体 TestSubject.Revive。
+    /// </summary>
+    private async Task Revive(int baseRespawnHp)
     {
+        decimal hp = baseRespawnHp;
+
+        var combatState = CombatState;
+        if (combatState != null)
+        {
+            hp = MegaCrit.Sts2.Core.Entities.Creatures.Creature.ScaleHpForMultiplayer(
+                baseRespawnHp,
+                combatState.Encounter,
+                combatState.Players.Count,
+                combatState.RunState.CurrentActIndex);
+        }
+
         await CreatureCmd.SetMaxHp(Creature, hp);
         await CreatureCmd.Heal(Creature, hp);
     }
@@ -177,6 +278,11 @@ public sealed class Binbang : MonsterModel
     private async Task DestroyMove(IReadOnlyList<Creature> targets)
     {
         _finalDeath = true;
+
+        // 好结局达成：通知特殊结局流程。EnterNextAct 拦截到它就不会进建筑师，
+        // 改为播放结局 CG 然后 WinRun() 成功结算。
+        SpecialEndingState.MarkBinbangDefeated();
+
         await DamageCmd.Attack(DestroyDamage)
             .FromMonster(this)
             .WithAttackerAnim("Attack", 0.1f)
@@ -192,7 +298,7 @@ public sealed class Binbang : MonsterModel
         var attack21 = new MoveState("BB_ATTACK_21", async (targets) =>
         {
             await AttackAll(targets, 21m);
-        }, new MultiAttackIntent(21, 1));
+        }, new SingleAttackIntent(21));
 
         var defend32 = new MoveState("BB_DEFEND_32", async (targets) =>
         {
@@ -220,7 +326,7 @@ public sealed class Binbang : MonsterModel
         var attack27 = new MoveState("BB_ATTACK_27", async (targets) =>
         {
             await AttackAll(targets, 27m);
-        },new MultiAttackIntent(27, 1));
+        }, new SingleAttackIntent(27));
 
         ritual9.FollowUpState = attack27;
         attack27.FollowUpState = attack27;
@@ -269,10 +375,10 @@ public sealed class Binbang : MonsterModel
             var ctx = Ctx();
             foreach (Creature target in targets)
             {
-                await CreatureCmd.Damage(ctx, target, 33m, ValueProp.Move, Creature);
+                await CreatureCmd.Damage(ctx, target, DiveDamage, ValueProp.Move, Creature);
                 await PowerCmd.Apply<WeakPower>(ctx, target, 3m, Creature, null);
             }
-        }, new DebuffIntent());
+        }, new SingleAttackIntent(() => DiveDamage), new DebuffIntent());
 
         // —— 落地后：T1 诅咒（一次）→ T2/T3 循环 ——
         var curse = new MoveState("BB_CURSE", async (targets) =>
@@ -314,6 +420,12 @@ public sealed class Binbang : MonsterModel
 
         _destroyState = new MoveState("BB_DESTROY", DestroyMove, new DeathBlowIntent(() => DestroyDamage));
 
+        // 终止招式也得有后继：MoveState.GetNextState 在 FollowUpState 和 FollowUpStateId
+        // 都为 null 时会抛 InvalidOperationException("No valid followup state.")。
+        // 正常流程里打完「销毁」宾邦就死了并被移出战斗，轮不到下一回合的 RollMove；
+        // 这里自指做兜底，写法同原版瀑布巨人的 EXPLODE_MOVE（WaterfallGiant.cs:213）。
+        _destroyState.FollowUpState = _destroyState;
+
         var branch = new ConditionalBranchState("BB_REVIVE_BRANCH");
         branch.AddState(ritual9, () => _phase == PhaseGolden);
         branch.AddState(flyAttack, () => _phase == PhaseDark);
@@ -331,6 +443,24 @@ public sealed class Binbang : MonsterModel
             attack21);
     }
   
+    // ================= 立绘切换 =================
+
+    /// <summary>
+    /// 把宾邦的外观整场景换成指定立绘（实现见 <see cref="CreatureVisualSwapper"/>）。
+    /// 换的场景都是纯静态 Sprite2D，所以不会影响招式逻辑；找不到节点或替换失败时只留日志。
+    /// </summary>
+    private void SwapVisuals(string innerScenePath)
+    {
+        NCreature creatureNode = CreatureVisualSwapper.FindCreatureNode(Creature);
+        if (creatureNode == null)
+        {
+            Godot.GD.PushWarning($"[Binbang] 找不到宾邦的 NCreature 节点，跳过换成 {innerScenePath}。");
+            return;
+        }
+
+        CreatureVisualSwapper.Swap(creatureNode, innerScenePath);
+    }
+
     private async Task AttackAll(IReadOnlyList<Creature> targets, decimal damage)
     {
         var ctx = Ctx();

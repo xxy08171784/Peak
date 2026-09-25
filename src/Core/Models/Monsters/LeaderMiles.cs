@@ -16,10 +16,12 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
+using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Random;
 using MegaCrit.Sts2.Core.ValueProps;
 using peak.Core.Models.Cards;
 using peak.Core.Models.Powers;
+using peak.Core.Visuals;
 
 namespace peak.Core.Models.Monsters
 {
@@ -27,6 +29,28 @@ namespace peak.Core.Models.Monsters
     {
         public override int MinInitialHp => 600;
         public override int MaxInitialHp => 600;
+
+        // —— 两个阶段各用一套视觉场景 ——
+        // 一阶段走 VisualsPath 的默认约定（creature_visuals/<Id.Entry 小写>）→ leader_miles；
+        // 二阶段在 DoPhaseTransition 里整场景换成 leader_angry。
+        private const string Phase2VisualsInnerPath = "creature_visuals/leader_angry";
+
+        /// <summary>
+        /// 把二阶段场景也报给预加载：EncounterModel.GetAssetPaths 会收集每个怪物的 AssetPaths，
+        /// 预先算进来就不会在阶段转换那一刻现加载造成卡顿。
+        /// </summary>
+        public override IEnumerable<string> AssetPaths
+        {
+            get
+            {
+                foreach (string path in base.AssetPaths)
+                {
+                    yield return path;
+                }
+
+                yield return SceneHelper.GetScenePath(Phase2VisualsInnerPath);
+            }
+        }
 
         private bool _phase2Triggered;
 
@@ -284,6 +308,10 @@ namespace peak.Core.Models.Monsters
         {
             _phase2Triggered = true;
 
+            // 外观先换：血量掉到 1/3 的瞬间就变成「恼怒」，
+            // 后面的回血 + 3 层易伤 + 意图切换都基于新外观演出。
+            SwapToPhase2Visuals();
+
             var ctx = new ThrowingPlayerChoiceContext();
             var boss = Creature;
             var players = GetPlayerList(targets);
@@ -365,6 +393,27 @@ namespace peak.Core.Models.Monsters
                 return DoPhaseTransition(targets);
             }
             return base.BeforeDamageReceived(choiceContext, target, amount, props, dealer, cardSource);
+        }
+
+        // =========================================================================
+        // 二阶段换皮
+        // =========================================================================
+
+        /// <summary>
+        /// 把领队的视觉场景从一阶段的 leader_miles 整个换成二阶段的 leader_angry。
+        /// 由 <see cref="DoPhaseTransition"/> 调用，是唯一入口（三条触发路径都汇到那里）。
+        /// 找不到节点或替换失败时只留日志，绝不影响阶段转换本身的逻辑。
+        /// </summary>
+        private void SwapToPhase2Visuals()
+        {
+            NCreature creatureNode = CreatureVisualSwapper.FindCreatureNode(Creature);
+            if (creatureNode == null)
+            {
+                Godot.GD.PushWarning("[LeaderMiles] 找不到领队的 NCreature 节点，跳过二阶段换皮。");
+                return;
+            }
+
+            CreatureVisualSwapper.Swap(creatureNode, Phase2VisualsInnerPath);
         }
 
         // =========================================================================
