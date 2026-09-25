@@ -11,17 +11,17 @@ namespace peak.Core.Models.Encounters;
 /// </summary>
 public sealed class BinbangBoss : EncounterModel
 {
-    public override RoomType RoomType => RoomType.Boss;
+	public override RoomType RoomType => RoomType.Boss;
 
-    /// <summary>
-    /// 指向本 mod 自己的占位图标，避免 NBossMapPoint 加载不存在的资源。
-    /// 与 Act4Boss 同理：{BossNodePath}.png 与 {BossNodePath}_outline.png 必须成对存在。
-    /// </summary>
-    public override string BossNodePath => "res://images/map/placeholder/binbang_boss_icon";
+	/// <summary>
+	/// 指向本 mod 自己的占位图标，避免 NBossMapPoint 加载不存在的资源。
+	/// 与 Act4Boss 同理：{BossNodePath}.png 与 {BossNodePath}_outline.png 必须成对存在。
+	/// </summary>
+	public override string BossNodePath => "res://images/map/placeholder/binbang_boss_icon";
 
-    public override IEnumerable<MonsterModel> AllPossibleMonsters
-        => new[] { ModelDb.Monster<Monsters.Binbang>() };
+	public override IEnumerable<MonsterModel> AllPossibleMonsters
+		=> new[] { ModelDb.Monster<Monsters.Binbang>() };
 
-    protected override IReadOnlyList<(MonsterModel, string?)> GenerateMonsters()
-        => new[] { (ModelDb.Monster<Monsters.Binbang>().ToMutable(), null as string) };
+	protected override IReadOnlyList<(MonsterModel, string?)> GenerateMonsters()
+		=> new[] { (ModelDb.Monster<Monsters.Binbang>().ToMutable(), null as string) };
 }

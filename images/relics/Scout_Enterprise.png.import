@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr08kawg58w2r"
-path="res://.godot/imported/Scout_Enterprise.png-9369bd3b722746df97c3e3d4678e4f70.ctex"
+path="res://.godot/imported/scout_enterprise.png-fe2e58215b34d6ccb969bb478aa0d7f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/relics/Scout_Enterprise.png"
-dest_files=["res://.godot/imported/Scout_Enterprise.png-9369bd3b722746df97c3e3d4678e4f70.ctex"]
+source_file="res://images/relics/scout_enterprise.png"
+dest_files=["res://.godot/imported/scout_enterprise.png-fe2e58215b34d6ccb969bb478aa0d7f4.ctex"]
 
 [params]
 

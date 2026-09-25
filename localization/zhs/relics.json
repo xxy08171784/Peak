@@ -21,7 +21,7 @@
   "NUTRITION_PYRAMID.description": "每打出一张食物卡回复1点生命值。",
   "NUTRITION_PYRAMID.flavor": "均衡饮食，健康登山。",
   "COLD_STORAGE.title": "冷库",
-  "COLD_STORAGE.description": "拥有[blue]寒冷[/blue]或[blue]渐冻[/blue]状态的敌人造成的伤害降低25%。",
+  "COLD_STORAGE.description": "拥有[blue]渐冻[/blue]状态的敌人造成的伤害降低25%。",
   "COLD_STORAGE.flavor": "冷藏保鲜，还能让敌人手脚冰凉发挥不出全力。",
   "ALPENSTOCK.title": "登山杖",
   "ALPENSTOCK.description": "每次切换场景时获得3点[gold]格挡[/gold]。",

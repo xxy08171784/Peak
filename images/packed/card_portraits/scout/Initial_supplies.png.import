@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca3qdmsb2kbso"
-path="res://.godot/imported/Initial_supplies.png-8eb1c08b3a1c086629764c070ba16e21.ctex"
+uid="uid://sa077fclsdd2"
+path="res://.godot/imported/initial_supplies.png-683888740f329c1f32b2beaf4ef56e9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/Initial_supplies.png"
-dest_files=["res://.godot/imported/Initial_supplies.png-8eb1c08b3a1c086629764c070ba16e21.ctex"]
+source_file="res://images/packed/card_portraits/scout/initial_supplies.png"
+dest_files=["res://.godot/imported/initial_supplies.png-683888740f329c1f32b2beaf4ef56e9d.ctex"]
 
 [params]
 

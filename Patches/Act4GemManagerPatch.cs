@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HarmonyLib;
@@ -101,6 +101,30 @@ public static class Act4GemManagerPatch
         && rewards.Any(r => r is RelicReward relicReward && relicReward.Relic is T);
 
     /// <summary>
+    /// 确定宝石的接收者：不再做"击杀判定"。
+    /// 单人 = 唯一玩家；多人 = 用队伍级确定性 RNG 抽一名存活玩家（无人存活则从全体抽）。
+    ///
+    /// 关键：多人下每个客户端都会调用本方法，由于联机是确定性模拟、此刻 RNG 状态一致，
+    /// 抽出的接收者必然相同 —— 因此只有抽中的那一方会真正登记宝石，天然只发一份，
+    /// 不会出现"各端以为中奖者不同"或"发给多个人"的不同步。
+    ///
+    /// ⚠ 为什么这能顺带修复"读档后宝石消失"：旧的击杀判定依赖内存里的 _killer，
+    /// 读档后内存清空使 GetKiller 返回 null，导致没有任何玩家能把已持久化在房间
+    /// ExtraRewards 里的宝石重新加回奖励界面（看注释：GetKiller 只在内存、读档会丢）。
+    /// 这里用运行时 RNG + 存活玩家列表，读档重进同一房间时只要"Boss/精英房 + 队伍未持有"，
+    /// 就总能抽出一个接收者，宝石能正常回归奖励界面。
+    /// </summary>
+    internal static Player PickGemRecipient(IRunState runState)
+    {
+        List<Player> pool = runState.Players.Where(p => p.Creature.IsAlive).ToList();
+        if (pool.Count == 0)
+        {
+            pool = runState.Players.ToList();
+        }
+        return pool[runState.Rng.CombatTargets.NextInt(0, pool.Count)];
+    }
+
+    /// <summary>
     /// 玩家已经持有这颗宝石时，把奖励界面里的它剔除。
     /// 房间额外奖励是持久的（读档重进还会再带出来一次），而 <c>Player.AddRelicInternal</c>
     /// 没有去重保护，不剔除就能拿到第二颗 —— 那会变成战斗开始时多吃一次敏捷。
@@ -125,174 +149,6 @@ public static class Act4GemManagerPatch
             _trackedRun = runState;
             _eliteGemOfferedRoom = null;
         }
-    }
-}
-
-/// <summary>
-/// 记录 Boss / 精英战里"补刀"的玩家，供宝石发放判定（#3 野心 / #4 进取）。
-///
-/// 原版 <see cref="CreatureCmd.Kill(Creature, bool)"/> 明确把击杀归属给"整个敌对阵营"
-/// （见其注释），不区分谁打出致命一击，所以这里自己在收到致命伤的那一刻记录 dealer。
-///
-/// ⚠ 不能只看致命伤害：<see cref="Hook.AfterDamageGiven"/> 全游戏只有 <c>CreatureCmd.Damage</c>
-/// 会调用（sts2.dll: CreatureCmd.cs:412），而 mod 自己的两种"直接赢"——
-/// 【PEAK】(Peak.cs: CreatureCmd.Kill(aliveEnemies)) 和希望达标后的奇迹
-/// (HopePower.cs: CreatureCmd.Kill(Owner, force: true))——走的是 CreatureCmd.Kill，
-/// 根本不产生伤害事件。只靠致命一击归属的话，用这两者收掉 Boss 就永远记不到击杀者、
-/// 宝石奖励也就永远不会被登记（这就是"ScoutEnterprise 经常拿不到"的主因）。
-///
-/// 所以现在的归属规则是两条：
-///   1) 每一次"玩家对主敌人造成伤害"都记住这名玩家（不要求致命）——用 <c>AfterDamageGiven</c>；
-///   2) 主敌人死亡时定下本房间的击杀者 = 这一击的 dealer（玩家 / 宠物主人）
-///      → 否则用第 1 步记下的最后一个玩家 → 否则随机存活玩家——
-///      用 <c>AfterDamageGiven</c>（致命）与 <c>AfterDeath</c>（兜底，覆盖直接击杀）两处都定，
-///      后者才让【PEAK】/奇迹这类击杀也能正确归属。
-///
-/// ⚠ 为什么第 1 步不用 <see cref="CombatHistory.DamageReceived"/>：它在 CreatureCmd.Damage 里
-/// 被 `!CombatManager.IsEnding` 挡着（CreatureCmd.cs:317），而 IsEnding 是计算属性
-/// （CombatManager.cs:180）——死亡发生的瞬间（LoseHpInternal 之后）场上已无存活主敌人，
-/// IsEnding 立即为 true，于是致死那一击根本不会写进战斗历史。AfterDamageGiven 没有这道闸门。
-///
-/// 记录只存在内存里，读档会丢；这不是问题 —— 宝石一旦被登记进房间的 ExtraRewards 就已经持久化了，
-/// 归属只需要在"打完那一场、奖励界面第一次生成"的时候正确一次。
-/// </summary>
-[HarmonyPatch]
-public static class KillerTrackerPatch
-{
-    private static IRunState? _trackedRun;
-    private static CombatRoom? _room;
-    private static Player? _lastPlayerDealer;   // 本房间内最后一个对主敌人造成伤害的玩家
-    private static Player? _killer;             // 本房间主敌人的击杀者（死亡那一刻定下）
-    private static Player? _randomFallback;     // 完全查不到玩家来源时的随机兜底（缓存，保证只抽一次）
-
-    /// <summary>
-    /// 该房间 Boss / 精英的击杀者。不是本房间记录的则返回 null。
-    /// </summary>
-    internal static Player? GetKiller(AbstractRoom room)
-        => ReferenceEquals(room, _room) ? (_killer ?? _lastPlayerDealer) : null;
-
-    /// <summary>换局 / 换房间就清空对应记录。</summary>
-    private static void TrackRoom(IRunState runState, CombatRoom room)
-    {
-        if (!ReferenceEquals(_trackedRun, runState))
-        {
-            _trackedRun = runState;
-            _randomFallback = null;
-        }
-        if (!ReferenceEquals(_room, room))
-        {
-            _room = room;
-            _lastPlayerDealer = null;
-            _killer = null;
-            _randomFallback = null;
-        }
-    }
-
-    /// <summary>把 dealer 解析成玩家：亲手打的算自己，宠物（Osty）打的算主人，其它（毒 / 环境 / 自伤）返回 null。</summary>
-    private static Player? AsPlayer(Creature? dealer)
-        => dealer != null && dealer.IsPlayer ? dealer.Player : dealer?.PetOwner;
-
-    /// <summary>当前是否处于"会发宝石"的房间（Boss / 精英战）。</summary>
-    private static bool TryGetGemRoom(IRunState? runState, out CombatRoom? room)
-    {
-        room = null;
-        if (runState?.CurrentRoom is not CombatRoom combatRoom)
-        {
-            return false;
-        }
-        if (combatRoom.RoomType != RoomType.Boss && combatRoom.RoomType != RoomType.Elite)
-        {
-            return false;
-        }
-        room = combatRoom;
-        return true;
-    }
-
-    /// <summary>
-    /// 定下本房间的击杀者（后死的主敌人说了算）。
-    /// </summary>
-    private static void ResolveKiller(IRunState runState, Player? lethalDealer)
-    {
-        Player? killer = lethalDealer ?? _lastPlayerDealer;
-        if (killer == null)
-        {
-            // 用共享的 Run RNG：各客户端跑同一套确定性模拟、此刻 RNG 状态一致，
-            // 抽出的玩家必然相同，不会出现"各端认为中奖者不同"的不同步。
-            // 结果缓存，避免同一房间重复抽到不同人。
-            if (_randomFallback == null)
-            {
-                List<Player> pool = runState.Players.Where(p => p.Creature.IsAlive).ToList();
-                if (pool.Count == 0)
-                {
-                    pool = runState.Players.ToList();
-                }
-                _randomFallback = pool[runState.Rng.CombatTargets.NextInt(0, pool.Count)];
-            }
-            killer = _randomFallback;
-        }
-
-        if (_killer != killer)
-        {
-            _killer = killer;
-            GD.Print($"[Act4Gem] 本房间（{_room?.RoomType}）击杀归属 -> 玩家 {killer.NetId}");
-        }
-    }
-
-    /// <summary>
-    /// 记录"玩家对主敌人造成了伤害"——不要求致命，这样【PEAK】/奇迹这类直接击杀
-    /// 至少还能用"最后一个打过主敌人的玩家"来归属。
-    /// </summary>
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(Hook), nameof(Hook.AfterDamageGiven))]
-    static void RecordDamageDealer(ICombatState combatState, Creature? dealer, DamageResult results, Creature target)
-    {
-        // 只看"主敌人"：副敌人（小怪/召唤物）会被 Kill(teammates) 连带带走，不算补刀
-        if (!target.IsPrimaryEnemy)
-        {
-            return;
-        }
-
-        IRunState? runState = combatState?.RunState;
-        if (!TryGetGemRoom(runState, out CombatRoom? room) || room == null || runState == null)
-        {
-            return;
-        }
-        TrackRoom(runState, room);
-
-        Player? dealerPlayer = AsPlayer(dealer);
-        if (dealerPlayer != null)
-        {
-            _lastPlayerDealer = dealerPlayer;
-        }
-
-        // 致命的那一击：直接定归属
-        if (results.WasTargetKilled)
-        {
-            ResolveKiller(runState, dealerPlayer);
-        }
-    }
-
-    /// <summary>
-    /// 主敌人死亡时兜底定归属。<see cref="CreatureCmd.Kill(Creature, bool)"/> 这类直接击杀
-    /// 不会触发 AfterDamageGiven（见类注释），只能在这里把击杀者补上。
-    /// </summary>
-    [HarmonyPostfix]
-    [HarmonyPatch(typeof(Hook), nameof(Hook.AfterDeath))]
-    static void RecordDeath(IRunState runState, Creature creature, bool wasRemovalPrevented)
-    {
-        // removal 被阻止的（复活类效果）不算死；玩家自己死了也不需要记
-        if (wasRemovalPrevented || !creature.IsPrimaryEnemy)
-        {
-            return;
-        }
-        if (!TryGetGemRoom(runState, out CombatRoom? room) || room == null)
-        {
-            return;
-        }
-        TrackRoom(runState, room);
-
-        // 后死的主敌人说了算：每次主敌人死亡都重定一次（伤害击杀在这一刻与致命一击的 dealer 一致）
-        ResolveKiller(runState, null);
     }
 }
 
@@ -343,7 +199,8 @@ public static class RestSiteFirmOptionPatch
 
 /// <summary>
 /// 精英宝石 (#3 ScoutAmbition) + Boss宝石 (#4 ScoutEnterprise)：
-/// 只发给"补刀"那名玩家，奖励登记进房间的 ExtraRewards（随存档持久化，读档重进还能补拿）。
+/// 接收者随机抽取（单人=该玩家，多人=各端确定性同步抽中的同一名玩家），
+/// 奖励登记进房间的 ExtraRewards（随存档持久化，读档重进还能补拿）。
 /// </summary>
 [HarmonyPatch(typeof(RewardsSet), "WithRewardsFromRoom")]
 public static class EliteBossGemRewardPatch
@@ -362,24 +219,23 @@ public static class EliteBossGemRewardPatch
         if (room is not CombatRoom combatRoom) return;
 
         // 精英宝石（野心）：只在本局第一场精英战发放一次。
-        // 只发给"补刀"那名玩家：多人下每人各自生成 RewardsSet，用记录的击杀者过滤。
-        // 未命中的玩家不会 MarkEliteGemOffered，所以轮到补刀者那次仍能正常拿到。
+        // 接收者用随机抽取（单人=该玩家，多人=所有客户端确定性同步的同一名玩家）。
+        // 未命中的玩家不会 MarkEliteGemOffered，所以轮到接收者那次仍能正常拿到。
         if (combatRoom.RoomType == RoomType.Elite
             && !Act4GemManagerPatch.TeamHas<ScoutAmbition>(runState)
             && Act4GemManagerPatch.ShouldOfferEliteGem(runState, combatRoom)
-            && KillerTrackerPatch.GetKiller(combatRoom) == player)
+            && Act4GemManagerPatch.PickGemRecipient(runState) == player)
         {
             Act4GemManagerPatch.GrantGemReward<ScoutAmbition>(combatRoom, player, __result);
             Act4GemManagerPatch.MarkEliteGemOffered(runState, combatRoom);
         }
 
         // Boss 宝石（进取）：只在原版第二幕（Act2，index 1）Boss 战发放，且只发一次。
-        // 只发给"补刀"那名玩家：多人下每个人都会生成自己的 RewardsSet，
-        // 这里用 KillerTrackerPatch 记录的击杀者做过滤。
+        // 接收者用随机抽取（单人=该玩家，多人=确定性同步的同一名玩家），摆脱击杀判定。
         if (combatRoom.RoomType == RoomType.Boss
             && runState.CurrentActIndex == 1
             && !Act4GemManagerPatch.TeamHas<ScoutEnterprise>(runState)
-            && KillerTrackerPatch.GetKiller(combatRoom) == player)
+            && Act4GemManagerPatch.PickGemRecipient(runState) == player)
         {
             Act4GemManagerPatch.GrantGemReward<ScoutEnterprise>(combatRoom, player, __result);
         }

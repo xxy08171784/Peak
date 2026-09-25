@@ -1,14 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://2sf3now6f604"]
+[gd_scene load_steps=4 format=3 uid="uid://2sf3now6f604"]
 
 [ext_resource type="Script" uid="uid://vg6uk2fmddpm" path="res://CustomEnergyCounter.cs" id="1_ho4xi"]
 [ext_resource type="Script" uid="uid://bl7yakgklqxom" path="res://CustomMegaLabel.cs" id="2_5g3tq"]
 [ext_resource type="Texture2D" uid="uid://cr63mwgfvwh5a" path="res://images/ui/energys/energy_scout.png" id="2_uowpn"]
-[ext_resource type="Script" path="res://CustomParticlesContainer.cs" id="3_pvfx"]
-[ext_resource type="FontVariation" uid="uid://bg85h22rkxs6g" path="res://themes/kreon_bold_shared.tres" id="4_kgly"]
-
-[sub_resource type="FontVariation" id="FontVariation_scout"]
-base_font = ExtResource("4_kgly")
-spacing_glyph = 2
 
 [node name="ScoutEnergyCounter" type="Control"]
 layout_mode = 3
@@ -16,12 +10,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_ho4xi")
-
-[node name="EnergyVfxBack" type="Node2D" parent="." node_paths=PackedStringArray("_particles")]
-unique_name_in_owner = true
-position = Vector2(64, 64)
-script = ExtResource("3_pvfx")
-_particles = []
 
 [node name="Layers" type="Control" parent="."]
 unique_name_in_owner = true
@@ -44,12 +32,6 @@ offset_bottom = 232.0
 scale = Vector2(0.7990793, 0.7990793)
 texture = ExtResource("2_uowpn")
 
-[node name="EnergyVfxFront" type="Node2D" parent="." node_paths=PackedStringArray("_particles")]
-unique_name_in_owner = true
-position = Vector2(64, 64)
-script = ExtResource("3_pvfx")
-_particles = []
-
 [node name="Label" type="Label" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
@@ -58,9 +40,9 @@ offset_top = 65.0
 offset_right = 104.0
 offset_bottom = 175.0
 scale = Vector2(1.099977, 0.9233759)
-theme_override_fonts/font = SubResource("FontVariation_scout")
 theme_override_font_sizes/font_size = 36
 text = "3/3"
 script = ExtResource("2_5g3tq")
-MinFontSize = 32
-MaxFontSize = 36
+AutoSizeEnabled = null
+MinFontSize = null
+MaxFontSize = null

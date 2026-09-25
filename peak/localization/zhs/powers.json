@@ -113,7 +113,7 @@
   "LEADER_WILL_POWER.smartDescription": "领队迈尔斯被逼入绝境，进入了第二阶段。",
   "HOPE_POWER.title": "希望",
   "HOPE_POWER.description": "当希望层数达标时，BOSS会直接死亡，迎来好结局。单人5层、双人9层、三人14层、四人19层。\n\"你们心怀希望，说不定能感化迈尔斯呢\"",
-  "HOPE_POWER.smartDescription": "需要[blue]{Threshold}[/blue]层希望才能迎来好结局（单人5层、双人9层、三人14层、四人19层）。当前[blue]{Amount}[/blue]层。\n\"你们心怀希望，说不定能感化迈尔斯呢\"",
+  "HOPE_POWER.smartDescription": "需要[blue]{Threshold}[/blue]层希望才能迎来特殊结局。当前[blue]{Amount}[/blue]层。\n\"你们心怀希望，说不定能感化迈尔斯呢\"",
   "LONELINESS_POWER.title": "孤独",
   "LONELINESS_POWER.description": "每当领队迈尔斯受到伤害时，本回合失去2点力量。\n\"被抛弃的孤独回忆让迈尔斯有些动摇。\"",
   "LONELINESS_POWER.smartDescription": "每当领队迈尔斯受到伤害时，本回合失去2点力量。\n\"被抛弃的孤独回忆让迈尔斯有些动摇。\"",
@@ -134,5 +134,8 @@
   "WORSEN_POWER.smartDescription": "你失去生命时，获得3层灾厄。宾邦被攻击时，会将[blue]{Amount}[/blue]张眩晕洗入你的抽牌堆。",
   "INSANE_POWER.title": "疯狂",
   "INSANE_POWER.description": "这个角色在死亡时，将做出未知行为。",
-  "INSANE_POWER.smartDescription": "这个角色在死亡时，将做出未知行为。"
+  "INSANE_POWER.smartDescription": "这个角色在死亡时，将做出未知行为。",
+  "PENDING_CARD_CHOICE_POWER.title": "选择卡牌",
+  "PENDING_CARD_CHOICE_POWER.description": "选择一张卡牌加入你的手牌",
+  "PENDING_CARD_CHOICE_POWER.smartDescription": "选择一张卡牌加入你的手牌"
 }

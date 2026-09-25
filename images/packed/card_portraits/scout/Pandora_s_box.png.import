@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddp757kojsmgv"
-path="res://.godot/imported/Pandora_s_box.png-1b3d9988353745b531ee5e2d918346ea.ctex"
+uid="uid://bckjjmhgdo1p2"
+path="res://.godot/imported/pandora_s_box.png-b64746e4b4639186cd5ebd8e73136f8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/packed/card_portraits/scout/Pandora_s_box.png"
-dest_files=["res://.godot/imported/Pandora_s_box.png-1b3d9988353745b531ee5e2d918346ea.ctex"]
+source_file="res://images/packed/card_portraits/scout/pandora_s_box.png"
+dest_files=["res://.godot/imported/pandora_s_box.png-b64746e4b4639186cd5ebd8e73136f8d.ctex"]
 
 [params]
 
